@@ -15,8 +15,8 @@ namespace TicketsDemo
 
             routes.MapRoute(
                 name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                url: "agencyid/{controller}/{action}/{id}",
+                defaults: new {  controller = "Run", action = "Index", id = UrlParameter.Optional }
             );
         }
     }

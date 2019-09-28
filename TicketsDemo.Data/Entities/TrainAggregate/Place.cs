@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace TicketsDemo.Data.Entities
 {
     public class Place
     {
+        
         public int Id { get; set; }
         public int Number { get; set; }
         public decimal PriceMultiplier { get; set; }

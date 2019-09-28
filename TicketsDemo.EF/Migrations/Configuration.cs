@@ -36,6 +36,8 @@ namespace TicketsDemo.EF.Migrations
                 return retIt;
             };
 
+            context.Agencies.AddOrUpdate(new Agency { Name = "VladAgency", PriceForUsing = 13.5m },
+                                         new Agency { Name = "ArtemAgency", PriceForUsing = 3.22m });
             context.Trains.AddOrUpdate(
               t => t.Number,
               new Train

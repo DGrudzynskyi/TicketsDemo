@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace TicketsDemo.Data.Entities
 {
@@ -10,6 +11,7 @@ namespace TicketsDemo.Data.Entities
 
     public class Carriage
     {
+       
         public int Id { get; set; }
         public CarriageType Type { get; set; }
         public decimal DefaultPrice { get; set; }

@@ -39,6 +39,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DefaultImplementations\AgencyPriceCalculationStrategy.cs" />
+    <Compile Include="DefaultImplementations\AllPriceCalculationStrategy.cs" />
     <Compile Include="DefaultImplementations\FileLogger.cs" />
     <Compile Include="DefaultImplementations\DefaultPriceCalculationStrategy.cs" />
     <Compile Include="DefaultImplementations\ReservationService.cs" />
@@ -57,6 +59,7 @@
       <Name>TicketsDemo.Data</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -13,6 +13,8 @@ namespace TicketsDemo.EF
     {
         public DbSet<Train> Trains { get; set; }
         public DbSet<Place> Places {get;set;}
+
+        public DbSet<Agency> Agencies { get; set; }
         public DbSet<Carriage> Carriages { get; set; }
         
         public DbSet<Run> Runs {get;set;}
@@ -35,6 +37,8 @@ namespace TicketsDemo.EF
             modelBuilder.Entity<Ticket>().HasMany(x => x.PriceComponents).WithRequired(x => x.Ticket);
 
             modelBuilder.Entity<Reservation>();
+
+            modelBuilder.Entity<Agency>();
         } 
 
     }
