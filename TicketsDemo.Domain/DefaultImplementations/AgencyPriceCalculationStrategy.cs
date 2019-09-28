@@ -10,29 +10,29 @@ using TicketsDemo.Domain.Interfaces;
 
 namespace TicketsDemo.Domain.DefaultImplementations
 {
-    class AgencyPriceCalculationStrategy : IPriceCalculationStrategy
+   public class AgencyPriceCalculationStrategy : IPriceCalculationStrategy
     {
-      
-        private DefaultPriceCalculationStrategy defaultPriceStrat;
-        private int AgencyId { get; set; }
-        public AgencyPriceCalculationStrategy(DefaultPriceCalculationStrategy defaultPrice,int agId)
+        private IRunRepository _runRepository;
+        private ITrainRepository _trainRepository;
+
+        public AgencyPriceCalculationStrategy(IRunRepository runRepository, ITrainRepository trainRepository)
         {
-            
-            defaultPriceStrat = defaultPrice;
-            AgencyId = agId;
+            _runRepository = runRepository;
+            _trainRepository = trainRepository;
         }
+
         public List<PriceComponent> CalculatePrice(PlaceInRun placeInRun)
         {
-            var components = defaultPriceStrat.CalculatePrice(placeInRun);
-
-            var run = defaultPriceStrat._rnRepository.GetRunDetails(placeInRun.RunId);
+            var priceComponents = new List<PriceComponent>();
+            var run = _runRepository.GetRunDetails(placeInRun.RunId);
             var train = _trainRepository.GetTrainDetails(run.TrainId);
-
-            switch (AgencyId)
+            var agencyPrice = new PriceComponent()
             {
-                case 1:
-            }
-
+                Name = "AgencyFee",
+                Value = train.trainAgency.PriceForUsing
+            };
+            priceComponents.Add(agencyPrice);
+            return priceComponents;
 
         }
     }

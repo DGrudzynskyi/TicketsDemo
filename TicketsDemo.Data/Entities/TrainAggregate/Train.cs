@@ -14,6 +14,7 @@ namespace TicketsDemo.Data.Entities
         public int Number { get; set; }
         public string StartLocation { get; set; }
         public string EndLocation { get; set; }
+        public Agency trainAgency { get; set; }
         public List<Carriage> Carriages { get; set; }
     }
 }
