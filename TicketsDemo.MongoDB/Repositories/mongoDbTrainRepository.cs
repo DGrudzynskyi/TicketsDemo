@@ -15,13 +15,13 @@ namespace TicketsDemo.MongoDB.Repositories
         public void  CreateTrain(Train train)
         {
             TicketsContext tc = new TicketsContext();
-             tc.Trains.InsertOneAsync(train);
+             tc.Trains.InsertOne(train);
         }
 
         public void DeleteTrain(Train train)
         {
             TicketsContext tc = new TicketsContext();
-             tc.Trains.DeleteOneAsync(new BsonDocument("_id", train.Id));
+             tc.Trains.DeleteOne(new BsonDocument("_id", train.Id));
         }
 
         public List<Train> GetAllTrains()
@@ -39,7 +39,7 @@ namespace TicketsDemo.MongoDB.Repositories
         public void UpdateTrain(Train train)
         {
             TicketsContext tc = new TicketsContext();
-            tc.Trains.ReplaceOneAsync(new BsonDocument("_id", train.Id), train);
+            tc.Trains.ReplaceOne(new BsonDocument("_id", train.Id), train);
         }
 
 

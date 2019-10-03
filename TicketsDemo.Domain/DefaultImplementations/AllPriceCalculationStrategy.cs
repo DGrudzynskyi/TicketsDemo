@@ -12,19 +12,22 @@ namespace TicketsDemo.Domain.DefaultImplementations
 {
    public  class AllPriceCalculationStrategy:IPriceCalculationStrategy
     {
-        private DefaultPriceCalculationStrategy defaultStrat;
-        private AgencyPriceCalculationStrategy agencyStrat;
-        public AllPriceCalculationStrategy(DefaultPriceCalculationStrategy _defaultStrat, AgencyPriceCalculationStrategy _agencyStrat)
+        private DefaultPriceCalculationStrategy _defaultStrat;
+        private AgencyPriceCalculationStrategy _agencyStrat;
+
+        private IList<IPriceCalculationStrategy> _priceStrategies;
+        public AllPriceCalculationStrategy(IList<IPriceCalculationStrategy> priceStrategies)
         {
-            defaultStrat = _defaultStrat;
-            agencyStrat = _agencyStrat;
+            _priceStrategies = priceStrategies;
         }
         public List<PriceComponent> CalculatePrice(PlaceInRun placeInRun)
         {
             var setAllComponents = new List<PriceComponent>();
 
-            setAllComponents.AddRange(defaultStrat.CalculatePrice(placeInRun));
-            setAllComponents.AddRange(agencyStrat.CalculatePrice(placeInRun));
+            foreach(IPriceCalculationStrategy strat in _priceStrategies)
+            {
+                setAllComponents.AddRange(strat.CalculatePrice(placeInRun));
+            }
 
             return setAllComponents;
         }
