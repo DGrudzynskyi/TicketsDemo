@@ -5,6 +5,7 @@ namespace TicketsDemo.App_Start
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Web;
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
     using Ninject;
@@ -75,10 +76,17 @@ namespace TicketsDemo.App_Start
             kernel.Bind<ITicketService>().To<TicketService>();
             kernel.Bind<IReservationService>().To<ReservationService>();
 
-            //todo factory
+            kernel.Bind<IPriceCalculationStrategy>().ToMethod(ctx =>
+                {
+                    var strategylist = new List<IPriceCalculationStrategy>() {
+                        kernel.Get<DefaultPriceCalculationStrategy>(),
+                        kernel.Get<AgencyPriceCalculationStrategy>()
+                    };
 
-            kernel.Bind<IPriceCalculationStrategy>().To<AllPriceCalculationStrategy>();
-           
+                    return new AllPriceCalculationStrategy(strategylist);
+                });
+            
+
             kernel.Bind<ILogger>().ToMethod(x =>
                 new FileLogger(HttpContext.Current.Server.MapPath("~/App_Data")));
         }        
