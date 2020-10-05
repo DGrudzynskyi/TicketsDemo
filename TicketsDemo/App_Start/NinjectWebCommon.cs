@@ -71,8 +71,12 @@ namespace TicketsDemo.App_Start
             kernel.Bind<IReservationRepository>().To<ReservationRepository>();
 
             kernel.Bind<ISchedule>().To<Schedule>();
+
             kernel.Bind<ITicketService>().To<TicketService>();
-            kernel.Bind<IReservationService>().To<ReservationService>();
+
+            //kernel.Bind<IReservationService>().To<ReservationService>();
+            kernel.Bind<IReservationService>().To<ReservationServiceLoggingDecorator>();
+            kernel.Bind<IReservationService>().To<IReservationService>().WhenInjectedExactlyInto<ReservationServiceLoggingDecorator>();
 
             //todo factory
             kernel.Bind<IPriceCalculationStrategy>().To<DefaultPriceCalculationStrategy>();

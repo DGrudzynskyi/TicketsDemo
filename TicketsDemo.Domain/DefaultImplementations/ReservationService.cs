@@ -48,7 +48,7 @@ namespace TicketsDemo.Domain.DefaultImplementations
 
         public bool PlaceIsOccupied(PlaceInRun place)
         {
-            var reservationsForCurrentPlace = _resRepo.GetAllForPlaceInRun(place.Id);
+             var reservationsForCurrentPlace = _resRepo.GetAllForPlaceInRun(place.Id);
             if (reservationsForCurrentPlace == null)
                 return false;
 
