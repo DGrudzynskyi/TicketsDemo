@@ -1,1 +1,0 @@
-Action time 05.10.2020 13:01:37: Successful place reservation: runDate:18.10.2020 18:18:42, place:49, carriage:1, runId:2, reservationDate:05.10.2020 13:01:37 
