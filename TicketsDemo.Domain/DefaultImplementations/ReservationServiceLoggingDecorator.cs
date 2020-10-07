@@ -11,45 +11,32 @@ using TicketsDemo.Domain.Interfaces;
 
 namespace TicketsDemo.Domain.DefaultImplementations
 {
-    public class ReservationServiceLoggingDecorator : IReservationService, ILogger
+    public class ReservationServiceLoggingDecorator : IReservationService
     {
         public IReservationService _decoratedObject;
-        public string _logLocation;
-
-       public void Log(string messege, LogSeverity severity)
-        {
-            using (StreamWriter streamWriter = File.AppendText(_logLocation))
-            {
-                streamWriter.WriteLine(severity+ "  "+ messege);
-                
-            }
-        }
-        public ReservationServiceLoggingDecorator (ReservationService decoratedObject)
+        public ILogger _logger;
+               
+        public ReservationServiceLoggingDecorator (IReservationService decoratedObject)
         {
             _decoratedObject = decoratedObject;
-            _logLocation = "D:\\1\\3 курс\\Proga\\TicketsDemo\\log.txt";
+            _logger = new ReservationLogger();
+            
         }
 
         public Reservation Reserve(PlaceInRun place)
         { 
             try
             {  var reservation = _decoratedObject.Reserve(place);
-                string line = "Action time " + DateTime.Now
-                             + " : Successful place reservation: runDate:" + place.Run.Date
-                             + ", place:" + place.Number
-                             + ", carriage:" + place.CarriageNumber
-                             + ", runId:" + place.Run.TrainId;
-                Log(line, LogSeverity.Info);
-                    return reservation;
+               string line = string.Format("Action time {0}: Successful place reservation: runDate:{1}, place:{2}, carriage:{3}, runId:{4}" ,
+                                            DateTime.Now,place.Run.Date,place.Number,place.CarriageNumber, place.Run.TrainId);
+               _logger.Log(line, LogSeverity.Info);
+               return reservation;
             }
             catch (Exception e)
             {
-                string line = "Action time " + DateTime.Now + ":"
-                            + " Not successful place reservation: runDate:"+place.Run.Date
-                            +" place: " + place.Number 
-                            + ", carriage:"+place.CarriageNumber
-                            +", runId:"+ place.Run.TrainId ;
-                Log(line, LogSeverity.Error);
+                string line = string.Format ( "Action time {0}: Not successful place reservation: runDate:{1}, place:{2}, carriage:{3}, runId:{4}",
+                                              DateTime.Now ,place.Run.Date,place.Number ,place.CarriageNumber,place.Run.TrainId );
+                _logger.Log(line, LogSeverity.Error);
                 throw e;
             }
         }
@@ -68,21 +55,16 @@ namespace TicketsDemo.Domain.DefaultImplementations
         {  
              try
                 {
-                    _decoratedObject.RemoveReservation(reservation);
-                string line = "Action time"+ DateTime.Now
-                            +":  Successful remove place reservation: resrvationId:"+reservation.Id
-                            +", placeInRun:"+reservation.PlaceInRunId
-                            +", resrvationStart:"+reservation.Start;
-                    Log(line, LogSeverity.Info);
-            }
-                catch (Exception e)
+                  _decoratedObject.RemoveReservation(reservation);
+                  string line = string.Format( "Action time {0} :  Successful remove place reservation: resrvationId:{1}, placeInRun:{2}, resrvationStart:{3}",
+                                            DateTime.Now, reservation.Id, reservation.PlaceInRunId, reservation.Start);
+                _logger.Log(line, LogSeverity.Info);
+                }
+             catch (Exception e)
                 {
-                string line = "Action time"+DateTime.Now
-                            +":  Unsuccessful remove place reservation: resrvationId:"+ reservation.Id
-                            +", placeInRun:"+reservation.PlaceInRunId
-                            +", resrvationStart:"+reservation.Start;
-                Log(line, LogSeverity.Error);
-                throw e;
+                  string line = string.Format("Action time {0} :  Unsuccessful remove place reservation: resrvationId:{1}, placeInRun:{2}, resrvationStart:{3} ", DateTime.Now,reservation.Id, reservation.PlaceInRunId,reservation.Start);
+                _logger.Log(line, LogSeverity.Error);
+                  throw e;
                 }
             
         }

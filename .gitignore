@@ -1,6 +1,6 @@
 packages
 .vs/
 *.suo
-log.txt
+*log.txt
 */bin/*
 */obj/*
