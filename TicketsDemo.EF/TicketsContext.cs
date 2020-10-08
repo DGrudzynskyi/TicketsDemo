@@ -22,6 +22,9 @@ namespace TicketsDemo.EF
 
         public DbSet<PriceComponent> PriceComponents { get; set; }
 
+        public DbSet<BookingAgency> BookingAgencies { get; set; }
+        public DbSet<BookingService> BookingServices { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();

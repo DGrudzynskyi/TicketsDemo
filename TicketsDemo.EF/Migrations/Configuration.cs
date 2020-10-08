@@ -6,7 +6,6 @@ namespace TicketsDemo.EF.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
     using TicketsDemo.Data.Entities;
-
     internal sealed class Configuration : DbMigrationsConfiguration<TicketsDemo.EF.TicketsContext>
     {
         public Configuration()
@@ -93,7 +92,43 @@ namespace TicketsDemo.EF.Migrations
               }
 
             );
-            
+
+            context.BookingAgencies.AddOrUpdate(
+                t => t.Id,
+                new BookingAgency
+                {
+                    Name = "BookinGena",
+                    FareCoef = 0.08,
+                    BookingServices = new List<BookingService>()
+                    {
+                        new BookingService()
+                        {
+                            Name = "nacenka.ua"
+                        },
+                        new BookingService()
+                        {
+                            Name = "natoysvit.org"
+                        }
+                    }
+                },
+                new BookingAgency
+                {
+                    Name = "RelsyShpaly",
+                    FareCoef = 0.14,
+                    BookingServices = new List<BookingService>()
+                    {
+                        new BookingService()
+                        {
+                            Name = "maketherailroadgreatagain.com"
+                        },
+                        new BookingService()
+                        {
+                            Name = "vse.bilety.ua"
+                        }
+                    }
+                }
+                );
+
         }
     }
 }
