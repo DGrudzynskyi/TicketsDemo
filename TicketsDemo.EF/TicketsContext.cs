@@ -22,6 +22,8 @@ namespace TicketsDemo.EF
 
         public DbSet<PriceComponent> PriceComponents { get; set; }
 
+        public DbSet<Agent> Agents { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
@@ -35,6 +37,7 @@ namespace TicketsDemo.EF
             modelBuilder.Entity<Ticket>().HasMany(x => x.PriceComponents).WithRequired(x => x.Ticket);
 
             modelBuilder.Entity<Reservation>();
+            modelBuilder.Entity<Agent>();
         } 
 
     }
