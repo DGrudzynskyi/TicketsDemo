@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TicketsDemo.Data.Entities;
 using TicketsDemo.Data.Repositories;
 using TicketsDemo.Domain.Interfaces;
@@ -22,7 +18,7 @@ namespace TicketsDemo.Domain.DefaultImplementations
         public Reservation Reserve(PlaceInRun place)
         {
             if (PlaceIsOccupied(place))
-                throw new InvalidOperationException(String.Format("place {0} can't be reserved becouse it is currently occupied", place.Id));
+                throw new InvalidOperationException(String.Format("place {0} can't be reserved because it is currently occupied", place.Id));
 
             var createIt = new Reservation()
             {
