@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,11 @@ namespace TicketsDemo.Domain.DefaultImplementations
     {
         private string _dataFolder;
 
+        public FileLogger()
+        {
+            _dataFolder = AppDomain.CurrentDomain.BaseDirectory + "/log.txt";
+        }
+
         public FileLogger(string dataFolder)
         {
             _dataFolder = dataFolder;
@@ -21,8 +27,8 @@ namespace TicketsDemo.Domain.DefaultImplementations
         {
             using (var fileStreamWriter = new StreamWriter(Path.Combine(_dataFolder, "log.txt"), true))
             {
-                var wrtStr = String.Format("{0}[{1}]: {2}", severity, DateTime.Now, message);
-                fileStreamWriter.WriteLine(wrtStr);
+                fileStreamWriter.WriteLine("{0}: {1}", severity, message);
+                Debug.WriteLine("{0}: {1}", severity, message);
             }
         }
     }
