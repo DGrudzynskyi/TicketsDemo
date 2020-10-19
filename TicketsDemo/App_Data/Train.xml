@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Trains xmlns="urn:task-manager">
+  <Train>
+    <Id>1</Id>
+    <Number>90</Number>
+    <StartLocation>Netishin</StartLocation>
+    <EndLocation>Odessa</EndLocation>
+  </Train>
+  <Train>
+    <Id>2</Id>
+    <Number>720</Number>
+    <StartLocation>Slavutich</StartLocation>
+    <EndLocation>Vinnitsa</EndLocation>
+  </Train>
+</Trains>

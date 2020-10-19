@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TicketsDemo.Data.Entities;
+using TicketsDemo.Data.Entities.BookingAggregate;
 using TicketsDemo.Data.Repositories;
 using TicketsDemo.Domain.Interfaces;
 
@@ -47,6 +48,11 @@ namespace TicketsDemo.Domain.DefaultImplementations.PriceCalculationStrategy
             }
 
             return components;
+        }
+
+        public List<PriceComponent> CalculatePriceWithCode(PlaceInRun placeInRun, string code)
+        {
+            throw new NotImplementedException();
         }
     }
 }

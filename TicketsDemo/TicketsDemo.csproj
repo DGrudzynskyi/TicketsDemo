@@ -146,7 +146,11 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Content Include="App_Data\Carriage.xml" />
+    <Content Include="App_Data\Place.xml" />
+    <Content Include="App_Data\Train.xml" />
     <Content Include="Global.asax" />
+    <Content Include="libman.json" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
@@ -165,9 +169,7 @@
     <Content Include="Views\Run\ReservePlace.cshtml" />
     <Content Include="Views\Run\ticket.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
@@ -183,6 +185,10 @@
     <ProjectReference Include="..\TicketsDemo.EF\TicketsDemo.EF.csproj">
       <Project>{e9437256-3145-47bf-81a3-c69fd4de95f4}</Project>
       <Name>TicketsDemo.EF</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TicketsDemo.Xml\TicketsDemo.Xml.csproj">
+      <Project>{b53bf222-8ad8-41c5-b0db-538b97d57107}</Project>
+      <Name>TicketsDemo.Xml</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
@@ -203,7 +209,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>0</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:57209/</IISUrl>
+          <IISUrl>http://localhost:57210/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

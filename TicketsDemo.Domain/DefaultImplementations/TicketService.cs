@@ -15,7 +15,6 @@ namespace TicketsDemo.Domain.DefaultImplementations
         private IPriceCalculationStrategy _priceStr;
         private IReservationRepository _resRepo;
         private IRunRepository _runRepository;
-
         public TicketService(ITicketRepository tickRepo, IReservationRepository resRepo,
             IPriceCalculationStrategy priceCalculationStrategy, IRunRepository runRepository)
         {
@@ -23,6 +22,38 @@ namespace TicketsDemo.Domain.DefaultImplementations
             _resRepo = resRepo;
             _priceStr = priceCalculationStrategy;
             _runRepository = runRepository;
+        }
+
+        public Ticket CreateTicket(int reservationId, string fName, string lName, string code)
+        {
+            var res = _resRepo.Get(reservationId);
+
+            if (res.TicketId != null)
+            {
+                throw new InvalidOperationException("ticket has been already issued to this reservation, unable to create another one");
+            }
+
+            var placeInRun = _runRepository.GetPlaceInRun(res.PlaceInRunId);
+
+            var newTicket = new Ticket()
+            {
+                ReservationId = res.Id,
+                CreatedDate = DateTime.Now,
+                FirstName = fName,
+                LastName = lName,
+                Status = TicketStatusEnum.Active,
+                PriceComponents = new List<PriceComponent>()
+            };
+            newTicket.PriceComponents = _priceStr.CalculatePriceWithCode(placeInRun, code);
+            /*if(code != null && code != "")
+            {
+                newTicket.PriceComponents = _priceStr.CalculatePriceWithCode(placeInRun, code);
+            }*/
+            //else
+            //newTicket.PriceComponents = _priceStr.CalculatePrice(placeInRun);
+
+            _tickRepo.Create(newTicket);
+            return newTicket;
         }
 
         public Ticket CreateTicket(int reservationId, string fName, string lName)

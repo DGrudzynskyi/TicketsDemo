@@ -13,6 +13,8 @@ namespace TicketsDemo.App_Start
     using TicketsDemo.Domain.DefaultImplementations.PriceCalculationStrategy;
     using TicketsDemo.Domain.Interfaces;
     using TicketsDemo.EF.Repositories;
+    using TicketsDemo.Xml;
+    using TicketsDemo.Xml.Repositories;
 
     public static class NinjectWebCommon 
     {
@@ -65,19 +67,25 @@ namespace TicketsDemo.App_Start
         private static void RegisterServices(IKernel kernel)
         {
             kernel.Bind<ITicketRepository>().To<TicketRepository>();
-            kernel.Bind<ITrainRepository>().To<TrainRepository>();
+            //kernel.Bind<ITrainRepository>().To<TrainRepository>();
+            kernel.Bind<ITrainRepository>().To<XmlTrainRepository>();
+            kernel.Bind<IXMLReader>().To<XMLReader>();
 
             kernel.Bind<IRunRepository>().To<RunRepository>();
             kernel.Bind<IReservationRepository>().To<ReservationRepository>();
 
             kernel.Bind<ISchedule>().To<Schedule>();
             kernel.Bind<ITicketService>().To<TicketService>();
+            //kernel.Bind<ITicketService>().To<TicketServiceLoggingDecorator>();
+            //kernel.Bind<ITicketService>().To<TicketService>().WhenInjectedExactlyInto<TicketServiceLoggingDecorator>();
             kernel.Bind<IReservationService>().To<ReservationService>();
 
             //todo factory
-            kernel.Bind<IPriceCalculationStrategy>().To<DefaultPriceCalculationStrategy>();
-            kernel.Bind<ILogger>().ToMethod(x =>
-                new FileLogger(HttpContext.Current.Server.MapPath("~/App_Data")));
+            //kernel.Bind<IPriceCalculationStrategy>().To<DefaultPriceCalculationStrategy>();
+            kernel.Bind<IBookingAgencies>().To<BookingAgenciesRepository>();
+            kernel.Bind<IPriceCalculationStrategy>().To<PriceCalculationWithCode>();
+           /* kernel.Bind<ILogger>().ToMethod(x =>
+                new FileLogger(HttpContext.Current.Server.MapPath("~/App_Data")));*/
         }        
     }
 }

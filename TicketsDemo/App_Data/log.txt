@@ -6,3 +6,16 @@ Info[10.07.2014 14:18:34]: ticket TicketsDemo.Data.Entities.Ticket created
 Info[10.07.2014 14:20:50]: reservation TicketsDemo.Data.Entities.Reservation created
 Info[10.07.2014 14:21:30]: reservation TicketsDemo.Data.Entities.Reservation created
 Info[10.07.2014 14:23:24]: reservation TicketsDemo.Data.Entities.Reservation created
+Info: [17.10.2020 23:08:12] Ticket purchase was successful: firstName:мааа, lastName:ккааа, reservationId:1007
+Info: [17.10.2020 23:10:06] Ticket purchase was successful: firstName:вв, lastName:в, reservationId:1008
+Info: [18.10.2020 02:04:27] Ticket purchase was successful: firstName:gn, lastName:wwww, reservationId:1010
+Info: [19.10.2020 18:59:08] Ticket purchase was successful: firstName:gn, lastName:вв, reservationId:1019
+Info: [19.10.2020 18:59:45] Ticket purchase was successful: firstName:gn, lastName:вв, reservationId:1019
+Info: [19.10.2020 19:38:14] Ticket purchase was successful: firstName:gn, lastName:fddb, reservationId:1020, code
+Info: [19.10.2020 19:45:18] Ticket purchase was successful: firstName:Назар, lastName:Разан, reservationId:1021, code
+Info: [19.10.2020 19:46:15] Ticket purchase was successful: firstName:gn, lastName:ссс, reservationId:1022, code
+Info: [19.10.2020 19:48:06] Ticket purchase was successful: firstName:вім, lastName:ваім, reservationId:1023, code
+Info: [19.10.2020 19:48:15] Ticket purchase was successful: firstName:вім, lastName:ваім, reservationId:1023, code
+Info: [19.10.2020 19:49:06] Ticket purchase was successful: firstName: сав, lastName:вім, reservationId:1024, code
+Error: [19.10.2020 19:51:39] ERROR in ticket purchase: firstName:віам, lastName:ави, reservationId:1025
+Error: [19.10.2020 19:53:20] ERROR in ticket purchase: firstName:dvs, lastName:bfd, reservationId:1026, code
