@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="Entities\BookingServiceAggregate\BookingAgency.cs" />
     <Compile Include="Entities\BookingServiceAggregate\BookingService.cs" />
+    <Compile Include="Entities\TicketAggregate\PriceComponentDO.cs" />
     <Compile Include="Entities\TrainAggregate\Carriage.cs" />
     <Compile Include="Entities\TrainAggregate\Place.cs" />
     <Compile Include="Entities\RunAggregate\PlaceInRun.cs" />

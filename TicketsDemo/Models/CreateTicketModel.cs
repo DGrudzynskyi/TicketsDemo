@@ -10,5 +10,6 @@ namespace TicketsDemo.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public int ReservationId { get; set; }
+        public int BookingServiceId { get; set; }
     }
 }

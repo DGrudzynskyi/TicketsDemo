@@ -11,12 +11,12 @@
 
 <h4>Price:</h4>
 
-@foreach (var pc in Model.PriceComponents) { 
+@foreach (var pc in Model.PriceComponents) {
     <span>@pc.Name:@pc.Value$</span><br />
 }
 
 @using (Html.BeginForm("CreateTicket","Run"))
-{ 
+{
     <input type="hidden" value="@Model.Reservation.Id" name="ReservationId" id="ReserevationId"/>
     <table>
         <tr>
@@ -27,10 +27,10 @@
             <td>Last Name</td>
             <td><input type="text" name="LastName" id="LastName" /></td>
         </tr>
+        <tr>
+            <td >Booking Service Code</td>
+            <td><input type="number" name="BookingServiceId" id="BookingServiceId"/></td>
+        </tr>
     </table>
     <input type="submit" value="submit"/>
 }
-
-<!--public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public int ReservationId { get; set; }-->

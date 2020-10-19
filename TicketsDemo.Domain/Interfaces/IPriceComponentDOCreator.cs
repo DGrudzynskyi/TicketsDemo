@@ -7,8 +7,8 @@ using TicketsDemo.Data.Entities;
 
 namespace TicketsDemo.Domain.Interfaces
 {
-    public interface IPriceCalculationStrategy
+    public interface IPriceComponentDOCreator
     {
-        List<PriceComponent> CalculatePrice(PlaceInRun placeInRun, List<PriceComponentDO> priceComponentDOs);
+        PriceComponentDO CreatePriceComponentsDO(BookingService bookingService);
     }
 }

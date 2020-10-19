@@ -98,7 +98,7 @@ namespace TicketsDemo.EF.Migrations
                 new BookingAgency
                 {
                     Name = "BookinGena",
-                    FareCoef = 0.08,
+                    FareCoef = 0.08m,
                     BookingServices = new List<BookingService>()
                     {
                         new BookingService()
@@ -114,7 +114,7 @@ namespace TicketsDemo.EF.Migrations
                 new BookingAgency
                 {
                     Name = "RelsyShpaly",
-                    FareCoef = 0.14,
+                    FareCoef = 0.14m,
                     BookingServices = new List<BookingService>()
                     {
                         new BookingService()

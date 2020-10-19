@@ -78,6 +78,10 @@
     <Compile Include="Migrations\202010081754592_8.Designer.cs">
       <DependentUpon>202010081754592_8.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202010191733415_9.cs" />
+    <Compile Include="Migrations\202010191733415_9.Designer.cs">
+      <DependentUpon>202010191733415_9.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\BookingAgencyRepository.cs" />
@@ -122,6 +126,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202010081754592_8.resx">
       <DependentUpon>202010081754592_8.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010191733415_9.resx">
+      <DependentUpon>202010191733415_9.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

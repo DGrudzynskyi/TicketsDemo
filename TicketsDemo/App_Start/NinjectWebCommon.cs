@@ -77,6 +77,8 @@ namespace TicketsDemo.App_Start
             kernel.Bind<IBookingAgencyRepository>().To<BookingAgencyRepository>();
             kernel.Bind<IBookingServiceRepository>().To<BookingServiceRepository>();
 
+            kernel.Bind<IPriceComponentDOCreator>().To<PriceComponentDOCreator>();
+
             //todo factory
             kernel.Bind<IPriceCalculationStrategy>().To<DefaultPriceCalculationStrategy>();
             kernel.Bind<ILogger>().ToMethod(x =>

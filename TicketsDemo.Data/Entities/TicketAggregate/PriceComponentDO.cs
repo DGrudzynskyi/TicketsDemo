@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace TicketsDemo.Data.Entities
 {
-    public class BookingAgency
+    public enum PriceComponentDOType { Fixed=1, Relative=2}
+
+    public class PriceComponentDO
     {
-        public int Id { get; set; }
         public string Name { get; set; }
-        public decimal FareCoef { get; set; }
-        public List<BookingService> BookingServices { get; set; }
+        public decimal Value { get; set; }
+        public PriceComponentDOType Type { get; set; }
     }
 }

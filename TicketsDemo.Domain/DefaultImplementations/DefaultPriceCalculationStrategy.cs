@@ -19,7 +19,7 @@ namespace TicketsDemo.Domain.DefaultImplementations.PriceCalculationStrategy
             _trainRepository = trainRepository;
         }
 
-        public List<PriceComponent> CalculatePrice(PlaceInRun placeInRun)
+        public List<PriceComponent> CalculatePrice(PlaceInRun placeInRun, List<PriceComponentDO> priceComponentDOs)
         {
             var components = new List<PriceComponent>();
 
@@ -44,6 +44,21 @@ namespace TicketsDemo.Domain.DefaultImplementations.PriceCalculationStrategy
                     Value = placeComponent.Value * 0.2m
                 };
                 components.Add(cashDeskComponent);
+            }
+
+            foreach(PriceComponentDO priceComponentDO in priceComponentDOs)
+            {
+                decimal value;
+                if (priceComponentDO.Type == PriceComponentDOType.Fixed) { value = priceComponentDO.Value; }
+                else { value = placeComponent.Value * priceComponentDO.Value; }
+
+                components.Add(
+                    new PriceComponent
+                    {
+                        Name = priceComponentDO.Name,
+                        Value = value
+                    }
+                    );
             }
 
             return components;
