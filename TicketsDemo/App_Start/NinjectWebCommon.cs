@@ -80,8 +80,8 @@ namespace TicketsDemo.App_Start
 
             //todo factory
             kernel.Bind<IPriceCalculationStrategy>().To<DefaultPriceCalculationStrategy>();
-            kernel.Bind<ILogger>().ToMethod(x =>
-                new FileLogger(HttpContext.Current.Server.MapPath("~/App_Data")));
+            kernel.Bind<ILogger>().To<ReservationLogger>();
+
         }        
     }
 }

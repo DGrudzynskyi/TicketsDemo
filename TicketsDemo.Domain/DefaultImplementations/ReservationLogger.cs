@@ -9,17 +9,18 @@ using TicketsDemo.Domain.Interfaces;
 
 namespace TicketsDemo.Domain.DefaultImplementations
 {
-    class ReservationLogger: ILogger
+   public class ReservationLogger: ILogger
     {
         public string _logLocation;
         public ReservationLogger() 
-        {_logLocation = AppDomain.CurrentDomain.BaseDirectory + "log.txt"; }
+        {
+            _logLocation = AppDomain.CurrentDomain.BaseDirectory + "log.txt";
+        }
         public void Log (string messege, LogSeverity severity)
         {
             using (StreamWriter streamWriter = File.AppendText(_logLocation))
             {
-                streamWriter.WriteLine(severity + " : " + messege);  
-                Debug.WriteLine(severity + " : " + messege);
+                streamWriter.WriteLine(severity + " : " + messege);                 
             }
         }
     }
