@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using TicketsDemo.Data.Entities;
 using TicketsDemo.Data.Repositories;
 using TicketsDemo.Domain.Interfaces;
 using TicketsDemo.Models;
@@ -57,7 +58,7 @@ namespace TicketsDemo.Controllers
             {
                 Reservation = reservation,
                 PlaceInRun = place,
-                PriceComponents = _priceCalc.CalculatePrice(place),
+                PriceComponents = _priceCalc.CalculatePrice(place, (new Agent()).Id),
                 Date = place.Run.Date,
                 Train = _trainRepo.GetTrainDetails(place.Run.TrainId),
             };
@@ -67,8 +68,8 @@ namespace TicketsDemo.Controllers
 
         [HttpPost]
         public ActionResult CreateTicket(CreateTicketModel model)
-        {
-            var tick = _tickServ.CreateTicket(model.ReservationId,model.FirstName,model.LastName);
+        { 
+            var tick = _tickServ.CreateTicket(model.ReservationId,model.FirstName,model.LastName,model.AgentId);
             return RedirectToAction("Ticket", new { id = tick.Id });
         }
 

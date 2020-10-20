@@ -13,22 +13,28 @@ namespace TicketsDemo.Domain.DefaultImplementations.PriceCalculationStrategy
     {
         private IRunRepository _runRepository;
         private ITrainRepository _trainRepository;
+        private IAgentRepository _agentRepository;
 
-        public DefaultPriceCalculationStrategy(IRunRepository runRepository, ITrainRepository trainRepository) {
+
+        public DefaultPriceCalculationStrategy(IRunRepository runRepository, ITrainRepository trainRepository, IAgentRepository agentRepository)
+        {
             _runRepository = runRepository;
             _trainRepository = trainRepository;
+            _agentRepository = agentRepository;
         }
 
-        public List<PriceComponent> CalculatePrice(PlaceInRun placeInRun)
+        public List<PriceComponent> CalculatePrice(PlaceInRun placeInRun, string agentId)
         {
             var components = new List<PriceComponent>();
 
             var run = _runRepository.GetRunDetails(placeInRun.RunId);
             var train = _trainRepository.GetTrainDetails(run.TrainId);
-            var place = 
+            var agentPercent = _agentRepository.AgentPercent(agentId);
+
+            var place =
                 train.Carriages
-                    .Select(car => car.Places.SingleOrDefault(pl => 
-                        pl.Number == placeInRun.Number && 
+                    .Select(car => car.Places.SingleOrDefault(pl =>
+                        pl.Number == placeInRun.Number &&
                         car.Number == placeInRun.CarriageNumber))
                     .SingleOrDefault(x => x != null);
 
@@ -37,13 +43,25 @@ namespace TicketsDemo.Domain.DefaultImplementations.PriceCalculationStrategy
             components.Add(placeComponent);
 
 
-            if (placeComponent.Value > 30) {
+
+            if (placeComponent.Value > 30)
+            {
                 var cashDeskComponent = new PriceComponent()
                 {
                     Name = "Cash desk service tax",
                     Value = placeComponent.Value * 0.2m
                 };
                 components.Add(cashDeskComponent);
+            }
+
+            if (agentPercent > 0)
+            {
+                var bookingCompanyComponent = new PriceComponent()
+                {
+                    Name = "Booking agent services",
+                    Value = placeComponent.Value * (decimal)agentPercent
+                };
+                components.Add(bookingCompanyComponent);
             }
 
             return components;
