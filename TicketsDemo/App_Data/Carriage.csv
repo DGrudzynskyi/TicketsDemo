@@ -1,0 +1,13 @@
+Id;Number;Type;DefaultPrice;TrainId
+1;1;Sedentary;75;1
+2;2;Sedentary;75;1
+3;3;Sedentary;75;1
+4;4;Sedentary;75;1
+5;1;SecondClassSleeping;120;2
+6;2;SecondClassSleeping;120;2
+7;3;SecondClassSleeping;120;2
+8;4;SecondClassSleeping;120;2
+9;1;FirstClassSleeping;95;3
+10;2;FirstClassSleeping;95;3
+11;3;FirstClassSleeping;95;3
+12;4;FirstClassSleeping;95;3
