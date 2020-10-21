@@ -10,8 +10,6 @@ namespace TicketsDemo.Data.Repositories
     public interface IBookingAgencies
     {
         decimal GetMarkup(string code);
-        List<BookingAgencies> GetAllAgencies();
-        AgencyRepresentatives GetAgency(string code);
-        BookingAgencies Get(int id);
+
     }
 }

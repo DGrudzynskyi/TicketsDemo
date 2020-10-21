@@ -57,11 +57,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="XMLDB\Carriage.xml" />
-    <Content Include="XMLDB\Place.xml" />
-    <Content Include="XMLDB\Train.xml" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\TicketsDemo.Data\TicketsDemo.Data.csproj">
       <Project>{C3A581A6-F841-4600-B87D-BA4BD3000E7A}</Project>
       <Name>TicketsDemo.Data</Name>

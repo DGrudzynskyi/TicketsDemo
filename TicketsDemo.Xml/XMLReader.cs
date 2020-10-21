@@ -14,19 +14,10 @@ namespace TicketsDemo.Xml
         {
             using (var fs = new FileStream(file, FileMode.Open))
             {
-                var ser = new XmlSerializer(typeof(List<T>), new XmlRootAttribute(elementName)
-                {
-                    Namespace = "urn:task-manager"
-                });
+                var ser = new XmlSerializer(typeof(List<T>), new XmlRootAttribute(elementName));
+
                 return (List<T>)ser.Deserialize(fs);
             }
-            /*using (var reader = new StreamReader(File.OpenRead(file)))
-            {
-                XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<T>));
-                List<T> res = (List<T>)xmlSerializer.Deserialize(reader);
-
-                return res;
-            }*/
         }
     }
 }

@@ -10,6 +10,6 @@ namespace TicketsDemo.Domain.Interfaces
 
     public interface ILogger
     {
-        void Log(string message,LogSeverity severity);
+        void Log(string message, LogSeverity severity);
     }
 }

@@ -68,7 +68,7 @@ namespace TicketsDemo.Controllers
         [HttpPost]
         public ActionResult CreateTicket(CreateTicketModel model)
         {
-            var tick = _tickServ.CreateTicket(model.ReservationId,model.FirstName,model.LastName,model.Code);
+            var tick = _tickServ.CreateTicket(model.ReservationId,model.FirstName,model.LastName,model.BookingAgenciesCode);
             return RedirectToAction("Ticket", new { id = tick.Id });
         }
 
@@ -86,6 +86,5 @@ namespace TicketsDemo.Controllers
 
             return View(ticketWM);
         }
-
     }
 }

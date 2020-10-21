@@ -11,8 +11,6 @@ namespace TicketsDemo.Domain.Interfaces
     public interface IPriceCalculationStrategy
     {
         List<PriceComponent> CalculatePrice(PlaceInRun placeInRun);
-
-        //add strategy
         List<PriceComponent> CalculatePriceWithCode(PlaceInRun placeInRun, string code);
     }
 }

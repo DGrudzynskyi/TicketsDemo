@@ -1,14 +1,3 @@
-Info[10.07.2014 12:15:04]: ticket TicketsDemo.Data.Entities.Ticket created
-Info[10.07.2014 13:07:51]: reservation TicketsDemo.Data.Entities.Reservation created
-Info[10.07.2014 13:08:32]: ticket TicketsDemo.Data.Entities.Ticket created
-Info[10.07.2014 14:18:05]: reservation TicketsDemo.Data.Entities.Reservation created
-Info[10.07.2014 14:18:34]: ticket TicketsDemo.Data.Entities.Ticket created
-Info[10.07.2014 14:20:50]: reservation TicketsDemo.Data.Entities.Reservation created
-Info[10.07.2014 14:21:30]: reservation TicketsDemo.Data.Entities.Reservation created
-Info[10.07.2014 14:23:24]: reservation TicketsDemo.Data.Entities.Reservation created
-Info: [17.10.2020 23:08:12] Ticket purchase was successful: firstName:мааа, lastName:ккааа, reservationId:1007
-Info: [17.10.2020 23:10:06] Ticket purchase was successful: firstName:вв, lastName:в, reservationId:1008
-Info: [18.10.2020 02:04:27] Ticket purchase was successful: firstName:gn, lastName:wwww, reservationId:1010
 Info: [19.10.2020 18:59:08] Ticket purchase was successful: firstName:gn, lastName:вв, reservationId:1019
 Info: [19.10.2020 18:59:45] Ticket purchase was successful: firstName:gn, lastName:вв, reservationId:1019
 Info: [19.10.2020 19:38:14] Ticket purchase was successful: firstName:gn, lastName:fddb, reservationId:1020, code
@@ -19,3 +8,13 @@ Info: [19.10.2020 19:48:15] Ticket purchase was successful: firstName:вім, la
 Info: [19.10.2020 19:49:06] Ticket purchase was successful: firstName: сав, lastName:вім, reservationId:1024, code
 Error: [19.10.2020 19:51:39] ERROR in ticket purchase: firstName:віам, lastName:ави, reservationId:1025
 Error: [19.10.2020 19:53:20] ERROR in ticket purchase: firstName:dvs, lastName:bfd, reservationId:1026, code
+Info: [20.10.2020 01:01:12] Ticket purchase was successful: firstName:Жора, lastName:Молодець, reservationId:1041, codeНАЗАР4
+Info: [21.10.2020 01:23:01] Ticket purchase was successful: firstName:вуцыв, lastName:выс, reservationId:1042, codeНАЗАР4
+Info: [21.10.2020 03:21:30] Ticket purchase was successful: firstName:fdv, lastName:fdv, reservationId:1043, code
+Info: [21.10.2020 03:23:34] Ticket purchase was successful: firstName:dfv, lastName:fdv, reservationId:1044, codeНАЗАР4
+Error: [21.10.2020 03:23:46] ERROR in ticket purchase: firstName:fvd, lastName:dfv, reservationId:1045, code:
+Error: [21.10.2020 03:24:05] ERROR in ticket purchase: firstName:fvd, lastName:dfv, reservationId:1045, code:cx 
+Info: [21.10.2020 03:27:08] Ticket purchase was successful: firstName:gv, lastName:gfvd, reservationId:1046, codeНАЗАР4
+Error: [21.10.2020 03:27:48] ERROR in ticket purchase: firstName:gv, lastName:gfvd, reservationId:1046, code:
+Error: [21.10.2020 03:28:35] ERROR in ticket purchase: firstName:cxd , lastName:zxc, reservationId:1047, code:xz
+Info: [21.10.2020 03:37:42] Ticket purchase was successful: firstName:fdb, lastName:dfb, reservationId:1051, codefd 

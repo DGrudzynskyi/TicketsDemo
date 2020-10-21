@@ -75,17 +75,16 @@ namespace TicketsDemo.App_Start
             kernel.Bind<IReservationRepository>().To<ReservationRepository>();
 
             kernel.Bind<ISchedule>().To<Schedule>();
-            kernel.Bind<ITicketService>().To<TicketService>();
-            //kernel.Bind<ITicketService>().To<TicketServiceLoggingDecorator>();
-            //kernel.Bind<ITicketService>().To<TicketService>().WhenInjectedExactlyInto<TicketServiceLoggingDecorator>();
+            //kernel.Bind<ITicketService>().To<TicketService>();
+            kernel.Bind<ITicketService>().To<TicketServiceLoggingDecorator>();
+            kernel.Bind<ITicketService>().To<TicketService>().WhenInjectedExactlyInto<TicketServiceLoggingDecorator>();
             kernel.Bind<IReservationService>().To<ReservationService>();
 
             //todo factory
-            //kernel.Bind<IPriceCalculationStrategy>().To<DefaultPriceCalculationStrategy>();
+            kernel.Bind<IPriceCalculationStrategy>().To<DefaultPriceCalculationStrategy>();
             kernel.Bind<IBookingAgencies>().To<BookingAgenciesRepository>();
-            kernel.Bind<IPriceCalculationStrategy>().To<PriceCalculationWithCode>();
-           /* kernel.Bind<ILogger>().ToMethod(x =>
-                new FileLogger(HttpContext.Current.Server.MapPath("~/App_Data")));*/
+            kernel.Bind<ILogger>().ToMethod(x =>
+                new FileLogger(HttpContext.Current.Server.MapPath("~/App_Data")));
         }        
     }
 }

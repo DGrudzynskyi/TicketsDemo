@@ -44,13 +44,8 @@ namespace TicketsDemo.Domain.DefaultImplementations
                 Status = TicketStatusEnum.Active,
                 PriceComponents = new List<PriceComponent>()
             };
-            newTicket.PriceComponents = _priceStr.CalculatePriceWithCode(placeInRun, code);
-            /*if(code != null && code != "")
-            {
-                newTicket.PriceComponents = _priceStr.CalculatePriceWithCode(placeInRun, code);
-            }*/
-            //else
-            //newTicket.PriceComponents = _priceStr.CalculatePrice(placeInRun);
+
+            newTicket.PriceComponents = _priceStr.CalculatePriceWithCode(placeInRun, code);            
 
             _tickRepo.Create(newTicket);
             return newTicket;

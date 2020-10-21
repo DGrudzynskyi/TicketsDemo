@@ -17,7 +17,6 @@ namespace TicketsDemo.Domain.DefaultImplementations
         {
             _decoratedObject = decoratedObject;
             _logger = logger ?? new FileLogger();
-
         }
 
         public Ticket CreateTicket(int reservationId, string firstName, string lastName)
@@ -51,7 +50,7 @@ namespace TicketsDemo.Domain.DefaultImplementations
             }
             catch (Exception e)
             {
-                string line = string.Format("[{0}] ERROR in ticket purchase: firstName:{1}, lastName:{2}, reservationId:{3}, code{4}",
+                string line = string.Format("[{0}] ERROR in ticket purchase: firstName:{1}, lastName:{2}, reservationId:{3}, code:{4}",
                                              DateTime.Now, firstName, lastName, reservationId, code);
                 _logger.Log(line, LogSeverity.Error);
                 throw e;
