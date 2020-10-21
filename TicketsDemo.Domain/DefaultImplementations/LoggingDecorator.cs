@@ -47,7 +47,7 @@ namespace TicketsDemo.Domain.DefaultImplementations
             }
             catch (Exception e)
             {
-                string logLine = string.Format($"[{DateTime.Now}] [ERROR] Reservation was failed: ticketID:{reservation.TicketId}, " +
+                string logLine = string.Format($"[{DateTime.Now}][ERROR] Reservation was failed: ticketID:{reservation.TicketId}, " +
                     $"placeInRunId:{reservation.PlaceInRunId}");
 
                 _logger.Log(logLine, LogSeverity.Info);

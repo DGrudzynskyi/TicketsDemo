@@ -25,6 +25,7 @@ namespace TicketsDemo.Domain.DefaultImplementations
                 var wrtStr = String.Format("{0}[{1}]: {2}", severity, DateTime.Now, message);
                 fileStreamWriter.WriteLine(wrtStr);
                 fileStreamWriter.WriteLine($"{severity}: {message}");
+
                 Debug.WriteLine($"{severity}: {message}");
             }
         }
