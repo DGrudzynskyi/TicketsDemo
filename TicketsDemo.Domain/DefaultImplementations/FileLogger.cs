@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TicketsDemo.Domain.Interfaces;
 
 namespace TicketsDemo.Domain.DefaultImplementations
@@ -12,6 +9,10 @@ namespace TicketsDemo.Domain.DefaultImplementations
     {
         private string _dataFolder;
 
+        public FileLogger()
+        {
+            _dataFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "log.txt");
+        }
         public FileLogger(string dataFolder)
         {
             _dataFolder = dataFolder;
@@ -23,6 +24,8 @@ namespace TicketsDemo.Domain.DefaultImplementations
             {
                 var wrtStr = String.Format("{0}[{1}]: {2}", severity, DateTime.Now, message);
                 fileStreamWriter.WriteLine(wrtStr);
+                fileStreamWriter.WriteLine($"{severity}: {message}");
+                Debug.WriteLine($"{severity}: {message}");
             }
         }
     }
