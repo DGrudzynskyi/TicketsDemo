@@ -53,10 +53,13 @@ namespace TicketsDemo.EF.Repositories
             {
                 bookingServices = ctx.BookingServices.ToList();
             }
+
+            var bookingAgencies = _bookingAgencyRepo.GetAll();
             foreach(BookingService bookingService in bookingServices)
             {
-                InjectBookingAgency(bookingService);
+                bookingService.HostAgency = bookingAgencies.Find(agency => agency.Id == bookingService.BookingAgencyId);
             }
+
             return bookingServices;
         }
 
@@ -67,9 +70,11 @@ namespace TicketsDemo.EF.Repositories
             {
                 bookingServices = ctx.BookingServices.Where(p => p.BookingAgencyId == bookingAgencyId).ToList();
             }
-            foreach (BookingService bookingService in bookingServices)
+
+            var bookingAgency = _bookingAgencyRepo.Get(bookingAgencyId);
+            foreach(BookingService bookingService in bookingServices)
             {
-                InjectBookingAgency(bookingService);
+                bookingService.HostAgency = bookingAgency;
             }
             return bookingServices;
         }
