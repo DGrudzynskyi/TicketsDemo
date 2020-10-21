@@ -91,7 +91,7 @@ namespace TicketsDemo.EF.Repositories
                 csv.ReadHeader();
                 while (csv.Read())
                 {
-                    if (csv.GetField<int>("CarriageId") == train.Carriages.FirstOrDefault().Id)
+                    if (train.Carriages.Any(x=>x.Id == csv.GetField<int>("CarriageId")))
                     {
                        var place = new Place
                         {
