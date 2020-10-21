@@ -31,6 +31,7 @@ namespace TicketsDemo.Domain.DefaultImplementations
                     var wrtStr = String.Format("\n{1}\nError: {0} \n ", ex, DateTime.Now);
                     sw.WriteLine(wrtStr);
                 }
+                throw ex;
             }
         }
     }

@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TicketsDemo.Data.Entities;
 using TicketsDemo.Data.Repositories;
 using TicketsDemo.Domain.Interfaces;
@@ -45,6 +42,7 @@ namespace TicketsDemo.Domain.DefaultImplementations.PriceCalculationStrategy
                 };
                 components.Add(cashDeskComponent);
             }
+
 
             return components;
         }
