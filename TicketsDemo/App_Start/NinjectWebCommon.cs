@@ -64,6 +64,7 @@ namespace TicketsDemo.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
+            kernel.Bind<ISettingsService>().To<AppConfigSettingsService>();
             kernel.Bind<ITicketRepository>().To<TicketRepository>();
             kernel.Bind<ITrainRepository>().To<CSVTrainRepository>();
 

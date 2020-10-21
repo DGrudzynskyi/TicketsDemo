@@ -98,6 +98,10 @@
       <Project>{c3a581a6-f841-4600-b87d-ba4bd3000e7a}</Project>
       <Name>TicketsDemo.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TicketsDemo.Domain\TicketsDemo.Domain.csproj">
+      <Project>{360ABF3D-281E-409C-AFCF-3D34F026678E}</Project>
+      <Name>TicketsDemo.Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201407072233415_1.resx">

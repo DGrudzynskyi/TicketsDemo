@@ -34,6 +34,7 @@
       <HintPath>..\packages\CsvHelper.15.0.8\lib\net45\CsvHelper.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ValueTuple.4.4.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
@@ -45,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DefaultImplementations\AppConfigSettingsService.cs" />
     <Compile Include="DefaultImplementations\FileLogger.cs" />
     <Compile Include="DefaultImplementations\DefaultPriceCalculationStrategy.cs" />
     <Compile Include="DefaultImplementations\ReservationService.cs" />
@@ -54,6 +56,7 @@
     <Compile Include="Interfaces\ILogger.cs" />
     <Compile Include="Interfaces\IPriceCalculationStrategy.cs" />
     <Compile Include="Interfaces\ISchedule.cs" />
+    <Compile Include="Interfaces\ISettingsService.cs" />
     <Compile Include="Interfaces\ITicketService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -8,16 +8,22 @@ using System.Text;
 using System.Threading.Tasks;
 using TicketsDemo.Data.Entities;
 using TicketsDemo.Data.Repositories;
+using TicketsDemo.DTO;
+using TicketsDemo.Domain.Interfaces;
 
 namespace TicketsDemo.EF.Repositories
 {
-   public class CSVTrainRepository: ITrainRepository
+    public class CSVTrainRepository : ITrainRepository
     {
-        private string _path = $@"{AppDomain.CurrentDomain.BaseDirectory}\App_Data\";
+        private ISettingsService _settingsService;
+        public CSVTrainRepository(ISettingsService settingsService)
+        {
+            _settingsService = settingsService;
+        }
         public List<Train> GetAllTrains()
         {
             var trains = new List<Train>();
-            using (var reader = new StreamReader(_path + "trains.csv"))
+            using (var reader = new StreamReader(_settingsService.TrainCSVPath))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
             {
                 csv.Read();
@@ -26,10 +32,10 @@ namespace TicketsDemo.EF.Repositories
                 {
                     var train = new Train
                     {
-                        Id = csv.GetField<int>("Id"),
-                        Number = csv.GetField<int>("Number"),
-                        StartLocation = csv.GetField("StartLocation"),
-                        EndLocation = csv.GetField("EndLocation")
+                        Id = csv.GetField<int>(_settingsService.Id),
+                        Number = csv.GetField<int>(_settingsService.Number),
+                        StartLocation = csv.GetField(_settingsService.StartLocation),
+                        EndLocation = csv.GetField(_settingsService.EndLocation),
                     };
                     trains.Add(train);
                 }
@@ -37,46 +43,46 @@ namespace TicketsDemo.EF.Repositories
             return trains;
         }
 
-        public Data.Entities.Train GetTrainDetails(int id)
+        public Train GetTrainDetails(int id)
         {
             var train = new Train();
-            using (var reader = new StreamReader(_path + "trains.csv"))
+            using (var reader = new StreamReader(_settingsService.TrainCSVPath))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
             {
                 csv.Read();
                 csv.ReadHeader();
                 while (csv.Read())
                 {
-                    if (csv.GetField<int>("Id") == id)
+                    if (csv.GetField<int>(_settingsService.Id) == id)
                     {
                         train = new Train
                         {
-                            Id = csv.GetField<int>("Id"),
-                            Number = csv.GetField<int>("Number"),
-                            StartLocation = csv.GetField("StartLocation"),
-                            EndLocation = csv.GetField("EndLocation"),
+                            Id = csv.GetField<int>(_settingsService.Id),
+                            Number = csv.GetField<int>(_settingsService.Number),
+                            StartLocation = csv.GetField(_settingsService.StartLocation),
+                            EndLocation = csv.GetField(_settingsService.EndLocation),
                             Carriages = new List<Carriage>()
                         };
                     }
                 }
             }
 
-            using (var reader = new StreamReader(_path + "carriages.csv"))
+            using (var reader = new StreamReader(_settingsService.CarriageCSVPath))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
             {
                 csv.Read();
                 csv.ReadHeader();
                 while (csv.Read())
                 {
-                    if (csv.GetField<int>("TrainId") == train.Id)
+                    if (csv.GetField<int>(_settingsService.TrainId) == train.Id)
                     {
                         var carriage = new Carriage
                         {
-                            Id = csv.GetField<int>("Id"),
-                            Type = (CarriageType)csv.GetField<int>("Type"),
-                            DefaultPrice = csv.GetField<int>("DefaultPrice"),
-                            TrainId = csv.GetField<int>("TrainId"),
-                            Number = csv.GetField<int>("Number"),
+                            Id = csv.GetField<int>(_settingsService.Id),
+                            Type = (CarriageType)csv.GetField<int>(_settingsService.Type),
+                            DefaultPrice = csv.GetField<int>(_settingsService.DefaultPrice),
+                            TrainId = csv.GetField<int>(_settingsService.TrainId),
+                            Number = csv.GetField<int>(_settingsService.Number),
                             Places = new List<Place>()
                         };
                         train.Carriages.Add(carriage);
@@ -84,25 +90,22 @@ namespace TicketsDemo.EF.Repositories
                 }
             }
 
-            using (var reader = new StreamReader(_path + "places.csv"))
+            using (var reader = new StreamReader(_settingsService.PlaceCSVPath))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
             {
                 csv.Read();
                 csv.ReadHeader();
                 while (csv.Read())
                 {
-                    if (train.Carriages.Any(x=>x.Id == csv.GetField<int>("CarriageId")))
+                    var place = new Place
                     {
-                       var place = new Place
-                        {
-                            Id = csv.GetField<int>("Id"),
-                            Number = csv.GetField<int>("Number"),
-                            PriceMultiplier = csv.GetField<decimal>("PriceMultiplier"),
-                            CarriageId = csv.GetField<int>("CarriageId"),
-                            Carriage = train.Carriages.FirstOrDefault(x=>x.Id == csv.GetField<int>("CarriageId"))
-                       };
-                        train.Carriages.FirstOrDefault(x => x.Id == place.CarriageId).Places.Add(place);
-                    }
+                        Id = csv.GetField<int>(_settingsService.Id),
+                        Number = csv.GetField<int>(_settingsService.Number),
+                        PriceMultiplier = csv.GetField<decimal>(_settingsService.PriceMultiplier),
+                        CarriageId = csv.GetField<int>(_settingsService.CarriageId),
+                        Carriage = train.Carriages.FirstOrDefault(x => x.Id == csv.GetField<int>(_settingsService.CarriageId))
+                    };
+                    train.Carriages.FirstOrDefault(x => x.Id == place.CarriageId)?.Places.Add(place);
                 }
             }
             return train;
@@ -110,17 +113,38 @@ namespace TicketsDemo.EF.Repositories
 
         public void CreateTrain(Train train)
         {
-            throw new NotImplementedException();
+            var trains = GetAllTrains();
+            trains.Add(train);
+            WriteAllTrains(trains);
         }
 
         public void DeleteTrain(Train train)
         {
-            throw new NotImplementedException();
+            var trains = GetAllTrains();
+            trains.RemoveAll(x => x.Id == train.Id);
+            WriteAllTrains(trains);
         }
 
         public void UpdateTrain(Train train)
         {
-            throw new NotImplementedException();
+            var trains = GetAllTrains();
+            var removeTrain = trains.FirstOrDefault(x => x.Id == train.Id);
+            trains.Remove(removeTrain);
+            trains.Add(train);
+            WriteAllTrains(trains);
+        }
+
+        public void WriteAllTrains(IList<Train> trains)
+        {
+            using (var writer = new StreamWriter(_settingsService.TrainCSVPath))
+            using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
+            {
+                csv.Configuration.HasHeaderRecord = true;
+                csv.Configuration.Delimiter = ",";
+
+                csv.Configuration.RegisterClassMap<TrainDto>();
+                csv.WriteRecords(trains);
+            }
         }
     }
 }
