@@ -19,12 +19,23 @@ namespace TicketsDemo.Domain.DefaultImplementations
         {
             try
             {
+                if (PlaceIsOccupied(place))
+                    throw new InvalidOperationException();
+
                 var reservedTicket = _decoratedObject.Reserve(place);
                 string logLine = string.Format($"[{DateTime.Now}] Reservation was successful: runID:{place.RunId}, " +
                     $"number:{place.Number}, carriageNumber:{place.CarriageNumber}");
 
                 _logger.Log(logLine, LogSeverity.Info);
                 return reservedTicket;
+            }
+            catch(InvalidOperationException e)
+            {
+                string logLine = string.Format($"[{DateTime.Now}] [Place is occupied] Reservation was failed: runID:{place.RunId}, " +
+                    $"number:{place.Number}, carriageNumber:{place.CarriageNumber}");
+
+                _logger.Log(logLine, LogSeverity.Info);
+                throw e;
             }
             catch (Exception e)
             {
@@ -38,6 +49,8 @@ namespace TicketsDemo.Domain.DefaultImplementations
 
         public void RemoveReservation(Reservation reservation)
         {
+
+
             try
             {
                 string logLine = string.Format($"[{DateTime.Now}] Reservation was successfully removed: ticketID:{reservation.TicketId}, " +
@@ -57,12 +70,12 @@ namespace TicketsDemo.Domain.DefaultImplementations
 
         public bool IsActive(Reservation reservation)
         {
-            throw new NotImplementedException();
+            return _decoratedObject.IsActive(reservation);
         }
 
         public bool PlaceIsOccupied(PlaceInRun place)
         {
-            throw new NotImplementedException();
+            return _decoratedObject.PlaceIsOccupied(place);
         }
     }
 }
