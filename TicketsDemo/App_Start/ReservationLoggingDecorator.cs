@@ -80,7 +80,9 @@ namespace TicketsDemo.App_Start
                     "with reservation Id {0}" +
                     " for place in run Id {1}" +
                     " with ticket Id {2} was failed.",
-                reservation.Id, reservation.PlaceInRunId, reservation.TicketId);
+                reservation.Id, 
+                reservation.PlaceInRunId, 
+                reservation.TicketId);
                 _logger.Log(message, LogSeverity.Error);
 
                 throw exception;
