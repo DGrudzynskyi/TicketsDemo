@@ -78,11 +78,15 @@ namespace TicketsDemo.App_Start
             kernel.Bind<IReservationService>().To<ReservationService>().WhenInjectedExactlyInto<ReservationLoggingDecorator>();
 
             //todo factory
-            kernel.Bind<IPriceCalculationStrategy>().To<DefaultPriceCalculationStrategy>();
+            //kernel.Bind<IPriceCalculationStrategy>().To<DefaultPriceCalculationStrategy>();
             kernel.Bind<ILogger>().ToMethod(x =>
                 new Logger(HttpContext.Current.Server.MapPath("~/App_Data")));
 
-            //kernel.Bind<ILogger>().To<Logger>();
-        }        
+               
+            kernel.Bind<IPriceCalculationStrategy>().To<FinalPriceCalculationStrategy>();
+
+            kernel.Bind<IPriceCalculationStrategy>().To<DefaultPriceCalculationStrategy>().WhenInjectedExactlyInto<FinalPriceCalculationStrategy>();
+            kernel.Bind<IPriceCalculationStrategy>().To<TeaCoffeeBedPriceStrategy>().WhenInjectedExactlyInto<FinalPriceCalculationStrategy>();
+}
     }
 }

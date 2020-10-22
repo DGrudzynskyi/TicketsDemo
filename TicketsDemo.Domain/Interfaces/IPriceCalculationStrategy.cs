@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using TicketsDemo.Data.Entities;
 
 namespace TicketsDemo.Domain.Interfaces
 {
     public interface IPriceCalculationStrategy
     {
-        List<PriceComponent> CalculatePrice(PlaceInRun placeInRun);
+        List<PriceComponent> CalculatePrice(PriceCalculationParameters parameters);
     }
 }

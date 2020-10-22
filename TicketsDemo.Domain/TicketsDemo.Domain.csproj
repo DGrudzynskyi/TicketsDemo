@@ -50,6 +50,7 @@
     <Compile Include="Interfaces\IPriceCalculationStrategy.cs" />
     <Compile Include="Interfaces\ISchedule.cs" />
     <Compile Include="Interfaces\ITicketService.cs" />
+    <Compile Include="Interfaces\PriceCalculationParameters.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

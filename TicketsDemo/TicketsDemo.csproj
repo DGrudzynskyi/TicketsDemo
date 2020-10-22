@@ -127,9 +127,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\FinalPriceCalculationStrategy.cs" />
     <Compile Include="App_Start\NinjectWeb.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\ReservationLoggingDecorator.cs" />
+    <Compile Include="App_Start\TeaCoffeeBedPriceStrategy.cs" />
     <Compile Include="Controllers\RunController.cs" />
     <Compile Include="Controllers\ScheduleController.cs" />
     <Compile Include="Global.asax.cs">
