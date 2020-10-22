@@ -4,13 +4,13 @@
 namespace TicketsDemo.App_Start
 {
     using System;
+    using System.Runtime.InteropServices.ComTypes;
     using System.Web;
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
     using Ninject;
     using Ninject.Web.Common;
     using TicketsDemo.Data.Repositories;
     using TicketsDemo.Domain.DefaultImplementations;
-    using TicketsDemo.Domain.DefaultImplementations.PriceCalculationStrategy;
     using TicketsDemo.Domain.Interfaces;
     using TicketsDemo.EF.Repositories;
 
@@ -77,10 +77,15 @@ namespace TicketsDemo.App_Start
             kernel.Bind<IBookingAgencyRepository>().To<BookingAgencyRepository>();
             kernel.Bind<IBookingServiceRepository>().To<BookingServiceRepository>();
 
-            kernel.Bind<IPriceComponentDOCreator>().To<PriceComponentDOCreator>();
+            kernel.Bind<IPriceCalculationStrategy>().ToMethod(ctx =>
+            {
+                return new FinalPriceCalculationStrategy(new System.Collections.Generic.List<IPriceCalculationStrategy>() {
+                    ctx.Kernel.Get<DefaultPriceCalculationStrategy>(),
+                    new BookingServicePriceCalculationStrategy(ctx.Kernel.Get<DefaultPriceCalculationStrategy>(), ctx.Kernel.Get<IBookingServiceRepository>())
+                });
+            });
 
             //todo factory
-            kernel.Bind<IPriceCalculationStrategy>().To<DefaultPriceCalculationStrategy>();
             kernel.Bind<ILogger>().ToMethod(x =>
                 new FileLogger(HttpContext.Current.Server.MapPath("~/App_Data")));
         }        

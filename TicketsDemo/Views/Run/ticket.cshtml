@@ -13,6 +13,7 @@
 @foreach (var pc in Model.Ticket.PriceComponents) { 
     <span>@pc.Name:@pc.Value$</span><br />
 }
+<h5>Sum: @Model.Ticket.PriceComponents.Select(x => x.Value).Sum();</h5>
 
 <!--public string FirstName { get; set; }
         public string LastName { get; set; }

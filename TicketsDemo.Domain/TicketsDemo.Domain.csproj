@@ -39,16 +39,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DefaultImplementations\PriceComponentDOCreator.cs" />
     <Compile Include="DefaultImplementations\FileLogger.cs" />
-    <Compile Include="DefaultImplementations\DefaultPriceCalculationStrategy.cs" />
+    <Compile Include="DefaultImplementations\PriceCalculation\BookingServicePriceCalculationStrategy.cs" />
+    <Compile Include="DefaultImplementations\PriceCalculation\DefaultPriceCalculationStrategy.cs" />
+    <Compile Include="DefaultImplementations\PriceCalculation\FinalPriceCalculationStrategy.cs" />
+    <Compile Include="DefaultImplementations\PriceCalculation\PriceCalculationParameters.cs" />
     <Compile Include="DefaultImplementations\ReservationService.cs" />
     <Compile Include="DefaultImplementations\Schedule.cs" />
     <Compile Include="DefaultImplementations\TicketService.cs" />
-    <Compile Include="Interfaces\IPriceComponentDOCreator.cs" />
+    <Compile Include="Interfaces\IPriceCalculationStrategy.cs" />
     <Compile Include="Interfaces\IReservationService.cs" />
     <Compile Include="Interfaces\ILogger.cs" />
-    <Compile Include="Interfaces\IPriceCalculationStrategy.cs" />
     <Compile Include="Interfaces\ISchedule.cs" />
     <Compile Include="Interfaces\ITicketService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

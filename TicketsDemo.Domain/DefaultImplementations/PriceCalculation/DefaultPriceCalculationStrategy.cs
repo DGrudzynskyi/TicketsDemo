@@ -7,7 +7,7 @@ using TicketsDemo.Data.Entities;
 using TicketsDemo.Data.Repositories;
 using TicketsDemo.Domain.Interfaces;
 
-namespace TicketsDemo.Domain.DefaultImplementations.PriceCalculationStrategy
+namespace TicketsDemo.Domain.DefaultImplementations
 {
     public class DefaultPriceCalculationStrategy : IPriceCalculationStrategy
     {
@@ -19,17 +19,17 @@ namespace TicketsDemo.Domain.DefaultImplementations.PriceCalculationStrategy
             _trainRepository = trainRepository;
         }
 
-        public List<PriceComponent> CalculatePrice(PlaceInRun placeInRun, List<PriceComponentDO> priceComponentDOs)
+        public List<PriceComponent> CalculatePrice(PriceCalculationParameters parameters)
         {
             var components = new List<PriceComponent>();
 
-            var run = _runRepository.GetRunDetails(placeInRun.RunId);
+            var run = _runRepository.GetRunDetails(parameters.PlaceInRun.RunId);
             var train = _trainRepository.GetTrainDetails(run.TrainId);
             var place = 
                 train.Carriages
                     .Select(car => car.Places.SingleOrDefault(pl => 
-                        pl.Number == placeInRun.Number && 
-                        car.Number == placeInRun.CarriageNumber))
+                        pl.Number == parameters.PlaceInRun.Number && 
+                        car.Number == parameters.PlaceInRun.CarriageNumber))
                     .SingleOrDefault(x => x != null);
 
             var placeComponent = new PriceComponent() { Name = "Main price" };
@@ -44,21 +44,6 @@ namespace TicketsDemo.Domain.DefaultImplementations.PriceCalculationStrategy
                     Value = placeComponent.Value * 0.2m
                 };
                 components.Add(cashDeskComponent);
-            }
-
-            foreach(PriceComponentDO priceComponentDO in priceComponentDOs)
-            {
-                decimal value;
-                if (priceComponentDO.Type == PriceComponentDOType.Fixed) { value = priceComponentDO.Value; }
-                else { value = placeComponent.Value * priceComponentDO.Value; }
-
-                components.Add(
-                    new PriceComponent
-                    {
-                        Name = priceComponentDO.Name,
-                        Value = value
-                    }
-                    );
             }
 
             return components;

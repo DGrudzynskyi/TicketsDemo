@@ -25,7 +25,7 @@ namespace TicketsDemo.Domain.DefaultImplementations
             _runRepository = runRepository;
         }
 
-        public Ticket CreateTicket(int reservationId, string fName, string lName, List<PriceComponentDO> priceComponentDOs)
+        public Ticket CreateTicket(int reservationId, string fName, string lName, PriceCalculationParameters parameters)
         {
             var res = _resRepo.Get(reservationId);
 
@@ -45,7 +45,8 @@ namespace TicketsDemo.Domain.DefaultImplementations
                 PriceComponents = new List<PriceComponent>()
             };
 
-            newTicket.PriceComponents = _priceStr.CalculatePrice(placeInRun, priceComponentDOs);
+            parameters.PlaceInRun = placeInRun;
+            newTicket.PriceComponents = _priceStr.CalculatePrice(parameters);
 
             res.TicketId = newTicket.Id;
             _resRepo.Update(res);
