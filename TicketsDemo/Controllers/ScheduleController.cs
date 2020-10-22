@@ -12,15 +12,19 @@ namespace TicketsDemo.Controllers
         private ISchedule _schedule;
         private ITrainRepository _trainRepo;
         private IRunRepository _runRepo;
+        private IBookingServiceRepository _bookingServiceRepo;
 
-        public ScheduleController(ISchedule schedule, ITrainRepository trainRepo, IRunRepository runRepo) {
+        public ScheduleController(ISchedule schedule, ITrainRepository trainRepo, IRunRepository runRepo, IBookingServiceRepository bookingServiceRepo) {
             _schedule = schedule;
             _trainRepo = trainRepo;
             _runRepo = runRepo;
+            _bookingServiceRepo = bookingServiceRepo;
         }
 
         public ActionResult Index()
         {
+            _bookingServiceRepo.Get(1);
+
             var startDate = DateTime.Now;
             var endDate = startDate.AddMonths(1);
             var model = new IndexPageViewModel()
