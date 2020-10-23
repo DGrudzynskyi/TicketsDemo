@@ -16,6 +16,7 @@ namespace TicketsDemo.Controllers
         private IReservationRepository _reservationRepo;
         private IReservationService _resServ;
         private ITicketService _tickServ;
+        private ITicketExtentedService _ticketExtendedServ;
         private IPriceCalculationStrategy _priceCalc;
         private ITrainRepository _trainRepo;
 
@@ -24,7 +25,8 @@ namespace TicketsDemo.Controllers
             ITicketService tickServ,
             IPriceCalculationStrategy priceCalcStrategy,
             IReservationRepository reservationRepo,
-            ITrainRepository trainRepo) {
+            ITrainRepository trainRepo,
+            ITicketExtentedService ticketExtendedServ) {
             _tickRepo = tick;
             _runRepo = run;
             _resServ = resServ;
@@ -32,6 +34,7 @@ namespace TicketsDemo.Controllers
             _priceCalc = priceCalcStrategy;
             _reservationRepo = reservationRepo;
             _trainRepo = trainRepo;
+            _ticketExtendedServ = ticketExtendedServ;
         }
 
         public ActionResult Index(int id) {
@@ -69,6 +72,13 @@ namespace TicketsDemo.Controllers
         public ActionResult CreateTicket(CreateTicketModel model)
         {
             var tick = _tickServ.CreateTicket(model.ReservationId,model.FirstName,model.LastName);
+            return RedirectToAction("Ticket", new { id = tick.Id });
+        }
+
+        [HttpPost]
+        public ActionResult CreateTicketExtended(CreateTicketModel model)
+        {
+            var tick = _ticketExtendedServ.CreateTicketExtented(model.ReservationId, model.FirstName, model.LastName, model.Drink, model.Bed);
             return RedirectToAction("Ticket", new { id = tick.Id });
         }
 

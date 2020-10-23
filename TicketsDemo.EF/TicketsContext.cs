@@ -19,7 +19,6 @@ namespace TicketsDemo.EF
         public DbSet<PlaceInRun> PlacesInRuns {get;set;}
         public DbSet<Reservation> Reservations {get;set;}
         public DbSet<Ticket> Tickets {get;set; }
-
         public DbSet<PriceComponent> PriceComponents { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

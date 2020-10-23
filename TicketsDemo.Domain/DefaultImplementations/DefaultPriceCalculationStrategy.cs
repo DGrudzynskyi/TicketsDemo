@@ -9,14 +9,16 @@ using TicketsDemo.Domain.Interfaces;
 
 namespace TicketsDemo.Domain.DefaultImplementations.PriceCalculationStrategy
 {
-    public class DefaultPriceCalculationStrategy : IPriceCalculationStrategy
+    public class DefaultPriceCalculationStrategy : IExtentedPriceCalculationStrategy
     {
         private IRunRepository _runRepository;
         private ITrainRepository _trainRepository;
+        private ICarriageRepository _carriageRepository;
 
-        public DefaultPriceCalculationStrategy(IRunRepository runRepository, ITrainRepository trainRepository) {
+        public DefaultPriceCalculationStrategy(IRunRepository runRepository, ITrainRepository trainRepository, ICarriageRepository carriageRepository) {
             _runRepository = runRepository;
             _trainRepository = trainRepository;
+            _carriageRepository = carriageRepository;
         }
 
         public List<PriceComponent> CalculatePrice(PlaceInRun placeInRun)
@@ -46,6 +48,22 @@ namespace TicketsDemo.Domain.DefaultImplementations.PriceCalculationStrategy
                 components.Add(cashDeskComponent);
             }
 
+            return components;
+        }
+
+        public IList<PriceComponent> CalculatePrice(int carriageNumber, Ticket ticket)
+        {
+            var components = new List<PriceComponent>();
+            CarriageType carriagetype = (CarriageType)_carriageRepository.GetCarriage(carriageNumber).Number;
+
+            if (ticket.Drink == true)
+            {
+                components.Add(new PriceComponent { Name = "Drink price", Value = 5, Ticket = ticket, TicketId = ticket.Id });
+            }
+            if(ticket.Bed == true &&  carriagetype != CarriageType.Sedentary)
+            {
+                components.Add(new PriceComponent { Name = "Bed price", Value = 15, Ticket = ticket, TicketId = ticket.Id });
+            }
             return components;
         }
     }

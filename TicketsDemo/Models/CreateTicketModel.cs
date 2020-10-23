@@ -9,6 +9,8 @@ namespace TicketsDemo.Models
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public bool Drink { get; set; }
+        public bool Bed { get; set; }
         public int ReservationId { get; set; }
     }
 }

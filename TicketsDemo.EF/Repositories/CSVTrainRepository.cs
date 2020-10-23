@@ -1,11 +1,8 @@
 ﻿using CsvHelper;
-using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TicketsDemo.Data.Entities;
 using TicketsDemo.Data.Repositories;
 using TicketsDemo.DTO;
@@ -20,6 +17,7 @@ namespace TicketsDemo.EF.Repositories
         {
             _settingsService = settingsService;
         }
+
         public List<Train> GetAllTrains()
         {
             var trains = new List<Train>();

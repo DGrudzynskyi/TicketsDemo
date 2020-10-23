@@ -15,8 +15,8 @@
     <span>@pc.Name:@pc.Value$</span><br />
 }
 
-@using (Html.BeginForm("CreateTicket","Run"))
-{ 
+@using (Html.BeginForm("CreateTicketExtended", "Run"))
+{
     <input type="hidden" value="@Model.Reservation.Id" name="ReservationId" id="ReserevationId"/>
     <table>
         <tr>
@@ -27,6 +27,15 @@
             <td>Last Name</td>
             <td><input type="text" name="LastName" id="LastName" /></td>
         </tr>
+        <tr>
+            <td>Drink</td>
+            <td><input type="checkbox" name="Drink" id="Drink" value="true" /></td>
+        </tr>
+        <tr>
+            <td>Bed</td>
+            <td><input type="checkbox" name="Bed" id="Bed"  value="true" /></td>
+        </tr>
+
     </table>
     <input type="submit" value="submit"/>
 }
