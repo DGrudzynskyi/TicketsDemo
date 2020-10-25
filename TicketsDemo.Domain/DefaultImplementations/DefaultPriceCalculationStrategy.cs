@@ -19,17 +19,17 @@ namespace TicketsDemo.Domain.DefaultImplementations.PriceCalculationStrategy
             _trainRepository = trainRepository;
         }
 
-        public List<PriceComponent> CalculatePrice(PlaceInRun placeInRun)
+        public List<PriceComponent> CalculatePrice(PriceCalculationParameters parameters)
         {
             var components = new List<PriceComponent>();
 
-            var run = _runRepository.GetRunDetails(placeInRun.RunId);
+            var run = _runRepository.GetRunDetails(parameters.placeInRun.RunId);
             var train = _trainRepository.GetTrainDetails(run.TrainId);
             var place = 
                 train.Carriages
                     .Select(car => car.Places.SingleOrDefault(pl => 
-                        pl.Number == placeInRun.Number && 
-                        car.Number == placeInRun.CarriageNumber))
+                        pl.Number == parameters.placeInRun.Number && 
+                        car.Number == parameters.placeInRun.CarriageNumber))
                     .SingleOrDefault(x => x != null);
 
             var placeComponent = new PriceComponent() { Name = "Main price" };

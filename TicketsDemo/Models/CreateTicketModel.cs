@@ -11,5 +11,8 @@ namespace TicketsDemo.Models
         public string LastName { get; set; }
         public int ReservationId { get; set; }
         public bool Coffee { get; set; }
+        public bool Tea { get; set; }
+        public bool Bed { get; set; }
+
     }
 }

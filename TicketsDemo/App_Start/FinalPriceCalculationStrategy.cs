@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using TicketsDemo.Data.Entities;
 using TicketsDemo.Domain.Interfaces;
+using TicketsDemo.Domain.DefaultImplementations;
+using TicketsDemo.Domain;
 
 namespace TicketsDemo.App_Start
 {
@@ -25,5 +27,6 @@ namespace TicketsDemo.App_Start
 
             return allPriceComponents;
         }
+
     }
 }

@@ -42,6 +42,7 @@
     <Compile Include="DefaultImplementations\FileLogger.cs" />
     <Compile Include="DefaultImplementations\DefaultPriceCalculationStrategy.cs" />
     <Compile Include="DefaultImplementations\Logger.cs" />
+    <Compile Include="DefaultImplementations\PriceCalculationParameters.cs" />
     <Compile Include="DefaultImplementations\ReservationService.cs" />
     <Compile Include="DefaultImplementations\Schedule.cs" />
     <Compile Include="DefaultImplementations\TicketService.cs" />
@@ -50,7 +51,6 @@
     <Compile Include="Interfaces\IPriceCalculationStrategy.cs" />
     <Compile Include="Interfaces\ISchedule.cs" />
     <Compile Include="Interfaces\ITicketService.cs" />
-    <Compile Include="Interfaces\PriceCalculationParameters.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

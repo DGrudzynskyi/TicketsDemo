@@ -82,11 +82,13 @@ namespace TicketsDemo.App_Start
             kernel.Bind<ILogger>().ToMethod(x =>
                 new Logger(HttpContext.Current.Server.MapPath("~/App_Data")));
 
-               
-            kernel.Bind<IPriceCalculationStrategy>().To<FinalPriceCalculationStrategy>();
+            kernel.Bind<IPriceCalculationStrategy>().ToMethod<FinalPriceCalculationStrategy>(ctx => {
+                return new FinalPriceCalculationStrategy(new System.Collections.Generic.List<IPriceCalculationStrategy>() {
+                    ctx.Kernel.Get<DefaultPriceCalculationStrategy>(),
+                    ctx.Kernel.Get<TeaCoffeeBedPriceStrategy>(),
+                });
+            });
 
-            kernel.Bind<IPriceCalculationStrategy>().To<DefaultPriceCalculationStrategy>().WhenInjectedExactlyInto<FinalPriceCalculationStrategy>();
-            kernel.Bind<IPriceCalculationStrategy>().To<TeaCoffeeBedPriceStrategy>().WhenInjectedExactlyInto<FinalPriceCalculationStrategy>();
-}
+        }
     }
 }
