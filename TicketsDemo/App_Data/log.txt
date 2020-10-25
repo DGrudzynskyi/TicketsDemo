@@ -1,1 +1,3 @@
 Info: [18.10.2020 12:52:50] Ticket purchase was successful: firstName:Rodion, lastName:Hladchenko, reservationId:5
+Info: [24.10.2020 15:54:27] Ticket purchase was successful: firstName:Rodion, lastName:Hladchenko, reservationId:11
+Info: [24.10.2020 15:58:12] Ticket purchase was successful: firstName:Sasha, lastName:GdeDengi, reservationId:12

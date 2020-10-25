@@ -16,7 +16,7 @@ namespace TicketsDemo.Domain.DefaultImplementations
         public TicketServiceLoggingDecorator(ITicketService decoratedObject,  ILogger logger)
         {
             _decoratedObject = decoratedObject;
-            _logger = logger?? new FileLogger();
+            _logger = logger;
 
         }
 

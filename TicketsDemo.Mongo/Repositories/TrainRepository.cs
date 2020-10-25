@@ -21,32 +21,21 @@ namespace TicketsDemo.Mongo.Repositories
 
             var ctx = new TicketsContext();
             var train = ctx.Trains.Find(new BsonDocument()).ToList();
-            foreach (var doc in train)
-            {
-                doc.Carriages = new List<Carriage>();
-            }
             return train;
         }
 
         public Data.Entities.Train GetTrainDetails(int id)
         {
             var ctx = new TicketsContext();
-
             var train = ctx.Trains.Find(new BsonDocument("_id", id)).FirstOrDefaultAsync().Result;
-            train.Carriages = new List<Carriage>();
-
-            var carriage = ctx.Carriages.Find(new BsonDocument("TrainId", id)).ToList();
-            foreach (var new_carriage in carriage)
+            foreach( var car in train.Carriages)
             {
-                new_carriage.Places = new List<Place>();
-                new_carriage.Train = train;
-                var place = ctx.Places.Find(new BsonDocument("CarriageId", new_carriage.Id)).ToList();
-                foreach(var new_place in place)
+                foreach (var pl in car.Places)
                 {
-                    new_place.Carriage = new_carriage;
-                    new_carriage.Places.Add(new_place);
+                    pl.Carriage = car;
                 }
-                train.Carriages.Add(new_carriage);
+                car.Train = train;
+
             }
             return train;
 
