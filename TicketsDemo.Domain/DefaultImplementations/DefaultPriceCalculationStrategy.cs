@@ -13,36 +13,31 @@ namespace TicketsDemo.Domain.DefaultImplementations.PriceCalculationStrategy
     {
         private IRunRepository _runRepository;
         private ITrainRepository _trainRepository;
-        private IAgentRepository _agentRepository;
+       
 
 
-        public DefaultPriceCalculationStrategy(IRunRepository runRepository, ITrainRepository trainRepository, IAgentRepository agentRepository)
+        public DefaultPriceCalculationStrategy(IRunRepository runRepository, ITrainRepository trainRepository)
         {
             _runRepository = runRepository;
             _trainRepository = trainRepository;
-            _agentRepository = agentRepository;
         }
 
-        public List<PriceComponent> CalculatePrice(PlaceInRun placeInRun, string agentId)
+        public List<PriceComponent> CalculatePrice( PriceCalculationParameters parameter)
         {
             var components = new List<PriceComponent>();
-
-            var run = _runRepository.GetRunDetails(placeInRun.RunId);
-            var train = _trainRepository.GetTrainDetails(run.TrainId);
-            var agentPercent = _agentRepository.AgentPercent(agentId);
+            var run = _runRepository.GetRunDetails(parameter.placeInRun.RunId);
+            var train = _trainRepository.GetTrainDetails(run.TrainId);        
 
             var place =
                 train.Carriages
                     .Select(car => car.Places.SingleOrDefault(pl =>
-                        pl.Number == placeInRun.Number &&
-                        car.Number == placeInRun.CarriageNumber))
+                        pl.Number == parameter.placeInRun.Number &&
+                        car.Number == parameter.placeInRun.CarriageNumber))
                     .SingleOrDefault(x => x != null);
 
             var placeComponent = new PriceComponent() { Name = "Main price" };
             placeComponent.Value = place.Carriage.DefaultPrice * place.PriceMultiplier;
             components.Add(placeComponent);
-
-
 
             if (placeComponent.Value > 30)
             {
@@ -52,18 +47,7 @@ namespace TicketsDemo.Domain.DefaultImplementations.PriceCalculationStrategy
                     Value = placeComponent.Value * 0.2m
                 };
                 components.Add(cashDeskComponent);
-            }
-
-            if (agentPercent > 0)
-            {
-                var bookingCompanyComponent = new PriceComponent()
-                {
-                    Name = "Booking agent services",
-                    Value = placeComponent.Value * (decimal)agentPercent
-                };
-                components.Add(bookingCompanyComponent);
-            }
-
+            }               
             return components;
         }
     }

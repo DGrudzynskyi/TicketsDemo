@@ -6,9 +6,13 @@ using System.Threading.Tasks;
 using TicketsDemo.Data.Entities;
 
 namespace TicketsDemo.Domain.Interfaces
-{
+{   public class PriceCalculationParameters
+    {
+        public PlaceInRun placeInRun { get; set; }
+        public string agentId { get; set; }
+    }
     public interface IPriceCalculationStrategy
     {
-        List<PriceComponent> CalculatePrice(PlaceInRun placeInRun, string agentId);
+        List<PriceComponent> CalculatePrice( PriceCalculationParameters parameters);
     }
 }

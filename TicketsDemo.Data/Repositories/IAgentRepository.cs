@@ -10,8 +10,8 @@ namespace TicketsDemo.Data.Repositories
 {
     public interface IAgentRepository
     {
-        Agent Search(string agentId);
-        double AgentPercent(string agentId);
+        Agent GetAgent(string agentId);
+        decimal AgentPercent(string agentId);
         List<Agent> GetAgents();
         void CreateAgent(Agent agent);
         void DeleteAgent(string agentId);

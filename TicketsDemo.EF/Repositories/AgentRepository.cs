@@ -34,9 +34,10 @@ namespace TicketsDemo.EF.Repositories
                 return ctx.Agents.ToList();
             }
         }
-        public Agent Search(string agentId)
+        public Agent GetAgent(string agentId)
         {
             var Ag = new Agent();
+
             foreach (Agent agent in GetAgents())
             { if ( agent.Id == agentId)
                 {
@@ -46,9 +47,9 @@ namespace TicketsDemo.EF.Repositories
             }
             return Ag;
         }
-        public double AgentPercent(string agentId)
+        public decimal AgentPercent(string agentId)
         {
-            return Search(agentId).Percent;
+            return (decimal)GetAgent(agentId).Percent ;
         }
     }
 }

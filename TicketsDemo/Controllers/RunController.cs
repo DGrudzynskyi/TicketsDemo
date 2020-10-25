@@ -8,6 +8,7 @@ using TicketsDemo.Data.Repositories;
 using TicketsDemo.Domain.Interfaces;
 using TicketsDemo.Models;
 
+
 namespace TicketsDemo.Controllers
 {
     public class RunController : Controller
@@ -51,18 +52,19 @@ namespace TicketsDemo.Controllers
 
         public ActionResult ReservePlace(int placeId) {
             var place = _runRepo.GetPlaceInRun(placeId);
-
             var reservation = _resServ.Reserve(place);
-
+            PriceCalculationParameters parameters = new PriceCalculationParameters();
+            parameters.placeInRun = place;
+            parameters.agentId = new Agent().Id;
+            
             var model = new ReservationViewModel()
             {
                 Reservation = reservation,
                 PlaceInRun = place,
-                PriceComponents = _priceCalc.CalculatePrice(place, (new Agent()).Id),
                 Date = place.Run.Date,
-                Train = _trainRepo.GetTrainDetails(place.Run.TrainId),
+                Train = _trainRepo.GetTrainDetails(place.Run.TrainId),              
+                PriceComponents = _priceCalc.CalculatePrice(parameters),
             };
-
             return View(model);
         }
 
