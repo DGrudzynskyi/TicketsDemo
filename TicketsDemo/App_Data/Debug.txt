@@ -1,1 +1,3 @@
 26.10.2020 11:12:46 Info: Attempt to buy a ticket: Id 5, firstName Olena, lastName Denysenko
+26.10.2020 12:07:20 Info: Attempt to buy a ticket: Id 6, firstName Olena, lastName Denysenko
+26.10.2020 12:11:41 Info: Attempt to buy a ticket: Id 7, firstName Olena, lastName Denysenko
