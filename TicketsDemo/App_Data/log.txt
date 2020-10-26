@@ -6,3 +6,5 @@ Info[10.07.2014 14:18:34]: ticket TicketsDemo.Data.Entities.Ticket created
 Info[10.07.2014 14:20:50]: reservation TicketsDemo.Data.Entities.Reservation created
 Info[10.07.2014 14:21:30]: reservation TicketsDemo.Data.Entities.Reservation created
 Info[10.07.2014 14:23:24]: reservation TicketsDemo.Data.Entities.Reservation created
+Info[26.10.2020 11:00:06]: Attempt to buy a ticket: Id 3, firstName Olena, lastName Denysenko
+Info[26.10.2020 11:03:39]: Attempt to buy a ticket: Id 4, firstName Olena, lastName Denysenko
