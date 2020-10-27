@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{360ABF3D-281E-409C-AFCF-3D34F026678E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TicketsDemo.Domain</RootNamespace>
+    <AssemblyName>TicketsDemo.Domain</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DefaultImplementations\FileLogger.cs" />
+    <Compile Include="DefaultImplementations\DefaultPriceCalculationStrategy.cs" />
+    <Compile Include="DefaultImplementations\FinalPriceCalculationStrategy.cs" />
+    <Compile Include="DefaultImplementations\WeekendsAndHolidaysPriceCalculationStrategy.cs" />
+    <Compile Include="DefaultImplementations\ReservationService.cs" />
+    <Compile Include="DefaultImplementations\Schedule.cs" />
+    <Compile Include="DefaultImplementations\TicketService.cs" />
+    <Compile Include="Interfaces\IReservationService.cs" />
+    <Compile Include="Interfaces\ILogger.cs" />
+    <Compile Include="Interfaces\IPriceCalculationStrategy.cs" />
+    <Compile Include="Interfaces\ISchedule.cs" />
+    <Compile Include="Interfaces\ITicketService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TicketsDemo.Data\TicketsDemo.Data.csproj">
+      <Project>{c3a581a6-f841-4600-b87d-ba4bd3000e7a}</Project>
+      <Name>TicketsDemo.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TicketsDemo.EF\TicketsDemo.EF.csproj">
+      <Project>{e9437256-3145-47bf-81a3-c69fd4de95f4}</Project>
+      <Name>TicketsDemo.EF</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TicketsDemo.XML\TicketsDemo.XML.csproj">
+      <Project>{c3f601b1-482d-44d6-a258-28415d729499}</Project>
+      <Name>TicketsDemo.XML</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
