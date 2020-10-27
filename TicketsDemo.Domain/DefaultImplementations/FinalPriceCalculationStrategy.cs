@@ -23,6 +23,17 @@ namespace TicketsDemo.Domain.DefaultImplementations
             {
                 allPriceComponents.AddRange(strategy.CalculatePrice(parameters));
             }
+            decimal totalPrice = 0;
+            foreach (PriceComponent component in allPriceComponents)
+            {
+                totalPrice+=component.Value;
+            }
+            var FinalPriceComponent = new PriceComponent()
+            {
+                Name = "Total price",
+                Value = totalPrice
+            };
+            allPriceComponents.Add(FinalPriceComponent);
             return allPriceComponents;
         }
     }
