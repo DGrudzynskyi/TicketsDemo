@@ -17,11 +17,11 @@ namespace TicketsDemo.Domain.DefaultImplementations
             _dataFolder = dataFolder;
         }
 
-        public void Log(string message, LogSeverity severity)
+        public void Log(string message)
         {
             using (var fileStreamWriter = new StreamWriter(Path.Combine(_dataFolder, "log.txt"), true))
             {
-                var wrtStr = String.Format("{0}[{1}]: {2}", severity, DateTime.Now, message);
+                var wrtStr = String.Format("[{0}]: {1}", DateTime.Now, message);
                 fileStreamWriter.WriteLine(wrtStr);
             }
         }
