@@ -9,7 +9,7 @@ using TicketsDemo.Domain.Interfaces;
 
 namespace TicketsDemo.Domain.DefaultImplementations
 {
-   public class AppConfigSettingsService:ISettingsService
+   public class AppConfigSettingsService:ICSVPathSettingsService, ICSVFieldSettingsService
     {
         public string TrainCSVPath
         {

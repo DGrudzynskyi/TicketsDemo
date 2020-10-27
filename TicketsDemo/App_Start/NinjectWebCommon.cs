@@ -9,9 +9,11 @@ namespace TicketsDemo.App_Start
     using Ninject;
     using Ninject.Web.Common;
     using TicketsDemo.Data.Repositories;
+    using TicketsDemo.Domain.Decorators;
     using TicketsDemo.Domain.DefaultImplementations;
     using TicketsDemo.Domain.DefaultImplementations.PriceCalculationStrategy;
     using TicketsDemo.Domain.Interfaces;
+    using TicketsDemo.Domain.PriceCalculationStrategies;
     using TicketsDemo.EF.Repositories;
 
     public static class NinjectWebCommon 
@@ -64,7 +66,8 @@ namespace TicketsDemo.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            kernel.Bind<ISettingsService>().To<AppConfigSettingsService>();
+            kernel.Bind<ICSVPathSettingsService>().To<AppConfigSettingsService>();
+            kernel.Bind<ICSVFieldSettingsService>().To<AppConfigSettingsService>();
             kernel.Bind<ITicketRepository>().To<TicketRepository>();
             kernel.Bind<ITrainRepository>().To<CSVTrainRepository>();
 
@@ -72,15 +75,14 @@ namespace TicketsDemo.App_Start
             kernel.Bind<IReservationRepository>().To<ReservationRepository>();
 
             kernel.Bind<ISchedule>().To<Schedule>();
-            kernel.Bind<ITicketExtentedService>().To<TicketService>();
-            kernel.Bind<ITicketService>().To<TicketService>();
+            kernel.Bind<ITicketService>().To<TicketServiceLoggingDecorator>();
+            kernel.Bind<ITicketService>().To<TicketService>().WhenInjectedExactlyInto<TicketServiceLoggingDecorator>();
             kernel.Bind<ICarriageRepository>().To<CarriageRepository>();
             kernel.Bind<IReservationService>().To<ReservationService>();
-            kernel.Bind<IExtentedPriceCalculationStrategy>().To<DefaultPriceCalculationStrategy>();
             //todo factory
-            kernel.Bind<IPriceCalculationStrategy>().To<DefaultPriceCalculationStrategy>();
+            kernel.Bind<IPriceCalculationStrategy>().To<DrinkAndBedCalculationStrategy>();
             kernel.Bind<ILogger>().ToMethod(x =>
-                new FileLogger(HttpContext.Current.Server.MapPath("~/App_Data")));
+                new FileLogger(HttpContext.Current.Server.MapPath("~/App_Data/")));
         }        
     }
 }

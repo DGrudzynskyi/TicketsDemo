@@ -6,11 +6,8 @@ using System.Threading.Tasks;
 
 namespace TicketsDemo.Domain.Interfaces
 {
-     public interface ISettingsService
+   public interface ICSVFieldSettingsService
     {
-        string TrainCSVPath { get; }
-        string CarriageCSVPath { get; }
-        string PlaceCSVPath { get; }
         string Id { get; }
         string Number { get; }
         string StartLocation { get; }

@@ -8,16 +8,19 @@ using TicketsDemo.Data.Repositories;
 using TicketsDemo.Domain.Interfaces;
 using TicketsDemo.DTO;
 
-namespace TicketsDemo.Domain.DefaultImplementations.PriceCalculationStrategy
+namespace TicketsDemo.Domain.PriceCalculationStrategies
 {
-    public class DefaultPriceCalculationStrategy : IPriceCalculationStrategy
+    public class DrinkAndBedCalculationStrategy : IPriceCalculationStrategy
     {
         private IRunRepository _runRepository;
         private ITrainRepository _trainRepository;
+        private ICarriageRepository _carriageRepository;
 
-        public DefaultPriceCalculationStrategy(IRunRepository runRepository, ITrainRepository trainRepository) {
+        public DrinkAndBedCalculationStrategy(IRunRepository runRepository, ITrainRepository trainRepository, ICarriageRepository carriageRepository)
+        {
             _runRepository = runRepository;
             _trainRepository = trainRepository;
+            _carriageRepository = carriageRepository;
         }
 
         public List<PriceComponent> CalculatePrice(TicketPriceParametersDTO priceParametersDTO)
@@ -46,6 +49,18 @@ namespace TicketsDemo.Domain.DefaultImplementations.PriceCalculationStrategy
                     Value = placeComponent.Value * 0.2m
                 };
                 components.Add(cashDeskComponent);
+            }
+
+
+            CarriageType carriagetype = _carriageRepository.GetCarriage(priceParametersDTO.PlaceInRun.CarriageNumber).Type;
+
+            if (priceParametersDTO.Drink == true)
+            {
+                components.Add(new PriceComponent { Name = "Drink price", Value = 5, Ticket = priceParametersDTO.Ticket, TicketId = priceParametersDTO.Ticket.Id });
+            }
+            if (priceParametersDTO.Bed == true && carriagetype != CarriageType.Sedentary)
+            {
+                components.Add(new PriceComponent { Name = "Bed price", Value = 15, Ticket = priceParametersDTO.Ticket, TicketId = priceParametersDTO.Ticket.Id });
             }
 
             return components;

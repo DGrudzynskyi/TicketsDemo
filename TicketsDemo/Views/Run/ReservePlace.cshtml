@@ -15,7 +15,7 @@
     <span>@pc.Name:@pc.Value$</span><br />
 }
 
-@using (Html.BeginForm("CreateTicketExtended", "Run"))
+@using (Html.BeginForm("CreateTicket", "Run"))
 {
     <input type="hidden" value="@Model.Reservation.Id" name="ReservationId" id="ReserevationId"/>
     <table>

@@ -6,28 +6,27 @@ using System.Threading.Tasks;
 using TicketsDemo.Data.Entities;
 using TicketsDemo.Data.Repositories;
 using TicketsDemo.Domain.Interfaces;
+using TicketsDemo.DTO;
 
 namespace TicketsDemo.Domain.DefaultImplementations
 {
-    public class TicketService : ITicketExtentedService
+   public class TicketService : ITicketService
     {
         private ITicketRepository _tickRepo;
         private IPriceCalculationStrategy _priceStr;
-        private IExtentedPriceCalculationStrategy _extentedPriceCalculationStrategy;
         private IReservationRepository _resRepo;
         private IRunRepository _runRepository;
 
         public TicketService(ITicketRepository tickRepo, IReservationRepository resRepo,
-            IPriceCalculationStrategy priceCalculationStrategy, IRunRepository runRepository, IExtentedPriceCalculationStrategy extentedPriceCalculationStrategy)
+            IPriceCalculationStrategy priceCalculationStrategy, IRunRepository runRepository)
         {
-            _extentedPriceCalculationStrategy = extentedPriceCalculationStrategy;
             _tickRepo = tickRepo;
             _resRepo = resRepo;
             _priceStr = priceCalculationStrategy;
             _runRepository = runRepository;
         }
 
-        public Ticket CreateTicket(int reservationId, string fName, string lName)
+        public Ticket CreateTicket(int reservationId, string fName, string lName, bool drink, bool bed)
         {
             var res = _resRepo.Get(reservationId);
 
@@ -47,7 +46,7 @@ namespace TicketsDemo.Domain.DefaultImplementations
                 PriceComponents = new List<PriceComponent>()
             };
 
-            newTicket.PriceComponents = _priceStr.CalculatePrice(placeInRun);
+            newTicket.PriceComponents = _priceStr.CalculatePrice(new TicketPriceParametersDTO { PlaceInRun = placeInRun, Drink = drink, Bed = bed, Ticket = newTicket} );
 
             res.TicketId = newTicket.Id;
             _resRepo.Update(res);
@@ -56,7 +55,7 @@ namespace TicketsDemo.Domain.DefaultImplementations
             return newTicket;
         }
 
-        public Ticket CreateTicketExtented(int reservationId, string firstName, string lastName, bool drink, bool bed)
+        public Ticket CreateTicket(int reservationId, string firstName, string lastName)
         {
             var res = _resRepo.Get(reservationId);
 
@@ -73,19 +72,15 @@ namespace TicketsDemo.Domain.DefaultImplementations
                 CreatedDate = DateTime.Now,
                 FirstName = firstName,
                 LastName = lastName,
-                Drink = drink,
-                Bed = bed,
                 Status = TicketStatusEnum.Active,
                 PriceComponents = new List<PriceComponent>()
             };
 
-            newTicket.PriceComponents = _priceStr.CalculatePrice(placeInRun);
-            newTicket.PriceComponents.AddRange((List<PriceComponent>)_extentedPriceCalculationStrategy.CalculatePrice(placeInRun.CarriageNumber, newTicket));
+            newTicket.PriceComponents = _priceStr.CalculatePrice(new TicketPriceParametersDTO { PlaceInRun = placeInRun, Ticket = newTicket });
 
             res.TicketId = newTicket.Id;
             _resRepo.Update(res);
 
-            
             _tickRepo.Create(newTicket);
             return newTicket;
         }

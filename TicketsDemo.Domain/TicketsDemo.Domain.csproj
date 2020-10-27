@@ -46,20 +46,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Decorators\TicketServiceLoggingDecorator.cs" />
     <Compile Include="DefaultImplementations\AppConfigSettingsService.cs" />
     <Compile Include="DefaultImplementations\FileLogger.cs" />
     <Compile Include="DefaultImplementations\DefaultPriceCalculationStrategy.cs" />
     <Compile Include="DefaultImplementations\ReservationService.cs" />
     <Compile Include="DefaultImplementations\Schedule.cs" />
     <Compile Include="DefaultImplementations\TicketService.cs" />
-    <Compile Include="Interfaces\IExtentedPriceCalculationStrategy.cs" />
+    <Compile Include="Interfaces\ICSVFieldSettingsService.cs" />
     <Compile Include="Interfaces\IReservationService.cs" />
     <Compile Include="Interfaces\ILogger.cs" />
     <Compile Include="Interfaces\IPriceCalculationStrategy.cs" />
     <Compile Include="Interfaces\ISchedule.cs" />
-    <Compile Include="Interfaces\ISettingsService.cs" />
-    <Compile Include="Interfaces\ITicketExtendedService.cs" />
+    <Compile Include="Interfaces\ICSVPathSettingsService.cs" />
     <Compile Include="Interfaces\ITicketService.cs" />
+    <Compile Include="PriceCalculationStrategies\DrinkAndBedCalculationStrategy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

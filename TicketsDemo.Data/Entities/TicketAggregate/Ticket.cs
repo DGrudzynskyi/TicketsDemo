@@ -14,8 +14,6 @@ namespace TicketsDemo.Data.Entities
         public TicketStatusEnum Status { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public bool Drink { get; set; }
-        public bool Bed { get; set; }
         public int ReservationId { get; set; }
         public List<PriceComponent> PriceComponents { get; set; }
         public DateTime CreatedDate { get; set; }
