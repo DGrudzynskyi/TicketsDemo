@@ -25,19 +25,29 @@ namespace TicketsDemo.CSV.Repositories
             var places = carriages.SelectMany(c => c.Places).ToList();
 
             //assigning id's
-
-            train.Id = trains.Max(t => t.Id) + 1;
-
-            var newCarriageId = carriages.Max(c => c.Id) + 1;
-            foreach(var carriage in train.Carriages)
+            int newCarriageStartId;
+            int newPlaceStartId;
+            if (trains.Count > 0)
             {
-                carriage.Id = newCarriageId++;
+                train.Id = trains.Max(t => t.Id) + 1;
+                newCarriageStartId = carriages.Max(c => c.Id) + 1;
+                newPlaceStartId = places.Max(p => p.Id) + 1;
+            }
+            else
+            {
+                train.Id = 1;
+                newCarriageStartId = 1;
+                newPlaceStartId = 1;
             }
 
-            var newPlaceId = places.Max(p => p.Id) + 1;
+            foreach(var carriage in train.Carriages)
+            {
+                carriage.Id = newCarriageStartId++;
+            }
+
             foreach(var place in train.Carriages.SelectMany(c => c.Places))
             {
-                place.Id = newPlaceId++;
+                place.Id = newPlaceStartId++;
             }
 
             train.Carriages.ForEach(c => c.TrainId = c.Train.Id);
@@ -116,40 +126,43 @@ namespace TicketsDemo.CSV.Repositories
 
         private void WriteTrains(List<Train> trains)
         {
-            var carriages = trains.SelectMany(t => t.Carriages).ToList();
-            var places = carriages.SelectMany(c => c.Places).ToList();
-
-            using (var writer = new StreamWriter(_trainPath))
-            using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
+            if (trains.Count > 0)
             {
+                var carriages = trains.SelectMany(t => t.Carriages).ToList();
+                var places = carriages.SelectMany(c => c.Places).ToList();
 
-                csv.Configuration.Delimiter = ";";
-                csv.Configuration.HasHeaderRecord = true;
+                using (var writer = new StreamWriter(_trainPath))
+                using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
+                {
 
-                csv.Configuration.RegisterClassMap<TrainMap>();
-                csv.WriteRecords(trains);
-            }
+                    csv.Configuration.Delimiter = ";";
+                    csv.Configuration.HasHeaderRecord = true;
 
-            using (var writer = new StreamWriter(_carriagePath))
-            using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
-            {
+                    csv.Configuration.RegisterClassMap<TrainMap>();
+                    csv.WriteRecords(trains);
+                }
 
-                csv.Configuration.Delimiter = ";";
-                csv.Configuration.HasHeaderRecord = true;
+                using (var writer = new StreamWriter(_carriagePath))
+                using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
+                {
 
-                csv.Configuration.RegisterClassMap<CarriageMap>();
-                csv.WriteRecords(carriages);
-            }
+                    csv.Configuration.Delimiter = ";";
+                    csv.Configuration.HasHeaderRecord = true;
 
-            using (var writer = new StreamWriter(_placePath))
-            using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
-            {
+                    csv.Configuration.RegisterClassMap<CarriageMap>();
+                    csv.WriteRecords(carriages);
+                }
 
-                csv.Configuration.Delimiter = ";";
-                csv.Configuration.HasHeaderRecord = true;
+                using (var writer = new StreamWriter(_placePath))
+                using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
+                {
 
-                csv.Configuration.RegisterClassMap<PlaceMap>();
-                csv.WriteRecords(places);
+                    csv.Configuration.Delimiter = ";";
+                    csv.Configuration.HasHeaderRecord = true;
+
+                    csv.Configuration.RegisterClassMap<PlaceMap>();
+                    csv.WriteRecords(places);
+                }
             }
         }
     }
