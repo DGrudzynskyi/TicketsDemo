@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TicketsDemo.Domain.DTO;
 using TicketsDemo.Data.Entities;
 using TicketsDemo.Data.Repositories;
 using TicketsDemo.Domain.Interfaces;
@@ -25,7 +26,7 @@ namespace TicketsDemo.Domain.DefaultImplementations
             _runRepository = runRepository;
         }
 
-        public Ticket CreateTicket(int reservationId, string fName, string lName)
+        public Ticket CreateTicket(int reservationId, string fName, string lName, string aCode)
         {
             var res = _resRepo.Get(reservationId);
 
@@ -44,8 +45,11 @@ namespace TicketsDemo.Domain.DefaultImplementations
                 Status = TicketStatusEnum.Active,
                 PriceComponents = new List<PriceComponent>()
             };
+            var parametrs = new TicketParametersDTO();
+            parametrs.placeInRun = placeInRun;
+            parametrs.agencyCode = aCode;
 
-            newTicket.PriceComponents = _priceStr.CalculatePrice(placeInRun);
+            newTicket.PriceComponents = _priceStr.CalculatePrice(parametrs);
 
             res.TicketId = newTicket.Id;
             _resRepo.Update(res);

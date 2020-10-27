@@ -3,11 +3,12 @@ using MongoDB.Bson;
 using MongoDB.Driver;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TicketsDemo.Data.Entities;
 using TicketsDemo.Data.Repositories;
+using MongoDB.Driver.Linq;
+using System.Linq;
 
 namespace TicketsDemo.Mongo.Repositories
 {
@@ -28,7 +29,7 @@ namespace TicketsDemo.Mongo.Repositories
         {
             var ctx = new TicketsContext();
             var train = ctx.Trains.Find(new BsonDocument("_id", id)).FirstOrDefaultAsync().Result;
-            foreach( var car in train.Carriages)
+            foreach (var car in train.Carriages)
             {
                 foreach (var pl in car.Places)
                 {

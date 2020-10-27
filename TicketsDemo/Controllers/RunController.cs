@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using TicketsDemo.Domain.DTO;
+using TicketsDemo.Data.Entities.BookingAggregate;
 using TicketsDemo.Data.Repositories;
 using TicketsDemo.Domain.Interfaces;
+using TicketsDemo.EF.Repositories;
 using TicketsDemo.Models;
 
 namespace TicketsDemo.Controllers
@@ -50,14 +53,16 @@ namespace TicketsDemo.Controllers
 
         public ActionResult ReservePlace(int placeId) {
             var place = _runRepo.GetPlaceInRun(placeId);
-
             var reservation = _resServ.Reserve(place);
+            TicketParametersDTO parametrs = new TicketParametersDTO();
+            parametrs.placeInRun = place;
+            parametrs.agencyCode = null ;
 
             var model = new ReservationViewModel()
             {
                 Reservation = reservation,
                 PlaceInRun = place,
-                PriceComponents = _priceCalc.CalculatePrice(place),
+                PriceComponents = _priceCalc.CalculatePrice(parametrs),
                 Date = place.Run.Date,
                 Train = _trainRepo.GetTrainDetails(place.Run.TrainId),
             };
@@ -68,7 +73,7 @@ namespace TicketsDemo.Controllers
         [HttpPost]
         public ActionResult CreateTicket(CreateTicketModel model)
         {
-            var tick = _tickServ.CreateTicket(model.ReservationId,model.FirstName,model.LastName);
+            var tick = _tickServ.CreateTicket(model.ReservationId,model.FirstName,model.LastName, model.AgencyCode);
             return RedirectToAction("Ticket", new { id = tick.Id });
         }
 

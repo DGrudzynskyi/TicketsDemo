@@ -20,20 +20,20 @@ namespace TicketsDemo.Domain.DefaultImplementations
 
         }
 
-        public Ticket CreateTicket(int reservationId, string firstName, string lastName)
+        public Ticket CreateTicket(int reservationId, string firstName, string lastName, string agencyCode)
         {
             try
             {
-                var сreatedTicket = _decoratedObject.CreateTicket(reservationId, firstName, lastName);
-                string line = string.Format("[{0}] Ticket purchase was successful: firstName:{1}, lastName:{2}, reservationId:{3}",
-                                             DateTime.Now, firstName, lastName, reservationId);
+                var сreatedTicket = _decoratedObject.CreateTicket(reservationId, firstName, lastName, agencyCode);
+                string line = string.Format("[{0}] Ticket purchase was successful: firstName:{1}, lastName:{2}, reservationId:{3}, agencyCode:{4}",
+                                             DateTime.Now, firstName, lastName, reservationId, agencyCode);
                 _logger.Log(line, LogSeverity.Info);
                 return сreatedTicket;
             }
             catch (Exception e)
             {
-                string line = string.Format("[{0}] ERROR in ticket purchase: firstName:{1}, lastName:{2}, reservationId:{3}",
-                                             DateTime.Now, firstName, lastName, reservationId);
+                string line = string.Format("[{0}] ERROR in ticket purchase: firstName:{1}, lastName:{2}, reservationId:{3}, agencyCode:{4}",
+                                             DateTime.Now, firstName, lastName, reservationId, agencyCode);
                 _logger.Log(line, LogSeverity.Error);
                 throw e;
             }

@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TicketsDemo.Domain.DTO;
 using TicketsDemo.Data.Entities;
 
 namespace TicketsDemo.Domain.Interfaces
 {
     public interface IPriceCalculationStrategy
     {
-        List<PriceComponent> CalculatePrice(PlaceInRun placeInRun);
+        List<PriceComponent> CalculatePrice(TicketParametersDTO parameters);
     }
 }

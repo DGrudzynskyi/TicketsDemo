@@ -67,20 +67,27 @@ namespace TicketsDemo.App_Start
         {
             kernel.Bind<ITicketRepository>().To<TicketRepository>();
             kernel.Bind<ITrainRepository>().To<MongoTrainRepository>();
+            kernel.Bind<IRepresentativeRepository>().To<RepresentativeRepository>(); ;
 
             kernel.Bind<IRunRepository>().To<RunRepository>();
             kernel.Bind<IReservationRepository>().To<ReservationRepository>();
 
             kernel.Bind<ISchedule>().To<Schedule>();
             //kernel.Bind<ITicketService>().To<TicketService>();
+
             kernel.Bind<ITicketService>().To<TicketServiceLoggingDecorator>();
             kernel.Bind<ITicketService>().To<TicketService>().WhenInjectedExactlyInto<TicketServiceLoggingDecorator>();
             kernel.Bind<IReservationService>().To<ReservationService>();
 
-
+            kernel.Bind<IPriceCalculationStrategy>().ToMethod<FinalPriceCalculationStrategy>(ctx => {
+                return new FinalPriceCalculationStrategy(new System.Collections.Generic.List<IPriceCalculationStrategy>() {
+                    ctx.Kernel.Get<DefaultPriceCalculationStrategy>(),
+                    ctx.Kernel.Get<BookingPriceCalculationStrategy>(),
+                });
+            });
 
             //todo factory
-            kernel.Bind<IPriceCalculationStrategy>().To<DefaultPriceCalculationStrategy>();
+            //kernel.Bind<IPriceCalculationStrategy>().To<DefaultPriceCalculationStrategy>();
             kernel.Bind<ILogger>().ToMethod(x =>
                 new FileLogger(HttpContext.Current.Server.MapPath("~/App_Data")));
         }        

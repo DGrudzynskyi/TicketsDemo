@@ -8,13 +8,14 @@ using MongoDB.Bson;
 using MongoDB.Driver;
 using System.Configuration;
 using TicketsDemo.Data.Entities;
+using MongoDB.Driver.Linq;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 
 
 namespace TicketsDemo.Mongo
 {
-    public class TicketsContext
+    public class TicketsContext 
     {
         private IMongoDatabase database;
         public TicketsContext()
@@ -27,8 +28,12 @@ namespace TicketsDemo.Mongo
         }
 
         public  IMongoCollection<Train> Trains 
-        { 
-            get { return database.GetCollection<Train>("Train"); }
+        {
+            get
+            {
+                return database.GetCollection<Train>("Train");
+            }
+
         }
 
     }

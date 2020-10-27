@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TicketsDemo.Data.Entities;
+using TicketsDemo.Data.Entities.BookingAggregate;
 
 namespace TicketsDemo.EF
 {
@@ -20,11 +21,16 @@ namespace TicketsDemo.EF
         public DbSet<Reservation> Reservations {get;set;}
         public DbSet<Ticket> Tickets {get;set; }
 
+        public DbSet<AgencyRepresentative> AgencyRepresentatives { get; set; }
+        public DbSet<BookingAgency> BookingAgencies { get; set; }
+
         public DbSet<PriceComponent> PriceComponents { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+
+            modelBuilder.Entity<BookingAgency>().HasMany(a => a.AgencyRepresentatives).WithRequired(b => b.BookingAgency);
 
             modelBuilder.Entity<Train>().HasMany(t => t.Carriages).WithRequired(c => c.Train);
 
