@@ -12,6 +12,7 @@ namespace TicketsDemo.App_Start
     using TicketsDemo.Domain.DefaultImplementations;
     using TicketsDemo.Domain.DefaultImplementations.PriceCalculationStrategy;
     using TicketsDemo.Domain.Interfaces;
+    using TicketsDemo.EF.CSVReader;
     using TicketsDemo.EF.Repositories;
 
     public static class NinjectWebCommon 
@@ -65,7 +66,8 @@ namespace TicketsDemo.App_Start
         private static void RegisterServices(IKernel kernel)
         {
             kernel.Bind<ITicketRepository>().To<TicketRepository>();
-            kernel.Bind<ITrainRepository>().To<TrainRepository>();
+            //kernel.Bind<ITrainRepository>().To<TrainRepository>();
+            kernel.Bind<ITrainRepository>().To<TrainRepositoryCSV>();
 
             kernel.Bind<IRunRepository>().To<RunRepository>();
             kernel.Bind<IReservationRepository>().To<ReservationRepository>();
