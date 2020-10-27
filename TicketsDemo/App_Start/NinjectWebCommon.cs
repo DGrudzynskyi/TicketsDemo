@@ -8,6 +8,7 @@ namespace TicketsDemo.App_Start
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
     using Ninject;
     using Ninject.Web.Common;
+    using TicketsDemo.CSV.Repositories;
     using TicketsDemo.Data.Repositories;
     using TicketsDemo.Domain.DefaultImplementations;
     using TicketsDemo.Domain.DefaultImplementations.PriceCalculationStrategy;
@@ -65,7 +66,7 @@ namespace TicketsDemo.App_Start
         private static void RegisterServices(IKernel kernel)
         {
             kernel.Bind<ITicketRepository>().To<TicketRepository>();
-            kernel.Bind<ITrainRepository>().To<TrainRepository>();
+            kernel.Bind<ITrainRepository>().To<TrainCSVRepository>();
 
             kernel.Bind<IRunRepository>().To<RunRepository>();
             kernel.Bind<IReservationRepository>().To<ReservationRepository>();

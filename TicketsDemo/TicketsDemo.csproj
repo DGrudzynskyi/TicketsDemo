@@ -172,6 +172,10 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\TicketsDemo.CSV\TicketsDemo.CSV.csproj">
+      <Project>{D9783CFF-0BE1-4ED1-8703-01E1EB441469}</Project>
+      <Name>TicketsDemo.CSV</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TicketsDemo.Data\TicketsDemo.Data.csproj">
       <Project>{c3a581a6-f841-4600-b87d-ba4bd3000e7a}</Project>
       <Name>TicketsDemo.Data</Name>
