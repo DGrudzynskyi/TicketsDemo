@@ -2,5 +2,8 @@ packages
 .vs/
 *.suo
 *log.txt
+*Trains.csv
+*Carriages.csv
+*Places.csv
 */bin/*
 */obj/*
