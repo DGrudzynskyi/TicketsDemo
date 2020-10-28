@@ -14,9 +14,7 @@ namespace TicketsDemo.CSV.Repositories
 {
     public class TrainCSVRepository : ITrainRepository
     {
-        private string _trainPath = $@"{AppDomain.CurrentDomain.BaseDirectory}\App_Data\Trains.csv";
-        private string _carriagePath = $@"{AppDomain.CurrentDomain.BaseDirectory}\App_Data\Carriages.csv";
-        private string _placePath = $@"{AppDomain.CurrentDomain.BaseDirectory}\App_Data\Places.csv";
+        private ICSVConfiguration _csvConfig;
 
         public void CreateTrain(Train train)
         {
@@ -70,7 +68,7 @@ namespace TicketsDemo.CSV.Repositories
             List<Carriage> carriages;
             List<Place> places;
 
-            using (var reader = new StreamReader(_trainPath))
+            using (var reader = new StreamReader(_csvConfig.TrainsFilePath))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
             {
                 csv.Configuration.Delimiter = ";";
@@ -79,7 +77,7 @@ namespace TicketsDemo.CSV.Repositories
                 trains = csv.GetRecords<Train>().ToList();
             }
 
-            using (var reader = new StreamReader(_carriagePath))
+            using (var reader = new StreamReader(_csvConfig.CarriagesFilePath))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
             {
                 csv.Configuration.Delimiter = ";";
@@ -88,7 +86,7 @@ namespace TicketsDemo.CSV.Repositories
                 carriages = csv.GetRecords<Carriage>().ToList();
             }
 
-            using (var reader = new StreamReader(_placePath))
+            using (var reader = new StreamReader(_csvConfig.PlacesFilePath))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
             {
                 csv.Configuration.Delimiter = ";";
@@ -131,7 +129,7 @@ namespace TicketsDemo.CSV.Repositories
                 var carriages = trains.SelectMany(t => t.Carriages).ToList();
                 var places = carriages.SelectMany(c => c.Places).ToList();
 
-                using (var writer = new StreamWriter(_trainPath))
+                using (var writer = new StreamWriter(_csvConfig.TrainsFilePath))
                 using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
                 {
 
@@ -142,7 +140,7 @@ namespace TicketsDemo.CSV.Repositories
                     csv.WriteRecords(trains);
                 }
 
-                using (var writer = new StreamWriter(_carriagePath))
+                using (var writer = new StreamWriter(_csvConfig.CarriagesFilePath))
                 using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
                 {
 
@@ -153,7 +151,7 @@ namespace TicketsDemo.CSV.Repositories
                     csv.WriteRecords(carriages);
                 }
 
-                using (var writer = new StreamWriter(_placePath))
+                using (var writer = new StreamWriter(_csvConfig.PlacesFilePath))
                 using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
                 {
 

@@ -3,6 +3,6 @@ packages
 *.suo
 */bin/*
 */obj/*
-TicketsDemo/App_Data/Trains.txt
-TicketsDemo/App_Data/Carriages.txt
-TicketsDemo/App_Data/Places.txt
+TicketsDemo/App_Data/Trains.csv
+TicketsDemo/App_Data/Carriages.csv
+TicketsDemo/App_Data/Places.csv
