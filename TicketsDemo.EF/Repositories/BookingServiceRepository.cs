@@ -5,17 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using TicketsDemo.Data.Entities;
 using TicketsDemo.Data.Repositories;
+using System.Data.Entity;
 
 namespace TicketsDemo.EF.Repositories
 {
     public class BookingServiceRepository : IBookingServiceRepository
     {
-        private IBookingAgencyRepository _bookingAgencyRepo;
-
-        public BookingServiceRepository(IBookingAgencyRepository bookingAgencyRepo)
-        {
-            _bookingAgencyRepo = bookingAgencyRepo;
-        }
 
         public void Create(BookingService bookingService)
         {
@@ -38,52 +33,26 @@ namespace TicketsDemo.EF.Repositories
 
         public BookingService Get(int id)
         {
-            BookingService bookingService;
             using (var ctx = new TicketsContext())
             {
-                bookingService =  ctx.BookingServices.FirstOrDefault(p => p.Id == id);
+                return ctx.BookingServices.Include(x => x.HostAgency).FirstOrDefault(x=>x.Id == id);
             }
-            return InjectBookingAgency(bookingService);
         }
 
         public List<BookingService> GetAll()
         {
-            List<BookingService> bookingServices;
             using (var ctx = new TicketsContext())
             {
-                bookingServices = ctx.BookingServices.ToList();
+                return ctx.BookingServices.Include(x => x.HostAgency).ToList();
             }
-
-            var bookingAgencies = _bookingAgencyRepo.GetAll();
-            foreach(BookingService bookingService in bookingServices)
-            {
-                bookingService.HostAgency = bookingAgencies.Find(agency => agency.Id == bookingService.BookingAgencyId);
-            }
-
-            return bookingServices;
         }
 
         public List<BookingService> GetAllForBookingAgency(int bookingAgencyId)
         {
-            List<BookingService> bookingServices;
             using (var ctx = new TicketsContext())
             {
-                bookingServices = ctx.BookingServices.Where(p => p.BookingAgencyId == bookingAgencyId).ToList();
+                return ctx.BookingServices.Where(x => x.BookingAgencyId == bookingAgencyId).Include(x => x.HostAgency).ToList();
             }
-
-            var bookingAgency = _bookingAgencyRepo.Get(bookingAgencyId);
-            foreach(BookingService bookingService in bookingServices)
-            {
-                bookingService.HostAgency = bookingAgency;
-            }
-            return bookingServices;
-        }
-
-        private BookingService InjectBookingAgency(BookingService bookingService)
-        {
-            var bookingAgency = _bookingAgencyRepo.Get(bookingService.BookingAgencyId);
-            bookingService.HostAgency = bookingAgency;
-            return bookingService;
         }
     }
 }
