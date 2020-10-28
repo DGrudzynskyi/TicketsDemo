@@ -30,6 +30,13 @@ namespace TicketsDemo.EF.CSVReader
             _carriagesFile = AppDomain.CurrentDomain.BaseDirectory + "Carriages.csv";
             _placeFile = AppDomain.CurrentDomain.BaseDirectory + "Places.csv";
         }
+        private CsvReader Reader(StreamReader streamReader)
+        {
+            CsvReader csvReader = new CsvReader(streamReader, System.Globalization.CultureInfo.CurrentCulture);
+            csvReader.Configuration.Delimiter = ";";
+            csvReader.Configuration.HasHeaderRecord = true;
+            return csvReader;
+        }
         #region ITrainRepository Members
         public List<Train> GetAllTrains()
         {
@@ -38,30 +45,22 @@ namespace TicketsDemo.EF.CSVReader
             List<Place> Places;
             using (StreamReader streamReader = new StreamReader(_trainFile))
             {
-                using (CsvReader csvReader = new CsvReader(streamReader, System.Globalization.CultureInfo.CurrentCulture))
-                {
-                    csvReader.Configuration.Delimiter = ";";
-                    csvReader.Configuration.HasHeaderRecord = true;
-                    csvReader.Configuration.RegisterClassMap<MapTrainAggregate.MapTrain>();
-                    Trains = csvReader.GetRecords<Train>().ToList();
-                }
+                CsvReader csvReader = Reader(streamReader); 
+                csvReader.Configuration.RegisterClassMap<MapTrainAggregate.MapTrain>();
+                Trains = csvReader.GetRecords<Train>().ToList();
             }
             using (StreamReader streamReader = new StreamReader(_carriagesFile))
-                using (CsvReader csvReader = new CsvReader(streamReader, System.Globalization.CultureInfo.CurrentCulture))
-                {
-                    csvReader.Configuration.Delimiter = ";";
-                    csvReader.Configuration.HasHeaderRecord = true;
-                    csvReader.Configuration.RegisterClassMap<MapTrainAggregate.MapCarriage>();
-                    Carriages = csvReader.GetRecords<Carriage>().ToList();
-                }
+            {
+                CsvReader csvReader = Reader(streamReader);
+                csvReader.Configuration.RegisterClassMap<MapTrainAggregate.MapCarriage>();
+                Carriages = csvReader.GetRecords<Carriage>().ToList();
+            }
             using (StreamReader streamReader = new StreamReader(_placeFile))
-                using (CsvReader csvReader = new CsvReader(streamReader, System.Globalization.CultureInfo.CurrentCulture))
-                {
-                    csvReader.Configuration.Delimiter = ";";
-                    csvReader.Configuration.HasHeaderRecord = true;
-                    csvReader.Configuration.RegisterClassMap<MapTrainAggregate.MapPlace>();
-                    Places = csvReader.GetRecords<Place>().ToList();
-                }
+            {
+                CsvReader csvReader = Reader(streamReader);
+                csvReader.Configuration.RegisterClassMap<MapTrainAggregate.MapPlace>();
+                Places = csvReader.GetRecords<Place>().ToList();
+            }
             foreach (Carriage carriage in Carriages)
             {
                 int carriageId = carriage.Id;
@@ -70,7 +69,6 @@ namespace TicketsDemo.EF.CSVReader
                 {
                     if (carriageId == place.CarriageId)
                     {
-                        place.CarriageId = carriageId;
                         place.Carriage = carriage;
                         carriage.Places.Add(place);
                     }
@@ -85,26 +83,17 @@ namespace TicketsDemo.EF.CSVReader
                 {
                     if (trainId == carriage.TrainId)
                     {
-                        carriage.TrainId = trainId;
                         carriage.Train = train;
                         train.Carriages.Add(carriage);
                     }
                 }
             }
-
             return Trains;
         }
         public Data.Entities.Train GetTrainDetails(int id)
         {
             List<Train> trains = GetAllTrains();
-            foreach (Train train in trains)
-            {
-                if (train.Id == id)
-                {
-                    return train;
-                }
-            }
-            return new Train();
+            return trains.FirstOrDefault(t => t.Id == id);            
         }
         public void CreateTrain(Data.Entities.Train train)
         {
@@ -132,7 +121,7 @@ namespace TicketsDemo.EF.CSVReader
             WriteTrains(trains);
         }
         #endregion
-        public void WriteTrains(List<Train> train)
+        private void WriteTrains(List<Train> train)
         {
             using (StreamWriter streamWriter = new StreamWriter(_trainFile))
             using (CsvWriter csvWriter = new CsvWriter(streamWriter, System.Globalization.CultureInfo.CurrentCulture))
