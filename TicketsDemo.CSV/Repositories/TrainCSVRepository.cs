@@ -10,11 +10,16 @@ using System.Threading.Tasks;
 using TicketsDemo.Data.Entities;
 using TicketsDemo.Data.Repositories;
 
-namespace TicketsDemo.CSV.Repositories
+namespace TicketsDemo.CSV
 {
     public class TrainCSVRepository : ITrainRepository
     {
         private ICSVConfiguration _csvConfig;
+
+        public TrainCSVRepository(ICSVConfiguration csvConfig)
+        {
+            _csvConfig = csvConfig;
+        }
 
         public void CreateTrain(Train train)
         {

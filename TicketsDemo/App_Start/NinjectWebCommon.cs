@@ -8,7 +8,7 @@ namespace TicketsDemo.App_Start
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
     using Ninject;
     using Ninject.Web.Common;
-    using TicketsDemo.CSV.Repositories;
+    using TicketsDemo.CSV;
     using TicketsDemo.Data.Repositories;
     using TicketsDemo.Domain.DefaultImplementations;
     using TicketsDemo.Domain.DefaultImplementations.PriceCalculationStrategy;
@@ -74,6 +74,8 @@ namespace TicketsDemo.App_Start
             kernel.Bind<ISchedule>().To<Schedule>();
             kernel.Bind<ITicketService>().To<TicketService>();
             kernel.Bind<IReservationService>().To<ReservationService>();
+
+            kernel.Bind<ICSVConfiguration>().To<CSVConfiguration>();
 
             //todo factory
             kernel.Bind<IPriceCalculationStrategy>().To<DefaultPriceCalculationStrategy>();

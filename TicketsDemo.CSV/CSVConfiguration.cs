@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TicketsDemo.CSV
 {
-    class CSVConfiguration : ICSVConfiguration
+    public class CSVConfiguration : ICSVConfiguration
     {
         public string TrainsFilePath { get { return $@"{AppDomain.CurrentDomain.BaseDirectory}\App_Data\Trains.csv"; } }
 

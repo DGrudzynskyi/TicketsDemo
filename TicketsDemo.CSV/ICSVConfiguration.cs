@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TicketsDemo.CSV
 {
-    interface ICSVConfiguration
+    public interface ICSVConfiguration
     {
         string TrainsFilePath { get; }
         string CarriagesFilePath { get; }
