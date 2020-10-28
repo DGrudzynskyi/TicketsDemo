@@ -77,12 +77,11 @@ namespace TicketsDemo.App_Start
             kernel.Bind<IReservationService>().To<ReservationServiceLoggingDecorator>();
             kernel.Bind<IReservationService>().To<ReservationService>().WhenInjectedExactlyInto<ReservationServiceLoggingDecorator>();
 
-            //todo factory
-            
+            //todo factory            
             kernel.Bind<IPriceCalculationStrategy>().ToMethod<FinalPriceCalculationStrategy>(ctx => {
                 return new FinalPriceCalculationStrategy(new System.Collections.Generic.List<IPriceCalculationStrategy>() {
                     ctx.Kernel.Get<DefaultPriceCalculationStrategy>(),
-                    ctx.Kernel.Get<BookingAgencyPriceCalculationStrategy>(),
+                    new BookingAgencyPriceCalculationStrategy (ctx.Kernel.Get<DefaultPriceCalculationStrategy>(),ctx.Kernel.Get<IAgentRepository>())
                 });
             });
             kernel.Bind<ILogger>().ToMethod(x =>

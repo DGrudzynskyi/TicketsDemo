@@ -11,7 +11,6 @@ namespace TicketsDemo.Data.Repositories
     public interface IAgentRepository
     {
         Agent GetAgent(string agentId);
-        decimal AgentPercent(string agentId);
         List<Agent> GetAgents();
         void CreateAgent(Agent agent);
         void DeleteAgent(string agentId);

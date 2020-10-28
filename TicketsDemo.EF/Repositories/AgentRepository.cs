@@ -34,22 +34,12 @@ namespace TicketsDemo.EF.Repositories
                 return ctx.Agents.ToList();
             }
         }
-        public Agent GetAgent(string agentId)
+        public Agent GetAgent(string agentId ="0")
         {
-            var Ag = new Agent();
-
-            foreach (Agent agent in GetAgents())
-            { if ( agent.Id == agentId)
-                {
-                    Ag = agent;
-                    return Ag;
-                }         
+            using (var ctx = new TicketsContext())
+            {
+                return ctx.Agents.Where(p => p.Id == agentId).FirstOrDefault();
             }
-            return Ag;
-        }
-        public decimal AgentPercent(string agentId)
-        {
-            return (decimal)GetAgent(agentId).Percent ;
         }
     }
 }

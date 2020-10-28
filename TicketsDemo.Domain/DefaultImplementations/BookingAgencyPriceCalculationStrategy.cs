@@ -10,48 +10,30 @@ using TicketsDemo.Domain.Interfaces;
 namespace TicketsDemo.Domain.DefaultImplementations.PriceCalculationStrategy
 {
     public class BookingAgencyPriceCalculationStrategy : IPriceCalculationStrategy
-    {
-        private IRunRepository _runRepository;
-        private ITrainRepository _trainRepository;
+    {     
         private IAgentRepository _agentRepository;
-
-
-        public BookingAgencyPriceCalculationStrategy(IRunRepository runRepository, ITrainRepository trainRepository, IAgentRepository agentRepository)
+        private IPriceCalculationStrategy _priceCalculationStrategy;
+        public BookingAgencyPriceCalculationStrategy(IPriceCalculationStrategy priceCalculationStrategy , IAgentRepository agentRepository)
         {
-            _runRepository = runRepository;
-            _trainRepository = trainRepository;
             _agentRepository = agentRepository;
+            _priceCalculationStrategy = priceCalculationStrategy;
         }
-
         public List<PriceComponent> CalculatePrice(PriceCalculationParameters parameters)
         {
             var components = new List<PriceComponent>();
-            
-            var run = _runRepository.GetRunDetails(parameters.placeInRun.RunId);
-            var train = _trainRepository.GetTrainDetails(run.TrainId);
-            var agentPercent = _agentRepository.AgentPercent(parameters.agentId);
-
-            var place =
-                train.Carriages
-                    .Select(car => car.Places.SingleOrDefault(pl =>
-                        pl.Number == parameters.placeInRun.Number &&
-                        car.Number == parameters.placeInRun.CarriageNumber))
-                    .SingleOrDefault(x => x != null);
-
-            var placeComponent = new PriceComponent() { Name = "Main price" };
-            placeComponent.Value = place.Carriage.DefaultPrice * place.PriceMultiplier;
-            
-
-            if (agentPercent > 0)
+            Agent agent = _agentRepository.GetAgent(parameters.agentId);
+            if (agent != null)
             {
+                var priceComponents = _priceCalculationStrategy.CalculatePrice(parameters);
+                var agentPercent = (decimal) agent.Percent;
+                PriceComponent mainComponent = priceComponents.Find(p => p.Name == "Main price");
                 var bookingCompanyComponent = new PriceComponent()
                 {
                     Name = "Booking agent services",
-                    Value = placeComponent.Value * agentPercent
+                    Value =mainComponent.Value* agentPercent
                 };
                 components.Add(bookingCompanyComponent);
-            }
-
+            }            
             return components;
         }
     }
