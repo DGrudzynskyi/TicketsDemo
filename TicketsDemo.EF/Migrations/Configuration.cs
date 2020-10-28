@@ -44,7 +44,7 @@ namespace TicketsDemo.EF.Migrations
                   StartLocation = "Kiev",
                   EndLocation = "Chop",
 
-                  EndLocation = "Odessa",
+                  
 
                   Carriages = new List<Carriage>() { 
                       new Carriage() { 
