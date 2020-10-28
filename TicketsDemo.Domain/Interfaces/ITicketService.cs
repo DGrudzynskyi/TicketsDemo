@@ -11,5 +11,6 @@ namespace TicketsDemo.Domain.Interfaces
     {
         Ticket CreateTicket(int reservationId,string firstName, string lastName);
         void SellTicket(Ticket ticket);
+
     }
 }

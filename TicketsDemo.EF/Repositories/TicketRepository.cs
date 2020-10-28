@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
+using System.Data.Entity;
 using TicketsDemo.Data.Entities;
 using TicketsDemo.Data.Repositories;
 
@@ -39,6 +41,9 @@ namespace TicketsDemo.EF.Repositories
             {
                 return ctx.Tickets
                     .Include("PriceComponents").Where(r => r.Id == id).Single();
+
+                    .Include(t => t.PriceComponents).Where(r => r.Id == id).Single();
+
             }
         }
     }

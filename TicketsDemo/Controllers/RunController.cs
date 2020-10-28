@@ -76,6 +76,8 @@ namespace TicketsDemo.Controllers
         {
             var ticket = _tickRepo.Get(id);
             var reservation = _reservationRepo.Get(ticket.Id);
+
+            var reservation = _reservationRepo.Get(ticket.ReservationId);
             var placeInRun = _runRepo.GetPlaceInRun(reservation.PlaceInRunId);
 
             var ticketWM = new TicketViewModel();

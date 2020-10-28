@@ -2,6 +2,9 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.168
+
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29102.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketsDemo", "TicketsDemo\TicketsDemo.csproj", "{0051472D-73AA-4357-AA0F-766F9167044E}"
 EndProject
@@ -11,8 +14,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketsDemo.Domain", "Ticke
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketsDemo.EF", "TicketsDemo.EF\TicketsDemo.EF.csproj", "{E9437256-3145-47BF-81A3-C69FD4DE95F4}"
 EndProject
+ 
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketsDemo.XML", "TicketsDemo.XML\TicketsDemo.XML.csproj", "{C3F601B1-482D-44D6-A258-28415D729499}"
 EndProject
+
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +44,7 @@ Global
 		{C3F601B1-482D-44D6-A258-28415D729499}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C3F601B1-482D-44D6-A258-28415D729499}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C3F601B1-482D-44D6-A258-28415D729499}.Release|Any CPU.Build.0 = Release|Any CPU
+
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
