@@ -8,6 +8,7 @@ using TicketsDemo.Data.Repositories;
 using System.IO;
 using CsvHelper;
 using System.Globalization;
+using System.Data.Entity.Infrastructure;
 
 namespace TicketsDemo.EF.CSVReader
 {
@@ -16,14 +17,6 @@ namespace TicketsDemo.EF.CSVReader
         private string _trainFile;
         private string _carriagesFile;
         private string _placeFile;
-        //public TrainRepositoryCSV(string trainFile = @"D:\1\3 курс\Proga\TicketsDemo\TicketsDemo\Trains.csv",
-        //                          string carriagesFile= @"D:\1\3 курс\Proga\TicketsDemo\TicketsDemo\Carriages.csv",
-        //                          string placeFile = @"D:\1\3 курс\Proga\TicketsDemo\TicketsDemo\Places.csv") 
-        //{
-        //    _trainFile = trainFile;
-        //    _carriagesFile = carriagesFile;
-        //    _placeFile = placeFile;
-        //}
         public TrainRepositoryCSV()
         {
             _trainFile = AppDomain.CurrentDomain.BaseDirectory + "Trains.csv";
@@ -32,8 +25,10 @@ namespace TicketsDemo.EF.CSVReader
         }
         private CsvReader CreateReader(StreamReader streamReader)
         {
-            using( CsvReader csvReader = new CsvReader(streamReader, System.Globalization.CultureInfo.CurrentCulture))
-            { 
+            CsvReader csvReader= null;
+            try
+            {
+                csvReader = new CsvReader(streamReader, System.Globalization.CultureInfo.CurrentCulture);
                 csvReader.Configuration.Delimiter = ";";
                 csvReader.Configuration.HasHeaderRecord = true;
                 csvReader.Configuration.RegisterClassMap<MapTrainAggregate.MapTrain>();
@@ -41,7 +36,14 @@ namespace TicketsDemo.EF.CSVReader
                 csvReader.Configuration.RegisterClassMap<MapTrainAggregate.MapPlace>();
                 return csvReader;
             }
-            
+            catch (Exception e)
+            {
+                if (csvReader != null)
+                {
+                    csvReader.Dispose();
+                }
+                throw e;
+            }
         }
         #region ITrainRepository Members
         public List<Train> GetAllTrains()
@@ -51,13 +53,13 @@ namespace TicketsDemo.EF.CSVReader
             List<Place> Places;
             using (StreamReader streamReader = new StreamReader(_trainFile))
             {
-                CsvReader csvReader = CreateReader(streamReader); 
+                CsvReader csvReader = CreateReader(streamReader);
                 Trains = csvReader.GetRecords<Train>().ToList();
             }
             using (StreamReader streamReader = new StreamReader(_carriagesFile))
             {
-                CsvReader csvReader = CreateReader(streamReader);                
-                Carriages = csvReader.GetRecords<Carriage>().ToList();
+                using (CsvReader csvReader = CreateReader(streamReader))
+                    Carriages = csvReader.GetRecords<Carriage>().ToList();
             }
             using (StreamReader streamReader = new StreamReader(_placeFile))
             {
@@ -109,10 +111,9 @@ namespace TicketsDemo.EF.CSVReader
         {
             List<Train> trains = GetAllTrains();
             Train removeTrain = trains.Single(x => x.Id == train.Id);
-            TrainRepositoryCSV trainRep = new TrainRepositoryCSV();
             trains.Remove(removeTrain);
             trains.Add(train);
-            trainRep.WriteTrains(trains);
+            WriteTrains(trains);
         }
 
         public void DeleteTrain(Data.Entities.Train train)
