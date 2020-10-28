@@ -76,7 +76,7 @@ namespace TicketsDemo.EF.Migrations
                   StartLocation = "Kiev",
                   EndLocation = "Mariupol",
 
-                  EndLocation = "Vinnitsa",
+                 
                   Carriages = new List<Carriage>() { 
                       new Carriage() { 
                           Places = placeGenerator(),
