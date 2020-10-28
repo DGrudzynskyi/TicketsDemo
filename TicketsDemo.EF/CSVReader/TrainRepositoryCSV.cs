@@ -30,12 +30,18 @@ namespace TicketsDemo.EF.CSVReader
             _carriagesFile = AppDomain.CurrentDomain.BaseDirectory + "Carriages.csv";
             _placeFile = AppDomain.CurrentDomain.BaseDirectory + "Places.csv";
         }
-        private CsvReader Reader(StreamReader streamReader)
+        private CsvReader CreateReader(StreamReader streamReader)
         {
-            CsvReader csvReader = new CsvReader(streamReader, System.Globalization.CultureInfo.CurrentCulture);
-            csvReader.Configuration.Delimiter = ";";
-            csvReader.Configuration.HasHeaderRecord = true;
-            return csvReader;
+            using( CsvReader csvReader = new CsvReader(streamReader, System.Globalization.CultureInfo.CurrentCulture))
+            { 
+                csvReader.Configuration.Delimiter = ";";
+                csvReader.Configuration.HasHeaderRecord = true;
+                csvReader.Configuration.RegisterClassMap<MapTrainAggregate.MapTrain>();
+                csvReader.Configuration.RegisterClassMap<MapTrainAggregate.MapCarriage>();
+                csvReader.Configuration.RegisterClassMap<MapTrainAggregate.MapPlace>();
+                return csvReader;
+            }
+            
         }
         #region ITrainRepository Members
         public List<Train> GetAllTrains()
@@ -45,20 +51,17 @@ namespace TicketsDemo.EF.CSVReader
             List<Place> Places;
             using (StreamReader streamReader = new StreamReader(_trainFile))
             {
-                CsvReader csvReader = Reader(streamReader); 
-                csvReader.Configuration.RegisterClassMap<MapTrainAggregate.MapTrain>();
+                CsvReader csvReader = CreateReader(streamReader); 
                 Trains = csvReader.GetRecords<Train>().ToList();
             }
             using (StreamReader streamReader = new StreamReader(_carriagesFile))
             {
-                CsvReader csvReader = Reader(streamReader);
-                csvReader.Configuration.RegisterClassMap<MapTrainAggregate.MapCarriage>();
+                CsvReader csvReader = CreateReader(streamReader);                
                 Carriages = csvReader.GetRecords<Carriage>().ToList();
             }
             using (StreamReader streamReader = new StreamReader(_placeFile))
             {
-                CsvReader csvReader = Reader(streamReader);
-                csvReader.Configuration.RegisterClassMap<MapTrainAggregate.MapPlace>();
+                CsvReader csvReader = CreateReader(streamReader);                
                 Places = csvReader.GetRecords<Place>().ToList();
             }
             foreach (Carriage carriage in Carriages)
