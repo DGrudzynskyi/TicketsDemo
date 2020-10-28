@@ -13,7 +13,9 @@ namespace TicketsDemo.Domain.DefaultImplementations
     {
         public string _logLocation;
         public ReservationLogger() 
-        {_logLocation = AppDomain.CurrentDomain.BaseDirectory + "log.txt"; }
+        {
+            _logLocation = AppDomain.CurrentDomain.BaseDirectory + "log.txt";
+        }
         public void Log (string messege, LogSeverity severity)
         {
             using (StreamWriter streamWriter = File.AppendText(_logLocation))

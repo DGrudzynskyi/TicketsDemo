@@ -66,6 +66,7 @@ namespace TicketsDemo.App_Start
         private static void RegisterServices(IKernel kernel)
         {
             kernel.Bind<ITicketRepository>().To<TicketRepository>();
+
             //kernel.Bind<ITrainRepository>().To<TrainRepository>();
             kernel.Bind<ITrainRepository>().To<TrainRepositoryCSV>();
 
