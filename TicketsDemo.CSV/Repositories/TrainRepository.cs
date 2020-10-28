@@ -8,14 +8,15 @@ using System.Globalization;
 using CsvHelper.Configuration;
 using System.IO;
 using System.Linq;
+using TicketsDemo.CSV;
 
 namespace TicketsDemo.CSV.Repositories
 {
     public class TrainRepository : ITrainRepository
     {
-        private string TrainPath = $@"{AppDomain.CurrentDomain.BaseDirectory}\App_Data\Trains.csv";
-        private string CarriagePath = $@"{AppDomain.CurrentDomain.BaseDirectory}\App_Data\Carriage.csv";
-        private string PlacePath = $@"{AppDomain.CurrentDomain.BaseDirectory}\App_Data\Place.csv";
+
+        private CSVSettingsService csv_set = new CSVSettingsService();
+
 
         public void CreateTrain(Train train)
         {
@@ -39,7 +40,7 @@ namespace TicketsDemo.CSV.Repositories
             List<Carriage> carriages;
             List<Place> places;
 
-            using (var reader = new StreamReader(TrainPath))
+            using (var reader = new StreamReader(csv_set.TrainCSVPath))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
             {
                 csv.Configuration.Delimiter = ";";
@@ -48,7 +49,7 @@ namespace TicketsDemo.CSV.Repositories
                 trains = csv.GetRecords<Train>().ToList();
             }
 
-            using (var reader = new StreamReader(CarriagePath))
+            using (var reader = new StreamReader(csv_set.CarriageCSVPath))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
             {
                 csv.Configuration.Delimiter = ";";
@@ -57,7 +58,7 @@ namespace TicketsDemo.CSV.Repositories
                 carriages = csv.GetRecords<Carriage>().ToList();
             }
 
-            using (var reader = new StreamReader(PlacePath))
+            using (var reader = new StreamReader(csv_set.PlaceCSVPath))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
             {
                 csv.Configuration.Delimiter = ";";
@@ -123,7 +124,7 @@ namespace TicketsDemo.CSV.Repositories
         private void WriteTrains(List<Train> trains)
         {
 
-            using (var writer = new StreamWriter(TrainPath))
+            using (var writer = new StreamWriter(csv_set.TrainCSVPath))
             using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
             {
 
@@ -136,49 +137,46 @@ namespace TicketsDemo.CSV.Repositories
         }
 
 
-    }
-
-
-
-
-
-
-    public class TrainMap : ClassMap<Train>
-    {
-        public TrainMap()
+        public class TrainMap : ClassMap<Train>
         {
-            Map(m => m.Id).Name("Id");
-            Map(m => m.Number).Name("Number");
-            Map(m => m.StartLocation).Name("StartLocation");
-            Map(m => m.EndLocation).Name("EndLocation");
+            public TrainMap()
+            {
+                Map(m => m.Id).Name("Id");
+                Map(m => m.Number).Name("Number");
+                Map(m => m.StartLocation).Name("StartLocation");
+                Map(m => m.EndLocation).Name("EndLocation");
 
+            }
         }
-    }
 
 
-    public class CarriageMap : ClassMap<Carriage>
-    {
-        public CarriageMap()
+        public class CarriageMap : ClassMap<Carriage>
         {
-            Map(m => m.Id).Name("Id");
-            Map(m => m.Type).Name("Type");
-            Map(m => m.TrainId).Name("TrainId");
-            Map(m => m.DefaultPrice).Name("DefaultPrice");
-            Map(m => m.Number).Name("Number");
+            public CarriageMap()
+            {
+                Map(m => m.Id).Name("Id");
+                Map(m => m.Type).Name("Type");
+                Map(m => m.TrainId).Name("TrainId");
+                Map(m => m.DefaultPrice).Name("DefaultPrice");
+                Map(m => m.Number).Name("Number");
+            }
         }
-    }
 
-    public class PlaceMap : ClassMap<Place>
-    {
-        public PlaceMap()
+        public class PlaceMap : ClassMap<Place>
         {
-            Map(m => m.Id).Name("Id");
-            Map(m => m.Number).Name("Number");
-            Map(m => m.PriceMultiplier).Name("PriceMultiplier");
-            Map(m => m.CarriageId).Name("CarriageId");
+            public PlaceMap()
+            {
+                Map(m => m.Id).Name("Id");
+                Map(m => m.Number).Name("Number");
+                Map(m => m.PriceMultiplier).Name("PriceMultiplier");
+                Map(m => m.CarriageId).Name("CarriageId");
 
+            }
         }
+
+
     }
+
 
 }
 
