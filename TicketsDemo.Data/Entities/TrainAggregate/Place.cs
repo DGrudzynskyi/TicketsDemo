@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace TicketsDemo.Data.Entities
 {
+
     [Serializable]
+
     public class Place
     {
         public int Id { get; set; }

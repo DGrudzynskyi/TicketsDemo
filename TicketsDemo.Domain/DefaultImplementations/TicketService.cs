@@ -47,6 +47,7 @@ namespace TicketsDemo.Domain.DefaultImplementations
 
             newTicket.PriceComponents = _priceStr.CalculatePrice(placeInRun);
 
+
             _tickRepo.Create(newTicket);
             return newTicket;
         }
@@ -61,5 +62,13 @@ namespace TicketsDemo.Domain.DefaultImplementations
             ticket.Status = TicketStatusEnum.Sold;
             _tickRepo.Update(ticket);
         }
+
+            res.TicketId = newTicket.Id;
+            _resRepo.Update(res);
+
+            _tickRepo.Create(newTicket);
+            return newTicket;
+        }
+
     }
 }

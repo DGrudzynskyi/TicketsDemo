@@ -188,6 +188,7 @@
       <Project>{c3f601b1-482d-44d6-a258-28415d729499}</Project>
       <Name>TicketsDemo.XML</Name>
     </ProjectReference>
+
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

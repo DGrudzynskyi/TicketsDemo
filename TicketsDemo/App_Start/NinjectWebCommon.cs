@@ -6,6 +6,7 @@ namespace TicketsDemo.App_Start
     using System;
     using System.Web;
     using System.Collections.Generic;
+
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
     using Ninject;
     using Ninject.Web.Common;
@@ -15,6 +16,7 @@ namespace TicketsDemo.App_Start
     using TicketsDemo.Domain.Interfaces;
     using TicketsDemo.EF.Repositories;
     using TicketsDemo.XML;
+
 
     public static class NinjectWebCommon 
     {
@@ -60,6 +62,8 @@ namespace TicketsDemo.App_Start
             }
         }
 
+
+
         /// <summary>
         /// Load your modules or register your services here!
         /// </summary>
@@ -69,6 +73,9 @@ namespace TicketsDemo.App_Start
             kernel.Bind<ITicketRepository>().To<TicketRepository>();
             kernel.Bind<ITrainRepository>().To<XmlTrainRepository>();
             kernel.Bind<IHolidayRepository>().To<HolidayRepository>();
+
+            kernel.Bind<ITrainRepository>().To<TrainRepository>();
+
 
             kernel.Bind<IRunRepository>().To<RunRepository>();
             kernel.Bind<IReservationRepository>().To<ReservationRepository>();
@@ -98,6 +105,11 @@ namespace TicketsDemo.App_Start
 
                 return new FileLogger(HttpContext.Current.Server.MapPath("~/App_Data"));
             });
+
+            //todo factory
+            kernel.Bind<IPriceCalculationStrategy>().To<DefaultPriceCalculationStrategy>();
+            kernel.Bind<ILogger>().ToMethod(x =>
+                new FileLogger(HttpContext.Current.Server.MapPath("~/App_Data")));
         }        
     }
 }
