@@ -1,9 +1,0 @@
-Info: [18.10.2020 12:52:50] Ticket purchase was successful: firstName:Rodion, lastName:Hladchenko, reservationId:5
-Info: [24.10.2020 15:54:27] Ticket purchase was successful: firstName:Rodion, lastName:Hladchenko, reservationId:11
-Info: [24.10.2020 15:58:12] Ticket purchase was successful: firstName:Sasha, lastName:GdeDengi, reservationId:12
-Info: [26.10.2020 21:47:20] Ticket purchase was successful: firstName:Rodion, lastName:=D, reservationId:2, agencyCodeSENDNUDES:
-Info: [26.10.2020 21:24:39] Ticket purchase was successful: firstName:Sasha, lastName:GdeDengi, reservationId:3, agencyCodeSENDNUDES:
-Info: [28.10.2020 01:17:29] Ticket purchase was successful: firstName:Rodion, lastName:Testim, reservationId:23, agencyCode:SENDNUDES
-Info: [28.10.2020 01:22:09] Ticket purchase was successful: firstName:+), lastName:3, reservationId:24, agencyCode:
-Info: [28.10.2020 01:24:52] Ticket purchase was successful: firstName:Rodion, lastName:=D, reservationId:25, agencyCode:SENDNUDES
-Info: [28.10.2020 01:30:59] Ticket purchase was successful: firstName:=), lastName:=D, reservationId:26, agencyCode:SENDNUDES
