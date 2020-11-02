@@ -41,7 +41,9 @@
   <ItemGroup>
     <Compile Include="DefaultImplementations\FileLogger.cs" />
     <Compile Include="DefaultImplementations\DefaultPriceCalculationStrategy.cs" />
+    <Compile Include="DefaultImplementations\ReservationLogger.cs" />
     <Compile Include="DefaultImplementations\ReservationService.cs" />
+    <Compile Include="DefaultImplementations\ReservationServiceLoggingDecorator.cs" />
     <Compile Include="DefaultImplementations\Schedule.cs" />
     <Compile Include="DefaultImplementations\TicketService.cs" />
     <Compile Include="Interfaces\IReservationService.cs" />
