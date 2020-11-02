@@ -43,6 +43,7 @@
     <Compile Include="DefaultImplementations\DefaultPriceCalculationStrategy.cs" />
     <Compile Include="DefaultImplementations\ReservationService.cs" />
     <Compile Include="DefaultImplementations\Schedule.cs" />
+    <Compile Include="DefaultImplementations\TeaCoffeeBedPriceCalcStrategy.cs" />
     <Compile Include="DefaultImplementations\TicketService.cs" />
     <Compile Include="Interfaces\IReservationService.cs" />
     <Compile Include="Interfaces\ILogger.cs" />

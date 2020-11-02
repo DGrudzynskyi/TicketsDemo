@@ -11,13 +11,15 @@
 
 <h4>Price:</h4>
 
-@foreach (var pc in Model.PriceComponents) { 
-    <span>@pc.Name:@pc.Value$</span><br />
+@foreach (var pc in Model.PriceComponents)
+{
+    <span>@pc.Name:@pc.Value$</span>
+    <br />
 }
 
-@using (Html.BeginForm("CreateTicket","Run"))
-{ 
-    <input type="hidden" value="@Model.Reservation.Id" name="ReservationId" id="ReserevationId"/>
+@using (Html.BeginForm("CreateTicket", "Run"))
+{
+    <input type="hidden" value="@Model.Reservation.Id" name="ReservationId" id="ReserevationId" />
     <table>
         <tr>
             <td>First Name</td>
@@ -27,8 +29,24 @@
             <td>Last Name</td>
             <td><input type="text" name="LastName" id="LastName" /></td>
         </tr>
+        @if (@Model.Train.Carriages[Model.PlaceInRun.CarriageNumber].Type.ToString() != "Sedentary")
+        {
+            <tr>
+                <td>Is Bed</td>
+                <td><input type="checkbox" name="IsBed" id="IsBed" value="true" checked /></td>
+            </tr>
+        }
+        <tr>
+            <td>Is Tea</td>
+            <td><input type="checkbox" name="IsTea" id="IsTea" value="true" /></td>
+            <!-- <td>Html.CheckBoxFor(Model=>Model.PriceComponents.IsTea)</td>-->
+        </tr>
+        <tr>
+            <td>Is Coffee</td>
+            <td><input type="checkbox" name="IsCoffee" id="IsCoffee" value="true" /></td>
+        </tr>
     </table>
-    <input type="submit" value="submit"/>
+    <input type="submit" value="submit" />
 }
 
 <!--public string FirstName { get; set; }

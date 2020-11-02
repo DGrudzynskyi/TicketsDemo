@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using TicketsDemo.Data.OptionsForCalculationPrice;
 using TicketsDemo.Data.Repositories;
 using TicketsDemo.Domain.Interfaces;
 using TicketsDemo.Models;
@@ -19,12 +20,13 @@ namespace TicketsDemo.Controllers
         private IPriceCalculationStrategy _priceCalc;
         private ITrainRepository _trainRepo;
 
-        public RunController(ITicketRepository tick, IRunRepository run, 
+        public RunController(ITicketRepository tick, IRunRepository run,
             IReservationService resServ,
             ITicketService tickServ,
             IPriceCalculationStrategy priceCalcStrategy,
             IReservationRepository reservationRepo,
-            ITrainRepository trainRepo) {
+            ITrainRepository trainRepo)
+        {
             _tickRepo = tick;
             _runRepo = run;
             _resServ = resServ;
@@ -34,10 +36,12 @@ namespace TicketsDemo.Controllers
             _trainRepo = trainRepo;
         }
 
-        public ActionResult Index(int id) {
+        public ActionResult Index(int id)
+        {
             var run = _runRepo.GetRunDetails(id);
             var train = _trainRepo.GetTrainDetails(run.TrainId);
-            var model = new RunViewModel() {
+            var model = new RunViewModel()
+            {
                 RunDate = run.Date,
                 Carriages = train.Carriages.ToDictionary(x => x.Number),
                 PlacesByCarriage = run.Places.GroupBy(x => x.CarriageNumber).ToDictionary(x => x.Key, x => x.ToList()),
@@ -48,7 +52,8 @@ namespace TicketsDemo.Controllers
             return View(model);
         }
 
-        public ActionResult ReservePlace(int placeId) {
+        public ActionResult ReservePlace(int placeId)
+        {
             var place = _runRepo.GetPlaceInRun(placeId);
 
             var reservation = _resServ.Reserve(place);
@@ -57,7 +62,7 @@ namespace TicketsDemo.Controllers
             {
                 Reservation = reservation,
                 PlaceInRun = place,
-                PriceComponents = _priceCalc.CalculatePrice(place),
+                PriceComponents = _priceCalc.CalculatePrice(new TeaCoffeeBedParametrs { placeInRun = place }),
                 Date = place.Run.Date,
                 Train = _trainRepo.GetTrainDetails(place.Run.TrainId),
             };
@@ -65,10 +70,12 @@ namespace TicketsDemo.Controllers
             return View(model);
         }
 
+        // you can add your shit HERE
+        //model.IsBed, model.IsTea, model.IsCoffee
         [HttpPost]
         public ActionResult CreateTicket(CreateTicketModel model)
         {
-            var tick = _tickServ.CreateTicket(model.ReservationId,model.FirstName,model.LastName);
+            var tick = _tickServ.CreateTicket(model.ReservationId, model.FirstName, model.LastName, model.IsBed, model.IsTea, model.IsCoffee);
             return RedirectToAction("Ticket", new { id = tick.Id });
         }
 
