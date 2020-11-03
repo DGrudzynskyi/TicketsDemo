@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,7 +13,7 @@ namespace TicketsDemo.CSV
         {
             get
             {
-                return $@"{AppDomain.CurrentDomain.BaseDirectory}\App_Data\Trains.csv";
+                return AppDomain.CurrentDomain.BaseDirectory + ConfigurationManager.AppSettings["TrainCSVPath"];
             }
         }
 
@@ -20,7 +21,7 @@ namespace TicketsDemo.CSV
         {
             get
             {
-                return $@"{AppDomain.CurrentDomain.BaseDirectory}\App_Data\Carriage.csv";
+                return AppDomain.CurrentDomain.BaseDirectory + ConfigurationManager.AppSettings["CarriageCSVPath"];
             }
         }
 
@@ -28,7 +29,7 @@ namespace TicketsDemo.CSV
         {
             get
             {
-                return $@"{AppDomain.CurrentDomain.BaseDirectory}\App_Data\Place.csv";
+                return AppDomain.CurrentDomain.BaseDirectory + ConfigurationManager.AppSettings["PlaceCSVPath"];
             }
         }
 
