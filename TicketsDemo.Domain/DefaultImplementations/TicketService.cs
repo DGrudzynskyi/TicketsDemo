@@ -26,7 +26,7 @@ namespace TicketsDemo.Domain.DefaultImplementations
             _runRepository = runRepository;
         }
 
-        public Ticket CreateTicket(int reservationId, string fName, string lName, bool drink, bool bed)
+        public Ticket CreateTicket(int reservationId, string fName, string lName, bool drink = false, bool bed = false)
         {
             var res = _resRepo.Get(reservationId);
 
@@ -47,36 +47,6 @@ namespace TicketsDemo.Domain.DefaultImplementations
             };
 
             newTicket.PriceComponents = _priceStr.CalculatePrice(new TicketPriceParametersDTO { PlaceInRun = placeInRun, Drink = drink, Bed = bed, Ticket = newTicket} );
-
-            res.TicketId = newTicket.Id;
-            _resRepo.Update(res);
-
-            _tickRepo.Create(newTicket);
-            return newTicket;
-        }
-
-        public Ticket CreateTicket(int reservationId, string firstName, string lastName)
-        {
-            var res = _resRepo.Get(reservationId);
-
-            if (res.TicketId != null)
-            {
-                throw new InvalidOperationException("ticket has been already issued to this reservation, unable to create another one");
-            }
-
-            var placeInRun = _runRepository.GetPlaceInRun(res.PlaceInRunId);
-
-            var newTicket = new Ticket()
-            {
-                ReservationId = res.Id,
-                CreatedDate = DateTime.Now,
-                FirstName = firstName,
-                LastName = lastName,
-                Status = TicketStatusEnum.Active,
-                PriceComponents = new List<PriceComponent>()
-            };
-
-            newTicket.PriceComponents = _priceStr.CalculatePrice(new TicketPriceParametersDTO { PlaceInRun = placeInRun, Ticket = newTicket });
 
             res.TicketId = newTicket.Id;
             _resRepo.Update(res);

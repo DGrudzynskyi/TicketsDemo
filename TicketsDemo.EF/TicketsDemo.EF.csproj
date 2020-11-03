@@ -86,7 +86,6 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\CarriageRepository.cs" />
     <Compile Include="Repositories\CSVTrainRepository.cs" />
     <Compile Include="Repositories\ReservationRepository.cs" />
     <Compile Include="Repositories\RunRepository.cs" />

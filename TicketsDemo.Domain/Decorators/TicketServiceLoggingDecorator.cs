@@ -21,7 +21,7 @@ namespace TicketsDemo.Domain.Decorators
             _logger = logger;
             _ticketService = ticketService;
         }
-        public Ticket CreateTicket(int reservationId, string firstName, string lastName, bool drink, bool bed)
+        public Ticket CreateTicket(int reservationId, string firstName, string lastName, bool drink = false, bool bed= false)
         {
             try
             {
@@ -34,7 +34,7 @@ namespace TicketsDemo.Domain.Decorators
             {
                 string log  = $"Ticket wasn't sold for {1} {2} (reservationId:{3})\n";
                 log += $"ERROR - {ex.Message}";
-                _logger.Log(log, LogSeverity.Info);
+                _logger.Log(log, LogSeverity.Fatal);
                 throw new Exception(ex.Message);
             }
         }

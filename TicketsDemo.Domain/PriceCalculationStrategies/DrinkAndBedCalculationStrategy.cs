@@ -14,13 +14,11 @@ namespace TicketsDemo.Domain.PriceCalculationStrategies
     {
         private IRunRepository _runRepository;
         private ITrainRepository _trainRepository;
-        private ICarriageRepository _carriageRepository;
 
-        public DrinkAndBedCalculationStrategy(IRunRepository runRepository, ITrainRepository trainRepository, ICarriageRepository carriageRepository)
+        public DrinkAndBedCalculationStrategy(IRunRepository runRepository, ITrainRepository trainRepository)
         {
             _runRepository = runRepository;
             _trainRepository = trainRepository;
-            _carriageRepository = carriageRepository;
         }
 
         public List<PriceComponent> CalculatePrice(TicketPriceParametersDTO priceParametersDTO)
@@ -29,30 +27,7 @@ namespace TicketsDemo.Domain.PriceCalculationStrategies
 
             var run = _runRepository.GetRunDetails(priceParametersDTO.PlaceInRun.RunId);
             var train = _trainRepository.GetTrainDetails(run.TrainId);
-            var place =
-                train.Carriages
-                    .Select(car => car.Places.SingleOrDefault(pl =>
-                        pl.Number == priceParametersDTO.PlaceInRun.Number &&
-                        car.Number == priceParametersDTO.PlaceInRun.CarriageNumber))
-                    .SingleOrDefault(x => x != null);
-
-            var placeComponent = new PriceComponent() { Name = "Main price" };
-            placeComponent.Value = place.Carriage.DefaultPrice * place.PriceMultiplier;
-            components.Add(placeComponent);
-
-
-            if (placeComponent.Value > 30)
-            {
-                var cashDeskComponent = new PriceComponent()
-                {
-                    Name = "Cash desk service tax",
-                    Value = placeComponent.Value * 0.2m
-                };
-                components.Add(cashDeskComponent);
-            }
-
-
-            CarriageType carriagetype = _carriageRepository.GetCarriage(priceParametersDTO.PlaceInRun.CarriageNumber).Type;
+            var carriagetype = train.Carriages.FirstOrDefault(x => x.Number == priceParametersDTO.PlaceInRun.CarriageNumber).Type;
 
             if (priceParametersDTO.Drink == true)
             {

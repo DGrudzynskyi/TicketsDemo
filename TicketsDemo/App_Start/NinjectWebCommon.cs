@@ -77,10 +77,15 @@ namespace TicketsDemo.App_Start
             kernel.Bind<ISchedule>().To<Schedule>();
             kernel.Bind<ITicketService>().To<TicketServiceLoggingDecorator>();
             kernel.Bind<ITicketService>().To<TicketService>().WhenInjectedExactlyInto<TicketServiceLoggingDecorator>();
-            kernel.Bind<ICarriageRepository>().To<CarriageRepository>();
             kernel.Bind<IReservationService>().To<ReservationService>();
             //todo factory
-            kernel.Bind<IPriceCalculationStrategy>().To<DrinkAndBedCalculationStrategy>();
+            kernel.Bind<IPriceCalculationStrategy>().ToMethod(context =>
+            {
+                return new FinalPriceCalculationStrategy(new System.Collections.Generic.List<IPriceCalculationStrategy>() {
+                    context.Kernel.Get<DefaultPriceCalculationStrategy>(),
+                    context.Kernel.Get<DrinkAndBedCalculationStrategy>()
+                });
+            });
             kernel.Bind<ILogger>().ToMethod(x =>
                 new FileLogger(HttpContext.Current.Server.MapPath("~/App_Data/")));
         }        

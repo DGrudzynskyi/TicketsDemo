@@ -35,67 +35,67 @@ namespace TicketsDemo.Domain.DefaultImplementations
             }
         }
 
-        public string Id
+        public string CSVRecordIdFieldId
         {
             get
             {
-                return ConfigurationManager.AppSettings["Id"];
+                return ConfigurationManager.AppSettings["CSVRecordIdFieldId"];
             }
         }
-        public string Number
+        public string CSVRecordIdFieldNumber
         {
             get
             {
-                return ConfigurationManager.AppSettings["Number"];
+                return ConfigurationManager.AppSettings["CSVRecordIdFieldNumber"];
             }
         }
-        public string StartLocation
+        public string CSVRecordIdFieldStartLocation
         {
             get
             {
-                return  ConfigurationManager.AppSettings["StartLocation"];
+                return  ConfigurationManager.AppSettings["CSVRecordIdFieldStartLocation"];
             }
         }
-        public string EndLocation
+        public string CSVRecordIdFieldEndLocation
         {
             get
             {
-                return  ConfigurationManager.AppSettings["EndLocation"];
+                return  ConfigurationManager.AppSettings["CSVRecordIdFieldEndLocation"];
             }
         }
-        public string TrainId
+        public string CSVRecordIdFieldTrainId
         {
             get
             {
-                return  ConfigurationManager.AppSettings["TrainId"];
+                return  ConfigurationManager.AppSettings["CSVRecordIdFieldTrainId"];
             }
         }
-        public string Type
+        public string CSVRecordIdFieldType
         {
             get
             {
-                return ConfigurationManager.AppSettings["Type"];
+                return ConfigurationManager.AppSettings["CSVRecordIdFieldType"];
             }
         }
-        public string DefaultPrice
+        public string CSVRecordIdFieldDefaultPrice
         {
             get
             {
-                return ConfigurationManager.AppSettings["DefaultPrice"];
+                return ConfigurationManager.AppSettings["CSVRecordIdFieldDefaultPrice"];
             }
         }
-        public string PriceMultiplier
+        public string CSVRecordIdFieldPriceMultiplier
         {
             get
             {
-                return ConfigurationManager.AppSettings["PriceMultiplier"];
+                return ConfigurationManager.AppSettings["CSVRecordIdFieldPriceMultiplier"];
             }
         }
-        public string CarriageId
+        public string CSVRecordIdFieldCarriageId
         {
             get
             {
-                return ConfigurationManager.AppSettings["CarriageId"];
+                return ConfigurationManager.AppSettings["CSVRecordIdFieldCarriageId"];
             }
         }
     }

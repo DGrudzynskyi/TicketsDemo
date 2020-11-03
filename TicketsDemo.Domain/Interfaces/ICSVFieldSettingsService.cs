@@ -8,14 +8,14 @@ namespace TicketsDemo.Domain.Interfaces
 {
    public interface ICSVFieldSettingsService
     {
-        string Id { get; }
-        string Number { get; }
-        string StartLocation { get; }
-        string EndLocation { get; }
-        string TrainId { get; }
-        string Type { get; }
-        string DefaultPrice { get; }
-        string PriceMultiplier { get; }
-        string CarriageId { get; }
+        string CSVRecordIdFieldId { get; }
+        string CSVRecordIdFieldNumber { get; }
+        string CSVRecordIdFieldStartLocation { get; }
+        string CSVRecordIdFieldEndLocation { get; }
+        string CSVRecordIdFieldTrainId { get; }
+        string CSVRecordIdFieldType { get; }
+        string CSVRecordIdFieldDefaultPrice { get; }
+        string CSVRecordIdFieldPriceMultiplier { get; }
+        string CSVRecordIdFieldCarriageId { get; }
     }
 }

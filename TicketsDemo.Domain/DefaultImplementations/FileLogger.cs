@@ -15,7 +15,7 @@ namespace TicketsDemo.Domain.DefaultImplementations
 
         public FileLogger(string dataFolder)
         {
-            _dataFolder = dataFolder + ConfigurationManager.AppSettings["Log"];
+            _dataFolder = dataFolder + ConfigurationManager.AppSettings["LogFileName"];
         }
 
         public void Log(string message, LogSeverity severity)

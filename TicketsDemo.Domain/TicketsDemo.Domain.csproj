@@ -61,6 +61,7 @@
     <Compile Include="Interfaces\ICSVPathSettingsService.cs" />
     <Compile Include="Interfaces\ITicketService.cs" />
     <Compile Include="PriceCalculationStrategies\DrinkAndBedCalculationStrategy.cs" />
+    <Compile Include="PriceCalculationStrategies\FinalPriceCalculationStrategy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
