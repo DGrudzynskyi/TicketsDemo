@@ -29,7 +29,21 @@ namespace TicketsDemo.Domain.DefaultImplementations
 
         public void RemoveReservation(Reservation reservation)
         {
-            
+            try
+            {
+                _decorObject.RemoveReservation(reservation);
+                var message = $"Reservation is successfully removed\nPlace: {reservation.PlaceInRunId}";
+
+                _logger.Log(message, LogSeverity.Info);
+            }
+            catch (Exception ex)
+            {
+                var errorMassage = $"Unable to remove reservation\nPlace: {reservation.PlaceInRunId}";
+
+
+                _logger.Log(errorMassage, LogSeverity.Error);
+                throw ex;
+            }
         }
 
         public Reservation Reserve(PlaceInRun place)
@@ -44,7 +58,7 @@ namespace TicketsDemo.Domain.DefaultImplementations
             }
             catch (Exception ex)
             {
-                var errorMassage = $"Reservation is unsuccessful\nPlace: {place.Id}, Train: {place.Run.TrainId}, Departure: {place.Run.Date}\n{ex.Message}";
+                var errorMassage = $"Reservation is failed\nPlace: {place.Id}, Train: {place.Run.TrainId}, Departure: {place.Run.Date}\n{ex.Message}";
 
 
                 _logger.Log(errorMassage, LogSeverity.Error);
