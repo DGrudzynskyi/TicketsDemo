@@ -30,7 +30,7 @@ namespace TicketsDemo.EF
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
 
-            modelBuilder.Entity<BookingAgency>().HasMany(a => a.AgencyRepresentatives).WithRequired(b => b.BookingAgency);
+            modelBuilder.Entity<AgencyRepresentative>().HasRequired(a => a.BookingAgency);
 
             modelBuilder.Entity<Train>().HasMany(t => t.Carriages).WithRequired(c => c.Train);
 

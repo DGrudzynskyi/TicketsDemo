@@ -29,6 +29,7 @@ namespace TicketsDemo.Controllers
                 ScheduleEnd = endDate,
                 Runs = _runRepo.GetRuns(startDate, endDate),
                 Trains = _trainRepo.GetAllTrains().ToDictionary(x => x.Id)
+
             };
 
             return View(model);

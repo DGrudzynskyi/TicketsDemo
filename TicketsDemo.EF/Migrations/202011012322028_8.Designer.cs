@@ -13,7 +13,7 @@ namespace TicketsDemo.EF.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "202010200008178_8"; }
+            get { return "202011012322028_8"; }
         }
         
         string IMigrationMetadata.Source

@@ -12,20 +12,11 @@ namespace TicketsDemo.EF.Repositories
 {
     public class RepresentativeRepository : IRepresentativeRepository
     {
-
-        public List<AgencyRepresentative> GetAllRepresentative()
-        {
-            using (var ctx = new TicketsContext())
-            {
-                return ctx.AgencyRepresentatives.ToList();
-            }
-        }
-
         public AgencyRepresentative GetRepresentative(string code)
         {
             using (var ctx = new TicketsContext())
             {
-                return ctx.AgencyRepresentatives.Include("BookingAgency").Where(x => x.BookingAgencyCode == code).FirstOrDefault();
+                return ctx.AgencyRepresentatives.Include(b => b.BookingAgency).Where(x => x.BookingAgencyCode == code).FirstOrDefault();
             }
         }
 

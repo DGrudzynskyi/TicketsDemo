@@ -11,7 +11,5 @@ namespace TicketsDemo.Data.Entities.BookingAggregate
         public int Id { set; get; }
         public string Name { set; get; }
         public decimal Markup { set; get; }
-        public List<AgencyRepresentative> AgencyRepresentatives { set; get; }
-
     }
 }

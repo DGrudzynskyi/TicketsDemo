@@ -10,7 +10,6 @@ namespace TicketsDemo.Data.Repositories
 {
     public interface IRepresentativeRepository
     {
-        List<AgencyRepresentative> GetAllRepresentative();
         AgencyRepresentative GetRepresentative(string code);
         void CreateRepresentative(AgencyRepresentative agencyRepresentative);
         void UpdateRepresentative(AgencyRepresentative agencyRepresentative);

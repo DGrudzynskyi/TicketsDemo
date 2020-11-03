@@ -22,6 +22,17 @@ namespace TicketsDemo.Mongo.Repositories
 
             var ctx = new TicketsContext();
             var train = ctx.Trains.Find(new BsonDocument()).ToList();
+            foreach (var tr in train)
+            {
+                foreach (var car in tr.Carriages)
+                {
+                    foreach (var pl in car.Places)
+                    {
+                        pl.Carriage = car;
+                    }
+                    car.Train = tr;
+                }
+            }
             return train;
         }
 

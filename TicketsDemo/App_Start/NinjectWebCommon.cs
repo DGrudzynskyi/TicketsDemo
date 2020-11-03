@@ -67,7 +67,7 @@ namespace TicketsDemo.App_Start
         {
             kernel.Bind<ITicketRepository>().To<TicketRepository>();
             kernel.Bind<ITrainRepository>().To<MongoTrainRepository>();
-            kernel.Bind<IRepresentativeRepository>().To<RepresentativeRepository>(); ;
+            kernel.Bind<IRepresentativeRepository>().To<RepresentativeRepository>(); 
 
             kernel.Bind<IRunRepository>().To<RunRepository>();
             kernel.Bind<IReservationRepository>().To<ReservationRepository>();
@@ -79,11 +79,20 @@ namespace TicketsDemo.App_Start
             kernel.Bind<ITicketService>().To<TicketService>().WhenInjectedExactlyInto<TicketServiceLoggingDecorator>();
             kernel.Bind<IReservationService>().To<ReservationService>();
 
-            kernel.Bind<IPriceCalculationStrategy>().ToMethod<FinalPriceCalculationStrategy>(ctx => {
+            kernel.Bind<IPriceCalculationStrategy>().To<DefaultPriceCalculationStrategy>().WhenInjectedExactlyInto<BookingPriceCalculationStrategy>();
+            //kernel.Bind<IPriceCalculationStrategy>().To<FinalPriceCalculationStrategy>();
+            //kernel.Bind<IPriceCalculationStrategy>().To<DefaultPriceCalculationStrategy>().WhenInjectedExactlyInto<FinalPriceCalculationStrategy>();
+            //kernel.Bind<IPriceCalculationStrategy>().To<BookingPriceCalculationStrategy>().WhenInjectedExactlyInto<FinalPriceCalculationStrategy>();
+
+
+
+            kernel.Bind<IPriceCalculationStrategy>().ToMethod<FinalPriceCalculationStrategy>(ctx =>
+            {
                 return new FinalPriceCalculationStrategy(new System.Collections.Generic.List<IPriceCalculationStrategy>() {
                     ctx.Kernel.Get<DefaultPriceCalculationStrategy>(),
                     ctx.Kernel.Get<BookingPriceCalculationStrategy>(),
                 });
+
             });
 
             //todo factory

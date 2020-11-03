@@ -17,7 +17,7 @@ namespace TicketsDemo.EF.Migrations
                         BookingAgencyCode = c.String(),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.BookingAgency", t => t.BookingAgencyId, cascadeDelete: true)
+                .ForeignKey("dbo.BookingAgency", t => t.BookingAgencyId, cascadeDelete: false)
                 .Index(t => t.BookingAgencyId);
             
             CreateTable(

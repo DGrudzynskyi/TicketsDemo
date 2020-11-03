@@ -7,22 +7,20 @@ using TicketsDemo.Domain.DTO;
 using TicketsDemo.Data.Entities;
 using TicketsDemo.Data.Repositories;
 using TicketsDemo.Domain.Interfaces;
+using TicketsDemo.Domain.DefaultImplementations.PriceCalculationStrategy;
 
 namespace TicketsDemo.Domain.DefaultImplementations
 {
     public class BookingPriceCalculationStrategy : IPriceCalculationStrategy
     {
-        private IRunRepository _runRepository;
-        private ITrainRepository _trainRepository;
+        private IPriceCalculationStrategy _priceCalculationStrategy;
         private IRepresentativeRepository _representativeRepository;
 
         public BookingPriceCalculationStrategy(
-            IRunRepository runRepository, 
-            ITrainRepository trainRepository,
+            IPriceCalculationStrategy priceCalculationStrategy,
             IRepresentativeRepository representativeRepository)
         {
-            _runRepository = runRepository;
-            _trainRepository = trainRepository;
+            _priceCalculationStrategy = priceCalculationStrategy;
             _representativeRepository = representativeRepository;
         }
 
@@ -31,26 +29,15 @@ namespace TicketsDemo.Domain.DefaultImplementations
             var components = new List<PriceComponent>();
 
             var agency = _representativeRepository.GetRepresentative(parameters.agencyCode);
-            var run = _runRepository.GetRunDetails(parameters.placeInRun.RunId);
-            var train = _trainRepository.GetTrainDetails(run.TrainId);
-            var place =
-                train.Carriages
-                    .Select(car => car.Places.SingleOrDefault(pl =>
-                        pl.Number == parameters.placeInRun.Number &&
-                        car.Number == parameters.placeInRun.CarriageNumber))
-                    .SingleOrDefault(x => x != null);
-
-            var placeComponent = new PriceComponent() { Name = "Main price" };
-            placeComponent.Value = place.Carriage.DefaultPrice * place.PriceMultiplier;
-            //components.Add(placeComponent);
-
+            var defaultPrice = _priceCalculationStrategy.CalculatePrice(parameters);
+            PriceComponent mainPrice = defaultPrice.Find(p => p.Name == "Main price");
 
             if (agency != null)
             {
                 var bookingAgencyComponent = new PriceComponent()
                 {
                     Name = String.Format("{0} markup", agency.BookingAgency.Name),
-                    Value = placeComponent.Value * agency.BookingAgency.Markup
+                    Value = mainPrice.Value * agency.BookingAgency.Markup
                 };
                 components.Add(bookingAgencyComponent);
             }
