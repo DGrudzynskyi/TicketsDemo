@@ -1,3 +1,0 @@
-Number;StartLocation;EndLocation;
-1010;zhmerinka;gorlovka;
-1020;obolon;bobrovica;
