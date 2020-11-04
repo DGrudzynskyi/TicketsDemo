@@ -9,18 +9,8 @@ namespace TicketsDemo.Mongo
 {
     public class MongoTrainRepository : ITrainRepository
     {
-
-        public List<Train> GetAllTrains()
+        private Train TrainInitialization(Train train)
         {
-            var ctx = new TicketsContext();
-            var train = ctx.Trains.Find(new BsonDocument()).ToList();
-            return train;
-        }
-
-        public Train GetTrainDetails(int id)
-        {
-            var ctx = new TicketsContext();
-            var train = ctx.Trains.Find(new BsonDocument("_id", id)).FirstOrDefaultAsync().Result;
             foreach (var carriage in train.Carriages)
             {
                 foreach (var place in carriage.Places)
@@ -29,6 +19,25 @@ namespace TicketsDemo.Mongo
                 }
                 carriage.Train = train;
             }
+            return train;
+        }
+
+        public List<Train> GetAllTrains()
+        {
+            var ctx = new TicketsContext();
+            var trains = ctx.Trains.Find(new BsonDocument()).ToList();
+            foreach (var train in trains)
+            {
+                TrainInitialization(train);
+            }
+            return trains;
+        }
+
+        public Train GetTrainDetails(int id)
+        {
+            var ctx = new TicketsContext();
+            var train = ctx.Trains.Find(new BsonDocument("_id", id)).FirstOrDefaultAsync().Result;
+            TrainInitialization(train);
             return train;
         }
 
