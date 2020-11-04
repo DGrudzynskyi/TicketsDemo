@@ -1,0 +1,2 @@
+Info[11/4/2020 10:19:11 AM]: Reservation is successful
+Place: 417, Train: 1, Departure: 11/4/2020 6:34:39 PM
