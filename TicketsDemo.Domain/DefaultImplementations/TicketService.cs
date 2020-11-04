@@ -45,7 +45,6 @@ namespace TicketsDemo.Domain.DefaultImplementations
                 PriceComponents = new List<PriceComponent>()
             };
 
-            parameters.PlaceInRun = placeInRun;
             newTicket.PriceComponents = _priceStr.CalculatePrice(parameters);
 
             res.TicketId = newTicket.Id;

@@ -75,7 +75,8 @@ namespace TicketsDemo.Controllers
         {
             var parameters = new PriceCalculationParameters
             {
-                BookingServiceId = model.BookingServiceId
+                PlaceInRun = _runRepo.GetPlaceInRun(_reservationRepo.Get(model.ReservationId).PlaceInRunId),
+                BookingServiceId = model.BookingServiceId,
             };
             var tick = _tickServ.CreateTicket(model.ReservationId,model.FirstName,model.LastName, parameters);
             return RedirectToAction("Ticket", new { id = tick.Id });
