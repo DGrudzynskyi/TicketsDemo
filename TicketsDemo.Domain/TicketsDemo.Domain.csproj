@@ -53,7 +53,6 @@
     <Compile Include="DefaultImplementations\ReservationService.cs" />
     <Compile Include="DefaultImplementations\Schedule.cs" />
     <Compile Include="DefaultImplementations\TicketService.cs" />
-    <Compile Include="Interfaces\ICSVFieldSettingsService.cs" />
     <Compile Include="Interfaces\IReservationService.cs" />
     <Compile Include="Interfaces\ILogger.cs" />
     <Compile Include="Interfaces\IPriceCalculationStrategy.cs" />

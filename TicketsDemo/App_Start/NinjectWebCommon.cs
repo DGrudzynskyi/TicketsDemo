@@ -67,7 +67,6 @@ namespace TicketsDemo.App_Start
         private static void RegisterServices(IKernel kernel)
         {
             kernel.Bind<ICSVPathSettingsService>().To<AppConfigSettingsService>();
-            kernel.Bind<ICSVFieldSettingsService>().To<AppConfigSettingsService>();
             kernel.Bind<ITicketRepository>().To<TicketRepository>();
             kernel.Bind<ITrainRepository>().To<CSVTrainRepository>();
 

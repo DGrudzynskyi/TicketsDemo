@@ -13,11 +13,9 @@ namespace TicketsDemo.EF.Repositories
     public class CSVTrainRepository : ITrainRepository
     {
         private ICSVPathSettingsService _pathSettingsService;
-        private ICSVFieldSettingsService _fieldSettingsService;
-        public CSVTrainRepository(ICSVPathSettingsService pathSettingsService, ICSVFieldSettingsService fieldSettingsService)
+        public CSVTrainRepository(ICSVPathSettingsService pathSettingsService)
         {
             _pathSettingsService = pathSettingsService;
-            _fieldSettingsService = fieldSettingsService;
         }
 
         public List<Train> GetAllTrains()
@@ -32,10 +30,10 @@ namespace TicketsDemo.EF.Repositories
                 {
                     var train = new Train
                     {
-                        Id = csv.GetField<int>(_fieldSettingsService.CSVRecordIdFieldId),
-                        Number = csv.GetField<int>(_fieldSettingsService.CSVRecordIdFieldNumber),
-                        StartLocation = csv.GetField(_fieldSettingsService.CSVRecordIdFieldStartLocation),
-                        EndLocation = csv.GetField(_fieldSettingsService.CSVRecordIdFieldEndLocation),
+                        Id = csv.GetField<int>(nameof(Train.Id)),
+                        Number = csv.GetField<int>(nameof(Train.Number)),
+                        StartLocation = csv.GetField(nameof(Train.StartLocation)),
+                        EndLocation = csv.GetField(nameof(Train.EndLocation)),
                     };
                     trains.Add(train);
                 }
@@ -53,14 +51,14 @@ namespace TicketsDemo.EF.Repositories
                 csv.ReadHeader();
                 while (csv.Read())
                 {
-                    if (csv.GetField<int>(_fieldSettingsService.CSVRecordIdFieldId) == id)
+                    if (csv.GetField<int>(nameof(Train.Id)) == id)
                     {
                         train = new Train
                         {
-                            Id = csv.GetField<int>(_fieldSettingsService.CSVRecordIdFieldId),
-                            Number = csv.GetField<int>(_fieldSettingsService.CSVRecordIdFieldNumber),
-                            StartLocation = csv.GetField(_fieldSettingsService.CSVRecordIdFieldStartLocation),
-                            EndLocation = csv.GetField(_fieldSettingsService.CSVRecordIdFieldEndLocation),
+                            Id = csv.GetField<int>(nameof(Train.Id)),
+                            Number = csv.GetField<int>(nameof(Train.Number)),
+                            StartLocation = csv.GetField(nameof(Train.StartLocation)),
+                            EndLocation = csv.GetField(nameof(Train.EndLocation)),
                             Carriages = new List<Carriage>()
                         };
                     }
@@ -74,15 +72,15 @@ namespace TicketsDemo.EF.Repositories
                 csv.ReadHeader();
                 while (csv.Read())
                 {
-                    if (csv.GetField<int>(_fieldSettingsService.CSVRecordIdFieldTrainId) == train.Id)
+                    if (csv.GetField<int>(nameof(Carriage.TrainId)) == train.Id)
                     {
                         var carriage = new Carriage
                         {
-                            Id = csv.GetField<int>(_fieldSettingsService.CSVRecordIdFieldId),
-                            Type = (CarriageType)csv.GetField<int>(_fieldSettingsService.CSVRecordIdFieldType),
-                            DefaultPrice = csv.GetField<int>(_fieldSettingsService.CSVRecordIdFieldDefaultPrice),
-                            TrainId = csv.GetField<int>(_fieldSettingsService.CSVRecordIdFieldTrainId),
-                            Number = csv.GetField<int>(_fieldSettingsService.CSVRecordIdFieldNumber),
+                            Id = csv.GetField<int>(nameof(Carriage.Id)),
+                            Type = (CarriageType)csv.GetField<int>(nameof(Carriage.Type)),
+                            DefaultPrice = csv.GetField<int>(nameof(Carriage.DefaultPrice)),
+                            TrainId = csv.GetField<int>(nameof(Carriage.TrainId)),
+                            Number = csv.GetField<int>(nameof(Carriage.Number)),
                             Places = new List<Place>()
                         };
                         train.Carriages.Add(carriage);
@@ -99,11 +97,11 @@ namespace TicketsDemo.EF.Repositories
                 {
                     var place = new Place
                     {
-                        Id = csv.GetField<int>(_fieldSettingsService.CSVRecordIdFieldId),
-                        Number = csv.GetField<int>(_fieldSettingsService.CSVRecordIdFieldNumber),
-                        PriceMultiplier = csv.GetField<decimal>(_fieldSettingsService.CSVRecordIdFieldPriceMultiplier),
-                        CarriageId = csv.GetField<int>(_fieldSettingsService.CSVRecordIdFieldCarriageId),
-                        Carriage = train.Carriages.FirstOrDefault(x => x.Id == csv.GetField<int>(_fieldSettingsService.CSVRecordIdFieldCarriageId))
+                        Id = csv.GetField<int>(nameof(Place.Id)),
+                        Number = csv.GetField<int>(nameof(Place.Number)),
+                        PriceMultiplier = csv.GetField<decimal>(nameof(Place.PriceMultiplier)),
+                        CarriageId = csv.GetField<int>(nameof(Place.CarriageId)),
+                        Carriage = train.Carriages.FirstOrDefault(x => x.Id == csv.GetField<int>(nameof(Place.Carriage.Id)))
                     };
                     train.Carriages.FirstOrDefault(x => x.Id == place.CarriageId)?.Places.Add(place);
                 }
