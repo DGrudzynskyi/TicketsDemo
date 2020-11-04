@@ -1,8 +1,8 @@
-Info[10.07.2014 12:15:04]: ticket TicketsDemo.Data.Entities.Ticket created
-Info[10.07.2014 13:07:51]: reservation TicketsDemo.Data.Entities.Reservation created
-Info[10.07.2014 13:08:32]: ticket TicketsDemo.Data.Entities.Ticket created
-Info[10.07.2014 14:18:05]: reservation TicketsDemo.Data.Entities.Reservation created
-Info[10.07.2014 14:18:34]: ticket TicketsDemo.Data.Entities.Ticket created
-Info[10.07.2014 14:20:50]: reservation TicketsDemo.Data.Entities.Reservation created
-Info[10.07.2014 14:21:30]: reservation TicketsDemo.Data.Entities.Reservation created
-Info[10.07.2014 14:23:24]: reservation TicketsDemo.Data.Entities.Reservation created
+Info[11/3/2020 6:35:04 PM]: Reservation is successful
+Place: 402, Train: 1, Departure: 11/4/2020 6:34:39 PM
+Info[11/3/2020 8:31:10 PM]: Reservation is successful
+Place: 411, Train: 1, Departure: 11/4/2020 6:34:39 PM
+Info[11/3/2020 8:31:33 PM]: Reservation is successful
+Place: 1016, Train: 1, Departure: 11/9/2020 8:31:24 PM
+Info[11/4/2020 9:21:37 AM]: Reservation is successful
+Place: 407, Train: 1, Departure: 11/4/2020 6:34:39 PM

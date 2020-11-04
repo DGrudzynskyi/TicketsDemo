@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using TicketsDemo.Data.Entities;
 using TicketsDemo.Domain.Interfaces;
 
@@ -14,7 +15,7 @@ namespace TicketsDemo.Domain.DefaultImplementations
         {
             _decorObject = reservation;
             _logger = logger;
-            _path = $"{AppDomain.CurrentDomain.BaseDirectory}log.txt"; 
+            _path = $"{AppDomain.CurrentDomain.BaseDirectory}{ConfigurationManager.AppSettings["LogFile"]}"; 
         }
 
         public bool IsActive(Reservation reservation)
