@@ -3,4 +3,4 @@ packages
 *.suo
 */bin/*
 */obj/*
-TicketsDemo/App_Data/log.txt 
+*/App_Data/*
