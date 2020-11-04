@@ -10,13 +10,9 @@ namespace TicketsDemo.Domain.DefaultImplementations
 {
     class DebugLogger : ILogger
     {
-        public DebugLogger()
-        { 
-            
-        }
         public void Log(string log_text)
         {
-            Debug.WriteLine(log_text);
+            Debug.WriteLine($"{log_text} + {DateTime.Now.ToString()}");
         }
     }
 }

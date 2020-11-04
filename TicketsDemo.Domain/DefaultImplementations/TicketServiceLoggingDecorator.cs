@@ -10,11 +10,11 @@ using TicketsDemo.Domain.Interfaces;
 
 namespace TicketsDemo.Domain.DefaultImplementations
 {
-    abstract class TicketServiceLoggingDecorator : ITicketService
+    class TicketServiceLoggingDecorator : ITicketService
     {
         private ITicketService _decoratedobject;
         private ILogger _logger;
-        public TicketServiceLoggingDecorator(ITicketService service, FileLogger logger)
+        public TicketServiceLoggingDecorator(ITicketService service, ILogger logger)
         {
             _decoratedobject = service;
             _logger = logger;
