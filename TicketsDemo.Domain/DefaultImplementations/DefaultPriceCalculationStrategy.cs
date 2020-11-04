@@ -45,7 +45,6 @@ namespace TicketsDemo.Domain.DefaultImplementations.PriceCalculationStrategy
                 };
                 components.Add(cashDeskComponent);
             }
-
             return components;
         }
     }
