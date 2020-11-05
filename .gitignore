@@ -3,3 +3,5 @@ packages
 *.suo
 */bin/*
 */obj/*
+*.txt*
+*.json*
