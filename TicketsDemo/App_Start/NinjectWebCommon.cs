@@ -57,7 +57,7 @@ namespace TicketsDemo.App_Start
                 throw;
             }
         }
-        
+
         /// <summary>
         /// Load your modules or register your services here!
         /// </summary>
@@ -72,14 +72,14 @@ namespace TicketsDemo.App_Start
 
             kernel.Bind<ISchedule>().To<Schedule>();
             kernel.Bind<ITicketService>().To<TicketService>();
-            kernel.Bind<IReservationService>().To<ReservationService>().WhenInjectedExactlyInto<LoggingDecor>(); // not nesseccary but if added more decors come in handy
-            kernel.Bind<IReservationService>().To<LoggingDecor>();
-            
+            kernel.Bind<IReservationService>().To<ReservationService>().WhenInjectedExactlyInto<ReservationServiceLoggingDecorator>(); // not nesseccary but if added more decors come in handy
+            kernel.Bind<IReservationService>().To<ReservationServiceLoggingDecorator>();
+            kernel.Bind<IReservationSettings>().To<ReservationManager>().WhenInjectedExactlyInto<FileLogger>();
+            kernel.Bind<ILogger>().To<FileLogger>();
+
 
             //todo factory
             kernel.Bind<IPriceCalculationStrategy>().To<DefaultPriceCalculationStrategy>();
-            kernel.Bind<ILogger>().ToMethod(x =>
-                new FileLogger(HttpContext.Current.Server.MapPath("~/App_Data")));
-        }        
+        }           
     }
 }

@@ -5,17 +5,15 @@ using TicketsDemo.Domain.Interfaces;
 
 namespace TicketsDemo.Domain.DefaultImplementations
 {
-    public class LoggingDecor : IReservationService
+    public class ReservationServiceLoggingDecorator : IReservationService
     {
         private IReservationService _decorObject;
         private ILogger _logger;
-        private string _path;
 
-        public LoggingDecor(IReservationService reservation, ILogger logger)
+        public ReservationServiceLoggingDecorator(IReservationService reservation, ILogger logger)
         {
             _decorObject = reservation;
-            _logger = logger;
-            _path = $"{AppDomain.CurrentDomain.BaseDirectory}{ConfigurationManager.AppSettings["LogFile"]}"; 
+            _logger = logger; 
         }
 
         public bool IsActive(Reservation reservation)

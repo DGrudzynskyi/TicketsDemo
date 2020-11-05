@@ -10,16 +10,17 @@ namespace TicketsDemo.Domain.DefaultImplementations
 {
     public class FileLogger : ILogger
     {
-        private string _dataFolder;
+        IReservationSettings _settings;
 
-        public FileLogger(string dataFolder)
+        public FileLogger(IReservationSettings settings)
         {
-            _dataFolder = dataFolder;
+            _settings = settings;
         }
+
 
         public void Log(string message, LogSeverity severity)
         {
-            using (var fileStreamWriter = new StreamWriter(Path.Combine(_dataFolder, "log.txt"), true))
+            using (var fileStreamWriter = new StreamWriter(_settings.LogFilePath, true))
             {
                 var wrtStr = String.Format("{0}[{1}]: {2}", severity, DateTime.Now, message);
                 fileStreamWriter.WriteLine(wrtStr);

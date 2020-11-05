@@ -42,13 +42,15 @@
   <ItemGroup>
     <Compile Include="DefaultImplementations\FileLogger.cs" />
     <Compile Include="DefaultImplementations\DefaultPriceCalculationStrategy.cs" />
-    <Compile Include="DefaultImplementations\LoggingDecor.cs" />
+    <Compile Include="DefaultImplementations\ReservationManager.cs" />
+    <Compile Include="DefaultImplementations\ReservationServiceLoggingDecorator.cs" />
     <Compile Include="DefaultImplementations\ReservationService.cs" />
     <Compile Include="DefaultImplementations\Schedule.cs" />
     <Compile Include="DefaultImplementations\TicketService.cs" />
     <Compile Include="Interfaces\IReservationService.cs" />
     <Compile Include="Interfaces\ILogger.cs" />
     <Compile Include="Interfaces\IPriceCalculationStrategy.cs" />
+    <Compile Include="Interfaces\IReservationSettings.cs" />
     <Compile Include="Interfaces\ISchedule.cs" />
     <Compile Include="Interfaces\ITicketService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
