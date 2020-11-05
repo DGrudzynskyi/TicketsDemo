@@ -4,16 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TicketsDemo.Data.Entities;
-using TicketsDemo.Data.OptionsForCalculationPrice;
 using TicketsDemo.Data.Repositories;
 using TicketsDemo.Domain.Interfaces;
+using TicketsDemo.OptionsForCalculationPriceDTO;
 
 namespace TicketsDemo.Domain.DefaultImplementations
 {
     public class TicketService : ITicketService
     {
         private ITicketRepository _tickRepo;
-        //private ITeaCoffeeBedPriceCalcStrategy _priceStrategy;
         private IPriceCalculationStrategy _priceStrategy;
         private IReservationRepository _resRepo;
         private IRunRepository _runRepository;
@@ -47,16 +46,8 @@ namespace TicketsDemo.Domain.DefaultImplementations
                 Status = TicketStatusEnum.Active,
                 PriceComponents = new List<PriceComponent>()
             };
-            var teaCoffeeBedParametrs = new TeaCoffeeBedParametrs()
-            {
-                ticket = newTicket,
-                placeInRun = placeInRun,
-                IsBed = Bed,
-                IsCoffee = Coffee,
-                IsTea = Tea
-            };
 
-            newTicket.PriceComponents = _priceStrategy.CalculatePrice(teaCoffeeBedParametrs);
+            newTicket.PriceComponents = _priceStrategy.CalculatePrice(new PriceCalculationParametersDTO{PlaceInRun = placeInRun, IsBed = Bed, IsTea=Tea, IsCoffee=Coffee});
 
             res.TicketId = newTicket.Id;
             _resRepo.Update(res);

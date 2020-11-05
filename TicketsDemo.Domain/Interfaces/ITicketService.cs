@@ -9,7 +9,6 @@ namespace TicketsDemo.Domain.Interfaces
 {
     public interface ITicketService
     {
-        //Ticket CreateTicket(int reservationId,string firstName, string lastName, bool Bed, bool Tea,bool Coffee);
         Ticket CreateTicket(int reservationId, string firstName, string lastName, bool Bed, bool Tea, bool Coffee);
     }
 }

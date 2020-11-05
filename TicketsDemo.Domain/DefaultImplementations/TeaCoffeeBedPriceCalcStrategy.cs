@@ -1,31 +1,21 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using TicketsDemo.Data.Entities;
-using TicketsDemo.Data.OptionsForCalculationPrice;
 using TicketsDemo.Data.Repositories;
 using TicketsDemo.Domain.DefaultImplementations.PriceCalculationStrategy;
 using TicketsDemo.Domain.Interfaces;
+using TicketsDemo.OptionsForCalculationPriceDTO;
 
-namespace TicketsDemo.Domain.DefaultImplementations.TeaCoffeeBedPriceCalcStrategy
+namespace TicketsDemo.Domain.DefaultImplementations
 {
     public class TeaCoffeeBedPriceCalcStrategy : IPriceCalculationStrategy
     {
-        private IRunRepository _runRepository;
-        private ITrainRepository _trainRepository;
-
-
-        public TeaCoffeeBedPriceCalcStrategy(IRunRepository runRepository, ITrainRepository trainRepository)
-        {
-            _runRepository = runRepository;
-            _trainRepository = trainRepository;
+        public TeaCoffeeBedPriceCalcStrategy() {
         }
 
-        public List<PriceComponent> CalculatePrice(TeaCoffeeBedParametrs teaCoffeeBedParametrs)
+        public List<PriceComponent> CalculatePrice(PriceCalculationParametersDTO teaCoffeeBedParametrs)
         {
-            var DefaultPriceStrategy = new DefaultPriceCalculationStrategy(_runRepository, _trainRepository);
-            var components = DefaultPriceStrategy.CalculatePrice(teaCoffeeBedParametrs);
-
-
+            var components = new List<PriceComponent>();
             if (teaCoffeeBedParametrs.IsTea == true)
             {
                 var cashForTea = new PriceComponent()
@@ -56,8 +46,6 @@ namespace TicketsDemo.Domain.DefaultImplementations.TeaCoffeeBedPriceCalcStrateg
                 };
                 components.Add(cashForBed);
             }
-
-
             return components;
         }
 

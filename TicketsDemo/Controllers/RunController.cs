@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using TicketsDemo.Data.OptionsForCalculationPrice;
 using TicketsDemo.Data.Repositories;
 using TicketsDemo.Domain.Interfaces;
 using TicketsDemo.Models;
+using TicketsDemo.OptionsForCalculationPriceDTO;
 
 namespace TicketsDemo.Controllers
 {
@@ -62,7 +62,7 @@ namespace TicketsDemo.Controllers
             {
                 Reservation = reservation,
                 PlaceInRun = place,
-                PriceComponents = _priceCalc.CalculatePrice(new TeaCoffeeBedParametrs { placeInRun = place }),
+                PriceComponents = _priceCalc.CalculatePrice(new PriceCalculationParametersDTO { PlaceInRun = place }),
                 Date = place.Run.Date,
                 Train = _trainRepo.GetTrainDetails(place.Run.TrainId),
             };
@@ -70,8 +70,6 @@ namespace TicketsDemo.Controllers
             return View(model);
         }
 
-        // you can add your shit HERE
-        //model.IsBed, model.IsTea, model.IsCoffee
         [HttpPost]
         public ActionResult CreateTicket(CreateTicketModel model)
         {

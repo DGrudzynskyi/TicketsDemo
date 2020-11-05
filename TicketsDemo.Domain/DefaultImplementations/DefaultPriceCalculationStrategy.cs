@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TicketsDemo.Data.Entities;
-using TicketsDemo.Data.OptionsForCalculationPrice;
 using TicketsDemo.Data.Repositories;
 using TicketsDemo.Domain.Interfaces;
+using TicketsDemo.OptionsForCalculationPriceDTO;
+
 
 namespace TicketsDemo.Domain.DefaultImplementations.PriceCalculationStrategy
 {
@@ -20,18 +21,19 @@ namespace TicketsDemo.Domain.DefaultImplementations.PriceCalculationStrategy
             _runRepository = runRepository;
             _trainRepository = trainRepository;
         }
-
-        public List<PriceComponent> CalculatePrice(TeaCoffeeBedParametrs teaCoffeeBedParametrs)
+       
+        public List<PriceComponent> CalculatePrice(PriceCalculationParametersDTO teaCoffeeBedParametrs)
         {
-            var components = new List<PriceComponent>();
+            var Decorator = new TeaCoffeeBedDecorator(new TeaCoffeeBedPriceCalcStrategy());
+            var components = Decorator.CalculatePrice(teaCoffeeBedParametrs);
 
-            var run = _runRepository.GetRunDetails(teaCoffeeBedParametrs.placeInRun.RunId);
+            var run = _runRepository.GetRunDetails(teaCoffeeBedParametrs.PlaceInRun.RunId);
             var train = _trainRepository.GetTrainDetails(run.TrainId);
             var place =
                 train.Carriages
                     .Select(car => car.Places.SingleOrDefault(pl =>
-                        pl.Number == teaCoffeeBedParametrs.placeInRun.Number &&
-                        car.Number == teaCoffeeBedParametrs.placeInRun.CarriageNumber))
+                        pl.Number == teaCoffeeBedParametrs.PlaceInRun.Number &&
+                        car.Number == teaCoffeeBedParametrs.PlaceInRun.CarriageNumber))
                     .SingleOrDefault(x => x != null);
 
             var placeComponent = new PriceComponent() { Name = "Main price" };

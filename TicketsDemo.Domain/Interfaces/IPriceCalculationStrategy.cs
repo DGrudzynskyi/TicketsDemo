@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TicketsDemo.Data.Entities;
-using TicketsDemo.Data.OptionsForCalculationPrice;
+using TicketsDemo.OptionsForCalculationPriceDTO;
 
 namespace TicketsDemo.Domain.Interfaces
 {
     public interface IPriceCalculationStrategy
     {
-        List<PriceComponent> CalculatePrice(TeaCoffeeBedParametrs teaCoffeeBedParametrs);
+        List<PriceComponent> CalculatePrice(PriceCalculationParametersDTO teaCoffeeBedParametrs);
     }
 }

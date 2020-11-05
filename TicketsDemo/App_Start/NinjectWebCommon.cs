@@ -10,8 +10,9 @@ namespace TicketsDemo.App_Start
     using Ninject.Web.Common;
     using TicketsDemo.Data.Repositories;
     using TicketsDemo.Domain.DefaultImplementations;
+    using TicketsDemo.Domain.DefaultImplementations.PriceCalculationStrategy;
 
-    using TicketsDemo.Domain.DefaultImplementations.TeaCoffeeBedPriceCalcStrategy;
+
     using TicketsDemo.Domain.Interfaces;
     using TicketsDemo.EF.Repositories;
 
@@ -76,7 +77,7 @@ namespace TicketsDemo.App_Start
             kernel.Bind<IReservationService>().To<ReservationService>();
 
             //todo factory
-            kernel.Bind<IPriceCalculationStrategy>().To<TeaCoffeeBedPriceCalcStrategy>();
+            kernel.Bind<IPriceCalculationStrategy>().To<DefaultPriceCalculationStrategy>();
             kernel.Bind<ILogger>().ToMethod(x =>
                 new FileLogger(HttpContext.Current.Server.MapPath("~/App_Data")));
         }
