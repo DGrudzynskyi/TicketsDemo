@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using TicketsDemo.Data.Entities;
+using TicketsDemo.Data.Repositories;
 using TicketsDemo.Domain.Interfaces;
 
 namespace TicketsDemo.App_Start
 {
     public class TicketServiceLoggingDecorator : ITicketService
     {
+        private ITicketRepository _tickRepo;
         private ITicketService _decoratedObject;
         private ILogger _logger;
 
@@ -27,7 +29,17 @@ namespace TicketsDemo.App_Start
 
         public void SellTicket(Ticket ticket)
         {
-            string message = string.Format("Ticket sold out: Id {0}, firstName {1}, lastName {2}",ticket.Id, ticket.FirstName, ticket.LastName);
+            if (ticket.Status == TicketStatusEnum.Sold)
+            {
+                string message = string.Format("Ticket is already sold out: Id {0}, firstName {1}, lastName {2}", ticket.Id, ticket.FirstName, ticket.LastName);
+            }
+            else
+            {
+                ticket.Status = TicketStatusEnum.Sold;
+                _tickRepo.Update(ticket);
+                string message = string.Format("Ticket sold out: Id {0}, firstName {1}, lastName {2}", ticket.Id, ticket.FirstName, ticket.LastName);
+            }
+            
         }
     }
 }
