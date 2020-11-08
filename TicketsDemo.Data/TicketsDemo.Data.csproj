@@ -20,6 +20,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -28,6 +29,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -39,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DTO\PriceParametersDTO.cs" />
     <Compile Include="Entities\HolidayAggregate\Holiday.cs" />
     <Compile Include="Entities\TrainAggregate\Carriage.cs" />
     <Compile Include="Entities\TrainAggregate\Place.cs" />
@@ -49,6 +52,7 @@
     <Compile Include="Entities\TicketAggregate\Ticket.cs" />
     <Compile Include="Entities\TrainAggregate\Train.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\IHolidayRepository.cs" />
     <Compile Include="Repositories\IReservationRepository.cs" />
     <Compile Include="Repositories\IRunRepository.cs" />
     <Compile Include="Repositories\ITicketRepository.cs" />

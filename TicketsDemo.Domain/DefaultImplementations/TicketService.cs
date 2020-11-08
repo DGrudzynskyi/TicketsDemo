@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TicketsDemo.Data.DTO;
 using TicketsDemo.Data.Entities;
 using TicketsDemo.Data.Repositories;
 using TicketsDemo.Domain.Interfaces;
@@ -45,7 +46,7 @@ namespace TicketsDemo.Domain.DefaultImplementations
                 PriceComponents = new List<PriceComponent>()
             };
 
-            newTicket.PriceComponents = _priceStr.CalculatePrice(placeInRun);
+            newTicket.PriceComponents = _priceStr.CalculatePrice(new PriceParametersDTO { PlaceInRun = placeInRun, Ticket = newTicket });
 
             res.TicketId = newTicket.Id;
             _resRepo.Update(res);

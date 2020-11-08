@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TicketsDemo.Data.DTO;
 using TicketsDemo.Data.Entities;
 using TicketsDemo.Data.Repositories;
 using TicketsDemo.Domain.Interfaces;
@@ -19,17 +20,17 @@ namespace TicketsDemo.Domain.DefaultImplementations.PriceCalculationStrategy
             _trainRepository = trainRepository;
         }
 
-        public List<PriceComponent> CalculatePrice(PlaceInRun placeInRun)
+        public List<PriceComponent> CalculatePrice(PriceParametersDTO priceParametersDTO)
         {
             var components = new List<PriceComponent>();
 
-            var run = _runRepository.GetRunDetails(placeInRun.RunId);
+            var run = _runRepository.GetRunDetails(priceParametersDTO.PlaceInRun.RunId);
             var train = _trainRepository.GetTrainDetails(run.TrainId);
             var place = 
                 train.Carriages
                     .Select(car => car.Places.SingleOrDefault(pl => 
-                        pl.Number == placeInRun.Number && 
-                        car.Number == placeInRun.CarriageNumber))
+                        pl.Number == priceParametersDTO.PlaceInRun.Number && 
+                        car.Number == priceParametersDTO.PlaceInRun.CarriageNumber))
                     .SingleOrDefault(x => x != null);
 
             var placeComponent = new PriceComponent() { Name = "Main price" };
