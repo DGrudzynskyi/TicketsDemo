@@ -9,10 +9,10 @@ using TicketsDemo.Domain.Interfaces;
 
 namespace TicketsDemo.Domain.DefaultImplementations
 {
-    public class ReservationLogger : ILogger
+    public class ReservationServiceLogging : ILogger
     {
         public string _logLocation;
-        public ReservationLogger()
+        public ReservationServiceLogging()
         {
             _logLocation = AppDomain.CurrentDomain.BaseDirectory + "log.txt";
         }
@@ -20,7 +20,7 @@ namespace TicketsDemo.Domain.DefaultImplementations
         {
             using (StreamWriter streamWriter = File.AppendText(_logLocation))
             {
-                streamWriter.WriteLine(severity + messege);
+                streamWriter.WriteLine(severity + " : " + messege);
             }
         }
     }

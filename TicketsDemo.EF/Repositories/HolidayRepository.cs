@@ -17,7 +17,7 @@ namespace TicketsDemo.EF.Repositories
             }
         }
 
-        public Holiday GetHolidayDetails(String id)
+        public Holiday GetHolidayDetails(int id)
         {
             using (var ctx = new TicketsContext())
             {

@@ -10,7 +10,7 @@ namespace TicketsDemo.Data.Repositories
     public interface IHolidayRepository
     {
         List<Holiday> GetAllHolidays();
-        Holiday GetHolidayDetails(string id);
+        Holiday GetHolidayDetails(int id);
         Holiday GetHolidayDetails(DateTime date);
         void CreateHoliday(Holiday holiday);
         void DeleteHoliday(Holiday holiday);

@@ -14,20 +14,20 @@ namespace TicketsDemo.App_Start
     using TicketsDemo.Domain.Interfaces;
     using TicketsDemo.EF.Repositories;
 
-    public static class NinjectWebCommon 
+    public static class NinjectWebCommon
     {
         private static readonly Bootstrapper bootstrapper = new Bootstrapper();
 
         /// <summary>
         /// Starts the application
         /// </summary>
-        public static void Start() 
+        public static void Start()
         {
             DynamicModuleUtility.RegisterModule(typeof(OnePerRequestHttpModule));
             DynamicModuleUtility.RegisterModule(typeof(NinjectHttpModule));
             bootstrapper.Initialize(CreateKernel);
         }
-        
+
         /// <summary>
         /// Stops the application.
         /// </summary>
@@ -35,7 +35,7 @@ namespace TicketsDemo.App_Start
         {
             bootstrapper.ShutDown();
         }
-        
+
         /// <summary>
         /// Creates the kernel that will manage your application.
         /// </summary>
@@ -57,7 +57,7 @@ namespace TicketsDemo.App_Start
                 throw;
             }
         }
-        
+
         /// <summary>
         /// Load your modules or register your services here!
         /// </summary>
@@ -78,9 +78,14 @@ namespace TicketsDemo.App_Start
             kernel.Bind<IReservationService>().To<ReservationService>().WhenInjectedExactlyInto<ReservationServiceLoggingDecorator>();
 
             //todo factory
-            kernel.Bind<IPriceCalculationStrategy>().To<DefaultPriceCalculationStrategy>();
-            kernel.Bind<ILogger>().ToMethod(x =>
-                new FileLogger(HttpContext.Current.Server.MapPath("~/App_Data")));
-        }        
+            kernel.Bind<IPriceCalculationStrategy>().ToMethod<FinalPriceCalculationStrategy>(ctx =>
+            {
+                return new FinalPriceCalculationStrategy(new System.Collections.Generic.List<IPriceCalculationStrategy>()
+                {
+                ctx.Kernel.Get<DefaultPriceCalculationStrategy>(),
+                new HolidayPriceCalculationStrategy (ctx.Kernel.Get<DefaultPriceCalculationStrategy>(), ctx.Kernel.Get<IHolidayRepository>())
+                });
+            });
+        }
     }
 }

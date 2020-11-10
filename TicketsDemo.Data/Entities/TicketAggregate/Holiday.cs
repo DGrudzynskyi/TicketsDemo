@@ -8,7 +8,7 @@ namespace TicketsDemo.Data.Entities
 {
     public class Holiday
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
         public DateTime Date { get; set; }
         public decimal Percenте { get; set; }
     }

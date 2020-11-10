@@ -43,7 +43,7 @@
     <Compile Include="DefaultImplementations\DefaultPriceCalculationStrategy.cs" />
     <Compile Include="DefaultImplementations\FinalPriceCalculationStrategy.cs" />
     <Compile Include="DefaultImplementations\HolidayPriceCalculationStrategy.cs" />
-    <Compile Include="DefaultImplementations\ReservationLogger.cs" />
+    <Compile Include="DefaultImplementations\ReservationServiceLogging.cs" />
     <Compile Include="DefaultImplementations\ReservationService.cs" />
     <Compile Include="DefaultImplementations\ReservationServiceLoggingDecorator.cs" />
     <Compile Include="DefaultImplementations\Schedule.cs" />
