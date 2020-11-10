@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketsDemo.Domain", "Ticke
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketsDemo.EF", "TicketsDemo.EF\TicketsDemo.EF.csproj", "{E9437256-3145-47BF-81A3-C69FD4DE95F4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketsDemo.MongoDb", "TicketsDemo.MongoDb\TicketsDemo.MongoDb.csproj", "{DDCCD853-59B3-4803-80DF-137E3809A265}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{E9437256-3145-47BF-81A3-C69FD4DE95F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E9437256-3145-47BF-81A3-C69FD4DE95F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E9437256-3145-47BF-81A3-C69FD4DE95F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DDCCD853-59B3-4803-80DF-137E3809A265}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDCCD853-59B3-4803-80DF-137E3809A265}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDCCD853-59B3-4803-80DF-137E3809A265}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDCCD853-59B3-4803-80DF-137E3809A265}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
