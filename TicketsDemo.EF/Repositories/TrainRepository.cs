@@ -16,7 +16,7 @@ namespace TicketsDemo.EF.Repositories
         public List<Train> GetAllTrains()
         {
             using (var ctx = new TicketsContext()) {
-                return ctx.Trains.ToList();    
+                return ctx.Trains.Include(x => x.Carriages.Select(c => c.Places)).ToList();    
             }
         }
 
@@ -24,7 +24,7 @@ namespace TicketsDemo.EF.Repositories
         {
             using (var ctx = new TicketsContext())
             {
-                return ctx.Trains.Include("Carriages").Include("Carriages.Places").First(x => x.Id == id);
+                return ctx.Trains.Include(x => x.Carriages.Select(c => c.Places)).First(x => x.Id == id);
             }
         }
 

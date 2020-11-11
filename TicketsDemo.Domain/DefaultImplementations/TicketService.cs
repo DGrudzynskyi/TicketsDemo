@@ -48,19 +48,11 @@ namespace TicketsDemo.Domain.DefaultImplementations
 
             newTicket.PriceComponents = _priceStr.CalculatePrice(info);
 
+            res.TicketId = newTicket.Id;
+            _resRepo.Update(res);
+
             _tickRepo.Create(newTicket);
             return newTicket;
-        }
-
-        public void SellTicket(Ticket ticket)
-        {
-            if (ticket.Status == TicketStatusEnum.Sold)
-            {
-                throw new ArgumentException("ticket is already sold");
-            }
-
-            ticket.Status = TicketStatusEnum.Sold;
-            _tickRepo.Update(ticket);
         }
     }
 }

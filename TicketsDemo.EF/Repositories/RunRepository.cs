@@ -43,7 +43,9 @@ namespace TicketsDemo.EF.Repositories
         {
             using (var ctx = new TicketsContext())
             {
-                return ctx.Runs.Where(r => r.Date > start && r.Date < end && (traintId == null || r.TrainId == traintId)).ToList();
+                return ctx.Runs.Where(r => r.Date > start && r.Date < end && (traintId == null || r.TrainId == traintId))
+                    .Include(x => x.Places)
+                    .ToList();
             }
         }
 
@@ -51,7 +53,7 @@ namespace TicketsDemo.EF.Repositories
         {
             using (var ctx = new TicketsContext())
             {
-                return ctx.Runs.Include("Places")
+                return ctx.Runs.Include(r => r.Places)
                     .Where(r => r.Id == runId).Single();
             }
         }
