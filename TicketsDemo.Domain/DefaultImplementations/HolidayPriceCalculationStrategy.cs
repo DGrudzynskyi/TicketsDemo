@@ -27,7 +27,6 @@ namespace TicketsDemo.Domain.DefaultImplementations
                 components.Add(new PriceComponent
                 {
                     Name = "Weekend",
-                    Ticket = priceParametersDTO.Ticket,
                     Value = 7
                 }
                 );
@@ -39,7 +38,6 @@ namespace TicketsDemo.Domain.DefaultImplementations
                 components.Add(new PriceComponent
                 {
                     Name = isHoliday.Name,
-                    Ticket = priceParametersDTO.Ticket,
                     Value = isHoliday.Markup
                 }
                 );

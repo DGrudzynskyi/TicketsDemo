@@ -17,7 +17,13 @@ namespace TicketsDemo.MongoDb.Repositories
             var ctx = new TicketsContext();
             var trains = ctx.Trains.Find(new BsonDocument()).ToList();
 
-            return InitializeTrains(trains);
+            foreach (var t in trains)
+            {
+                InitializeTrains(t);
+            }
+
+            return trains;
+            
         }
 
         public Train GetTrainDetails(int id)
@@ -25,17 +31,7 @@ namespace TicketsDemo.MongoDb.Repositories
             var ctx = new TicketsContext();
             var train = ctx.Trains.Find(new BsonDocument("_id", id)).FirstOrDefault();
 
-            foreach (var c in train.Carriages)
-            {
-                foreach (var p in c.Places)
-                {
-                    p.Carriage = c;
-                }
-
-                c.Train = train;
-            }
-
-            return train;
+            return InitializeTrains(train);
         }
 
         public void CreateTrain(Train train)
@@ -58,22 +54,19 @@ namespace TicketsDemo.MongoDb.Repositories
 
         #endregion
 
-        private List<Train> InitializeTrains(List<Train> trains)
+        private Train InitializeTrains(Train train)
         {
-            foreach (var t in trains)
+            foreach (var c in train.Carriages)
             {
-                foreach (var c in t.Carriages)
+                foreach (var p in c.Places)
                 {
-                    foreach (var p in c.Places)
-                    {
-                        p.Carriage = c;
-                    }
-
-                    c.Train = t;
+                    p.Carriage = c;
                 }
+
+                c.Train = train;
             }
 
-            return trains;
+            return train;
         }
     }
 }
