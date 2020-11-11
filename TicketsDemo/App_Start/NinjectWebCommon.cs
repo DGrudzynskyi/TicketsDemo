@@ -1,3 +1,5 @@
+using TicketsDemo.Domain;
+
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(TicketsDemo.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(TicketsDemo.App_Start.NinjectWebCommon), "Stop")]
 
@@ -12,6 +14,7 @@ namespace TicketsDemo.App_Start
     using TicketsDemo.Domain.DefaultImplementations;
     using TicketsDemo.Domain.DefaultImplementations.PriceCalculationStrategy;
     using TicketsDemo.Domain.Interfaces;
+    using TicketsDemo.Domain.NewImplementations;
     using TicketsDemo.EF.Repositories;
 
     public static class NinjectWebCommon 
@@ -71,13 +74,16 @@ namespace TicketsDemo.App_Start
             kernel.Bind<IReservationRepository>().To<ReservationRepository>();
 
             kernel.Bind<ISchedule>().To<Schedule>();
-            kernel.Bind<ITicketService>().To<TicketService>();
-            kernel.Bind<IReservationService>().To<ReservationService>();
 
+            kernel.Bind<ITicketService>().To <TicketServiceWithLogger>();
+            kernel.Bind<ITicketService>().To<TicketService>().WhenInjectedExactlyInto<TicketServiceWithLogger>();
+
+            kernel.Bind<IReservationService>().To<ReservationService>();
             //todo factory
             kernel.Bind<IPriceCalculationStrategy>().To<DefaultPriceCalculationStrategy>();
             kernel.Bind<ILogger>().ToMethod(x =>
                 new FileLogger(HttpContext.Current.Server.MapPath("~/App_Data")));
         }        
     }
+
 }
