@@ -10,13 +10,16 @@ namespace TicketsDemo.Domain.DefaultImplementations
 {
     public class TeaCoffeeBedPriceCalcStrategy : IPriceCalculationStrategy
     {
-        public TeaCoffeeBedPriceCalcStrategy() {
+        private IPriceCalculationStrategy _priceCalculationStrategy;
+        public TeaCoffeeBedPriceCalcStrategy(IPriceCalculationStrategy priceCalculationStrategy) {
+            _priceCalculationStrategy = priceCalculationStrategy;
         }
 
-        public List<PriceComponent> CalculatePrice(PriceCalculationParametersDTO teaCoffeeBedParametrs)
+        public List<PriceComponent> CalculatePrice(PriceCalculationParametersDTO PriceCalculationParameters)
         {
             var components = new List<PriceComponent>();
-            if (teaCoffeeBedParametrs.IsTea == true)
+            components.AddRange(_priceCalculationStrategy.CalculatePrice(PriceCalculationParameters));
+            if (PriceCalculationParameters.IsTea == true)
             {
                 var cashForTea = new PriceComponent()
                 {
@@ -27,7 +30,7 @@ namespace TicketsDemo.Domain.DefaultImplementations
                 components.Add(cashForTea);
             }
 
-            if (teaCoffeeBedParametrs.IsCoffee == true)
+            if (PriceCalculationParameters.IsCoffee == true)
             {
                 var cashForCoffee = new PriceComponent()
                 {
@@ -37,7 +40,7 @@ namespace TicketsDemo.Domain.DefaultImplementations
                 components.Add(cashForCoffee);
             }
 
-            if (teaCoffeeBedParametrs.IsBed == true)
+            if (PriceCalculationParameters.IsBed == true)
             {
                 var cashForBed = new PriceComponent()
                 {

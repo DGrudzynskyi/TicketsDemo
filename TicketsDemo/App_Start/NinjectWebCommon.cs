@@ -77,12 +77,8 @@ namespace TicketsDemo.App_Start
             kernel.Bind<IReservationService>().To<ReservationService>();
 
             //todo factory
-            kernel.Bind<IPriceCalculationStrategy>().ToMethod<AllPriceDecorator>(ctx => {
-                return new AllPriceDecorator(new System.Collections.Generic.List<IPriceCalculationStrategy>() {
-                    ctx.Kernel.Get<DefaultPriceCalculationStrategy>(),
-                    ctx.Kernel.Get<TeaCoffeeBedPriceCalcStrategy>(),
-                });
-            });
+            kernel.Bind<IPriceCalculationStrategy>().To<TeaCoffeeBedPriceCalcStrategy>();
+            kernel.Bind<IPriceCalculationStrategy>().To<DefaultPriceCalculationStrategy>().WhenInjectedExactlyInto<TeaCoffeeBedPriceCalcStrategy>();
             kernel.Bind<ILogger>().ToMethod(x =>
                 new FileLogger(HttpContext.Current.Server.MapPath("~/App_Data")));
         }
