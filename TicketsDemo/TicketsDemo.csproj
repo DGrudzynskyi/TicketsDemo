@@ -140,7 +140,6 @@
     <Compile Include="Models\TicketViewModel.cs" />
     <Compile Include="Models\TrainDetailsViewModel.cs" />
     <Compile Include="Models\IndexPageViewModel.cs" />
-    <Compile Include="OptionsForCalculationPrice\TeaCoffeeBedParametrs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

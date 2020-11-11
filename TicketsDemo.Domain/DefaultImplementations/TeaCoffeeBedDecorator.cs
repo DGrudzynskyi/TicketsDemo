@@ -9,16 +9,22 @@ using TicketsDemo.OptionsForCalculationPriceDTO;
 
 namespace TicketsDemo.Domain.DefaultImplementations
 {
-    public class TeaCoffeeBedDecorator: IPriceCalculationStrategy
+    public class AllPriceDecorator: IPriceCalculationStrategy
     {
-        private IPriceCalculationStrategy _priceCalculationStrategy;
-        public TeaCoffeeBedDecorator(IPriceCalculationStrategy priceCalculationStrategy)
+        List<IPriceCalculationStrategy> _priceCalculationStrategy;
+        public AllPriceDecorator(List<IPriceCalculationStrategy> priceCalculationStrategy)
         {
             _priceCalculationStrategy = priceCalculationStrategy;
         }
-        public List<PriceComponent> CalculatePrice(PriceCalculationParametersDTO teaCoffeeBedParametrs)
+        public List<PriceComponent> CalculatePrice(PriceCalculationParametersDTO PriceCalculationParameters)
         {
-            return _priceCalculationStrategy.CalculatePrice(teaCoffeeBedParametrs);
+            var AllPriceComponents = new List<PriceComponent>();
+            foreach (var item in _priceCalculationStrategy)
+            {
+                AllPriceComponents.AddRange(item.CalculatePrice(PriceCalculationParameters));
+            }
+            
+            return AllPriceComponents;
         }
     }
 }

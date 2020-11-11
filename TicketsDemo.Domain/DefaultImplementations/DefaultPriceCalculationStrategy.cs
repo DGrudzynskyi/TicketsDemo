@@ -22,18 +22,18 @@ namespace TicketsDemo.Domain.DefaultImplementations.PriceCalculationStrategy
             _trainRepository = trainRepository;
         }
        
-        public List<PriceComponent> CalculatePrice(PriceCalculationParametersDTO teaCoffeeBedParametrs)
+        public List<PriceComponent> CalculatePrice(PriceCalculationParametersDTO PriceCalculationParameters)
         {
-            var Decorator = new TeaCoffeeBedDecorator(new TeaCoffeeBedPriceCalcStrategy());
-            var components = Decorator.CalculatePrice(teaCoffeeBedParametrs);
 
-            var run = _runRepository.GetRunDetails(teaCoffeeBedParametrs.PlaceInRun.RunId);
+            var components = new List<PriceComponent>();
+
+            var run = _runRepository.GetRunDetails(PriceCalculationParameters.PlaceInRun.RunId);
             var train = _trainRepository.GetTrainDetails(run.TrainId);
             var place =
                 train.Carriages
                     .Select(car => car.Places.SingleOrDefault(pl =>
-                        pl.Number == teaCoffeeBedParametrs.PlaceInRun.Number &&
-                        car.Number == teaCoffeeBedParametrs.PlaceInRun.CarriageNumber))
+                        pl.Number == PriceCalculationParameters.PlaceInRun.Number &&
+                        car.Number == PriceCalculationParameters.PlaceInRun.CarriageNumber))
                     .SingleOrDefault(x => x != null);
 
             var placeComponent = new PriceComponent() { Name = "Main price" };
