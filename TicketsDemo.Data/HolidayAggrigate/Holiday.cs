@@ -1,7 +1,6 @@
-﻿
-using System;
+﻿using System;
 
-namespace TicketsDemo.Data.Entities.TicketAggregate
+namespace TicketsDemo.Data.Entities.HolidayAggrigate
 {
     public class Holiday
     {

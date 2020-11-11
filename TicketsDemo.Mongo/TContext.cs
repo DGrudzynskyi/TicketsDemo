@@ -1,7 +1,7 @@
 ﻿using System.Configuration;
 using MongoDB.Driver;
 using TicketsDemo.Data.Entities;
-using TicketsDemo.Data.Entities.TicketAggregate;
+using TicketsDemo.Data.Entities.HolidayAggrigate;
 
 namespace TicketsDemo.Mongo
 {

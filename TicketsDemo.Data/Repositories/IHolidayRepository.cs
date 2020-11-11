@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using TicketsDemo.Data.Entities.TicketAggregate;
+using TicketsDemo.Data.Entities.HolidayAggrigate;
 
 namespace TicketsDemo.Data.Repositories
 {

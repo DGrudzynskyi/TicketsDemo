@@ -29,6 +29,7 @@ namespace TicketsDemo.App_Start
             catch (Exception ex)
             {
                 string message = string.Format("Error. \n Date: {3} \n Attempt to buy a ticket was failed: Id {0}, firstName {1}, lastName {2}, {4}", reservationId, firstName, lastName, DateTime.Now, ex);
+                _logger.Log(message, LogSeverity.Info);
                 throw ex;
             }
         }

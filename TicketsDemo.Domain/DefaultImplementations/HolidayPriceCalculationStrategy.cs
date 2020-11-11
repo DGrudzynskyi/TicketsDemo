@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using MongoDB.Bson;
 using TicketsDemo.Data.Repositories;
-using TicketsDemo.Data.Entities.TicketAggregate;
+using TicketsDemo.Data.Entities.HolidayAggrigate;
 using TicketsDemo.Mongo;
 using MongoDB.Driver;
 using TicketsDemo.Domain.Interfaces;
