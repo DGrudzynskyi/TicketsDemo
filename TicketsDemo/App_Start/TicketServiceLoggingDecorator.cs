@@ -10,7 +10,6 @@ namespace TicketsDemo.App_Start
 {
     public class TicketServiceLoggingDecorator : ITicketService
     {
-        private ITicketRepository _tickRepo;
         private ITicketService _decoratedObject;
         private ILogger _logger;
 
@@ -21,25 +20,18 @@ namespace TicketsDemo.App_Start
         }
         public Ticket CreateTicket(int reservationId, string firstName, string lastName)
         {
-
-            string message = string.Format("Attempt to buy a ticket: Id {0}, firstName {1}, lastName {2}", reservationId, firstName, lastName);
-            _logger.Log(message, LogSeverity.Info);
-            return _decoratedObject.CreateTicket(reservationId, firstName, lastName);
-        }
-
-        public void SellTicket(Ticket ticket)
-        {
-            if (ticket.Status == TicketStatusEnum.Sold)
+            try
             {
-                string message = string.Format("Ticket is already sold out: Id {0}, firstName {1}, lastName {2}", ticket.Id, ticket.FirstName, ticket.LastName);
+                string message = string.Format("Attempt to buy a ticket: Id {0}, firstName {1}, lastName {2}", reservationId, firstName, lastName);
+                _logger.Log(message, LogSeverity.Info);
+                return _decoratedObject.CreateTicket(reservationId, firstName, lastName);
             }
-            else
+            catch (Exception ex)
             {
-                ticket.Status = TicketStatusEnum.Sold;
-                _tickRepo.Update(ticket);
-                string message = string.Format("Ticket sold out: Id {0}, firstName {1}, lastName {2}", ticket.Id, ticket.FirstName, ticket.LastName);
+                string message = string.Format("Error. \n Date: {3} \n Attempt to buy a ticket was failed: Id {0}, firstName {1}, lastName {2}, {4}", reservationId, firstName, lastName, DateTime.Now, ex);
+                throw ex;
             }
-            
         }
+        
     }
 }

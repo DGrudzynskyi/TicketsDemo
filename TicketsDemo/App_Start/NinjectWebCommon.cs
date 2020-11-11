@@ -67,7 +67,7 @@ namespace TicketsDemo.App_Start
         {
             kernel.Bind<ITicketRepository>().To<TicketRepository>();
             //kernel.Bind<ITrainRepository>().To<TrainRepository>();
-
+            kernel.Bind<IHolidayRepository>().To<HolidayRepository>();
             kernel.Bind<ITrainRepository>().To<MongoTrainRepository>();
 
             kernel.Bind<IRunRepository>().To<RunRepository>();
@@ -83,6 +83,8 @@ namespace TicketsDemo.App_Start
             kernel.Bind<ITicketService>().To<TicketServiceLoggingDecorator>();
             kernel.Bind<ITicketService>().To<TicketService>().WhenInjectedExactlyInto<TicketServiceLoggingDecorator>();
 
+            kernel.Bind<IPriceCalculationStrategy>().To<DefaultPriceCalculationStrategy>().WhenInjectedExactlyInto<HolidayPriceCalculationStrategy>();
+
             kernel.Bind<IPriceCalculationStrategy>().ToMethod<FinalPriceCalculationStrategy>(ctx =>
             {
                 return new FinalPriceCalculationStrategy(new System.Collections.Generic.List<IPriceCalculationStrategy>() {
@@ -90,6 +92,8 @@ namespace TicketsDemo.App_Start
                     ctx.Kernel.Get<HolidayPriceCalculationStrategy>()
                 });
             });
+
+
 
             kernel.Bind<ILogger>().ToMethod(x =>
                 new FileLogger(HttpContext.Current.Server.MapPath("~/App_Data")));

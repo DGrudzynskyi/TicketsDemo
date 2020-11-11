@@ -39,15 +39,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\TicketAggregate\Holiday.cs" />
+    <Compile Include="Entities\TicketAggregate\PriceComponent.cs" />
+    <Compile Include="Entities\TicketAggregate\Ticket.cs" />
     <Compile Include="Entities\TrainAggregate\Carriage.cs" />
     <Compile Include="Entities\TrainAggregate\Place.cs" />
     <Compile Include="Entities\RunAggregate\PlaceInRun.cs" />
-    <Compile Include="Entities\TicketAggregate\PriceComponent.cs" />
     <Compile Include="Entities\ReservationAggregate\Reservation.cs" />
     <Compile Include="Entities\RunAggregate\Run.cs" />
-    <Compile Include="Entities\TicketAggregate\Ticket.cs" />
     <Compile Include="Entities\TrainAggregate\Train.cs" />
+    <Compile Include="HolidayAggrigate\Holiday.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\IHolidayRepository.cs" />
     <Compile Include="Repositories\IReservationRepository.cs" />

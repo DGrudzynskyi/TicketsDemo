@@ -17,7 +17,7 @@ namespace TicketsDemo.Mongo
             var trains = ctx.Trains.Find(new BsonDocument()).ToList();
             foreach (var train in trains)
             {
-                Init_Train(train);
+                InitializationTrain(train);
             }
             return trains;
         }
@@ -26,14 +26,14 @@ namespace TicketsDemo.Mongo
         {
             var ctx = new TContext();
             var train = ctx.Trains.Find(new BsonDocument("_id", id)).FirstOrDefaultAsync().Result;
-            Init_Train(train);
+            InitializationTrain(train);
             return train;
         }
 
         public void CreateTrain(Data.Entities.Train train)
         {
             var ctx = new TContext();
-            ctx.Trains.InsertOneAsync(train);
+            ctx.Trains.InsertOne(train);
         }
 
         public void UpdateTrain(Data.Entities.Train train)
@@ -48,7 +48,7 @@ namespace TicketsDemo.Mongo
             ctx.Trains.DeleteOne(new BsonDocument("_id", train.Id));
         }
         
-        private Train Init_Train(Train train)
+        private Train InitializationTrain(Train train)
         {
             foreach (var carriage in train.Carriages)
             {

@@ -10,6 +10,5 @@ namespace TicketsDemo.Domain.Interfaces
     public interface ITicketService
     {
         Ticket CreateTicket(int reservationId,string firstName, string lastName);
-        void SellTicket(Ticket ticket);
     }
 }
