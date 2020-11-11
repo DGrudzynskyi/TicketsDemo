@@ -8,7 +8,7 @@ using TicketsDemo.Domain.Interfaces;
 
 namespace TicketsDemo.Domain.DefaultImplementations
 {
-    public class ReservationManager : IReservationSettings
+    public class ReservationManager : IApplicationSettings
     {
         public string LogFilePath
         {

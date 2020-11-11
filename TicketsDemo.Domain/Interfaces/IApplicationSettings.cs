@@ -1,6 +1,6 @@
 ﻿namespace TicketsDemo.Domain.Interfaces
 {
-    public interface IReservationSettings
+    public interface IApplicationSettings
     {
         string LogFilePath { get;}
     }

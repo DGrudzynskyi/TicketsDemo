@@ -19,7 +19,7 @@ namespace TicketsDemo.MongoDb.Repositories
 
             foreach (var t in trains)
             {
-                InitializeTrains(t);
+                InitializeTrain(t);
             }
 
             return trains;
@@ -31,7 +31,7 @@ namespace TicketsDemo.MongoDb.Repositories
             var ctx = new TicketsContext();
             var train = ctx.Trains.Find(new BsonDocument("_id", id)).FirstOrDefault();
 
-            return InitializeTrains(train);
+            return InitializeTrain(train);
         }
 
         public void CreateTrain(Train train)
@@ -54,7 +54,7 @@ namespace TicketsDemo.MongoDb.Repositories
 
         #endregion
 
-        private Train InitializeTrains(Train train)
+        private Train InitializeTrain(Train train)
         {
             foreach (var c in train.Carriages)
             {

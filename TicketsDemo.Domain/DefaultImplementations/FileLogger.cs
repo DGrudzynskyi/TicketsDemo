@@ -10,9 +10,9 @@ namespace TicketsDemo.Domain.DefaultImplementations
 {
     public class FileLogger : ILogger
     {
-        IReservationSettings _settings;
+        IApplicationSettings _settings;
 
-        public FileLogger(IReservationSettings settings)
+        public FileLogger(IApplicationSettings settings)
         {
             _settings = settings;
         }
