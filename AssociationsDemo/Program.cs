@@ -21,9 +21,9 @@ namespace AssociationsDemo
             // AccessNavigationPropertiesInLoop.ListPlacesForAllTrainsEagerLoading();
 
             //AccessNavigationPropertiesInLoop.ListPlacesForAllTrainsLazyLostContext();
-            //ChangeTrackerSamples.ChangeAndRevertTrainNumberSample();
+            ChangeTrackerSamples.CheckEntries();
 
-            SelectSpecializedDataSet.GetAllReservationsWithTicketsForTrain(1, DateTime.Now.AddDays(-7), DateTime.Now);
+            //SelectSpecializedDataSet.GetAllReservationsWithTicketsForTrain(1, DateTime.Now.AddDays(-7), DateTime.Now);
         }
     }
 }
