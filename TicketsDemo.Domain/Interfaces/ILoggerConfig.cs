@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TicketsDemo.CSV
+namespace TicketsDemo.Domain.Interfaces
 {
-    public interface ICSVReader
+    public interface ILoggerConfig
     {
-        List<T> ReadFile<T>(string file); 
+        string LogFilePath { get; }
     }
 }

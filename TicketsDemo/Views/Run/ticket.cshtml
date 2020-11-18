@@ -11,9 +11,9 @@
 
 <h4>Price:</h4>
 @foreach (var pc in Model.Ticket.PriceComponents) { 
-    <span>@pc.Name:@pc.Value$</span><br />
+    <span>@pc.Name:@pc.Value$</span><br/>
 }
-
+<h4><b>Total Price: @Model.Ticket.PriceComponents.Select(x => x.Value).Sum();</b></h4>
 <!--public string FirstName { get; set; }
         public string LastName { get; set; }
         public int ReservationId { get; set; }-->

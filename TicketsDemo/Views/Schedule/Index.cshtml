@@ -11,8 +11,15 @@
 
 <h2>Display train runs schedule between @Model.ScheduleStart.ToShortDateString() and @Model.ScheduleEnd.ToShortDateString()</h2>
 
-@foreach (var run in Model.Runs.OrderBy(m => m.Date)) { 
-    <a href="@Url.Action("Index","Run",new {id = run.Id})">@run.Date.ToShortDateString(),train:@Model.Trains[run.TrainId].Number</a> <br />
+@foreach (var run in Model.Runs.OrderBy(m => m.Date)) {
+    if (@Model.Trains.Count == 0)
+    {
+        <h>no info in repository</h><br />
+    }
+    else
+    {
+    <a href="@Url.Action("Index", "Run", new { id = run.Id })">@run.Date.ToShortDateString(),train:@Model.Trains[run.TrainId].Number</a> <br />
+    }
 }
 
 

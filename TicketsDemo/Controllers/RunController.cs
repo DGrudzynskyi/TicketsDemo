@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using TicketsDemo.Data.Repositories;
 using TicketsDemo.Domain.Interfaces;
 using TicketsDemo.Models;
+using TicketsDemo.Domain.DefaultImplementations.PriceCalculationStrategy;
 
 namespace TicketsDemo.Controllers
 {
@@ -48,18 +49,21 @@ namespace TicketsDemo.Controllers
             return View(model);
         }
 
-        public ActionResult ReservePlace(int placeId) {
-            var place = _runRepo.GetPlaceInRun(placeId);
+        public ActionResult ReservePlace(int placeId, bool tea, bool coffee, bool bedlince ) {
 
-            var reservation = _resServ.Reserve(place);
+            var info = new PriceCalculationInfo();
+            info.placeInRun = _runRepo.GetPlaceInRun(placeId);
+            var reservation = _resServ.Reserve(info.placeInRun);
+
+            
 
             var model = new ReservationViewModel()
             {
                 Reservation = reservation,
-                PlaceInRun = place,
-                PriceComponents = _priceCalc.CalculatePrice(place),
-                Date = place.Run.Date,
-                Train = _trainRepo.GetTrainDetails(place.Run.TrainId),
+                PlaceInRun = info.placeInRun,
+                PriceComponents = _priceCalc.CalculatePrice(info),
+                Date = info.placeInRun.Run.Date,
+                Train = _trainRepo.GetTrainDetails(info.placeInRun.Run.TrainId),
             };
 
             return View(model);
@@ -68,7 +72,12 @@ namespace TicketsDemo.Controllers
         [HttpPost]
         public ActionResult CreateTicket(CreateTicketModel model)
         {
-            var tick = _tickServ.CreateTicket(model.ReservationId,model.FirstName,model.LastName);
+            var info = new PriceCalculationInfo();
+            info.Tea = model.Tea;
+            info.Coffee = model.Coffee;
+            info.BedLince = model.BedLince;
+
+            var tick = _tickServ.CreateTicket(model.ReservationId,model.FirstName,model.LastName,info);
             return RedirectToAction("Ticket", new { id = tick.Id });
         }
 

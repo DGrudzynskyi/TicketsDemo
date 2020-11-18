@@ -4,11 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TicketsDemo.Data.Entities;
+using TicketsDemo.Domain.DefaultImplementations.PriceCalculationStrategy;
 
 namespace TicketsDemo.Domain.Interfaces
 {
     public interface ITicketService
     {
-        Ticket CreateTicket(int reservationId,string firstName, string lastName);
+        Ticket CreateTicket(int reservationId,string firstName, string lastName, PriceCalculationInfo info);
+      
     }
 }

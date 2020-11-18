@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TicketsDemo.CSV.CSVDTO
+namespace TicketsDemo.CSV1
 {
     public class CarriageCSV
     {

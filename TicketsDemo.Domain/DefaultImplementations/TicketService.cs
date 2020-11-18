@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using TicketsDemo.Data.Entities;
 using TicketsDemo.Data.Repositories;
 using TicketsDemo.Domain.Interfaces;
+using TicketsDemo.Domain.DefaultImplementations.PriceCalculationStrategy;
 
 namespace TicketsDemo.Domain.DefaultImplementations
 {
@@ -25,7 +26,7 @@ namespace TicketsDemo.Domain.DefaultImplementations
             _runRepository = runRepository;
         }
 
-        public Ticket CreateTicket(int reservationId, string fName, string lName)
+        public Ticket CreateTicket(int reservationId, string fName, string lName, PriceCalculationInfo info)
         {
             var res = _resRepo.Get(reservationId);
 
@@ -33,7 +34,7 @@ namespace TicketsDemo.Domain.DefaultImplementations
                 throw new InvalidOperationException("ticket has been already issued to this reservation, unable to create another one");
             }
 
-            var placeInRun = _runRepository.GetPlaceInRun(res.PlaceInRunId);
+            info.placeInRun = _runRepository.GetPlaceInRun(res.PlaceInRunId);
 
             var newTicket = new Ticket()
             {
@@ -45,12 +46,13 @@ namespace TicketsDemo.Domain.DefaultImplementations
                 PriceComponents = new List<PriceComponent>()
             };
 
-            newTicket.PriceComponents = _priceStr.CalculatePrice(placeInRun);
+            newTicket.PriceComponents = _priceStr.CalculatePrice(info);
 
             res.TicketId = newTicket.Id;
             _resRepo.Update(res);
 
             _tickRepo.Create(newTicket);
+
             return newTicket;
         }
     }

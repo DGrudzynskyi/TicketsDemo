@@ -127,8 +127,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\ExtraServicePriceCalculationStrategy.cs" />
     <Compile Include="App_Start\NinjectWeb.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
+    <Compile Include="App_Start\TeaCoffeBedPriceStrategy.cs" />
     <Compile Include="Controllers\RunController.cs" />
     <Compile Include="Controllers\ScheduleController.cs" />
     <Compile Include="Global.asax.cs">
@@ -172,6 +174,10 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\TicketsDemo.CSV1\TicketsDemo.CSV1.csproj">
+      <Project>{a4345b67-f0f2-481b-9b43-69d30e82ee8d}</Project>
+      <Name>TicketsDemo.CSV1</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TicketsDemo.Data\TicketsDemo.Data.csproj">
       <Project>{c3a581a6-f841-4600-b87d-ba4bd3000e7a}</Project>
       <Name>TicketsDemo.Data</Name>

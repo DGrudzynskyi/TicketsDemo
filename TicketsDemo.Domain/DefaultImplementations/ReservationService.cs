@@ -11,7 +11,7 @@ namespace TicketsDemo.Domain.DefaultImplementations
 {
     public class ReservationService : IReservationService
     {
-        IReservationRepository _resRepo;
+        protected IReservationRepository _resRepo;
 
         public ReservationService(IReservationRepository resRepo)
         {

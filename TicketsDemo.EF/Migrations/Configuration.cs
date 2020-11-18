@@ -25,7 +25,6 @@ namespace TicketsDemo.EF.Migrations
             {
                 var retIt = new List<Place>();
                 Random random = new Random();
-                 
 
                 for (int i = 0; i < 100; i++)
                 {
