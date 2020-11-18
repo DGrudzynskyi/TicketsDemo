@@ -11,16 +11,17 @@ namespace TicketsDemo.Domain.DefaultImplementations
     public class FileLogger : ILogger
     {
         private string _dataFolder;
-        private string _logFilePath = "DebugLogs.txt";
+        private ILoggerConfig _logConfig;
         
-        public FileLogger(string dataFolder)
+        public FileLogger(string dataFolder, ILoggerConfig logFilePath)
         {
             _dataFolder = dataFolder;
+            _logConfig = logFilePath;
         }
 
         public void Log(string message, LogSeverity severity)
         {
-            using (var fileStreamWriter = new StreamWriter(Path.Combine(_dataFolder, _logFilePath), true))
+            using (var fileStreamWriter = new StreamWriter(Path.Combine(_dataFolder, _logConfig.LogFilePath), true))
             {
                 var writeMessage = String.Format("{0}[{1}]: {2}", severity, DateTime.Now, message);
                 fileStreamWriter.WriteLine(writeMessage);
