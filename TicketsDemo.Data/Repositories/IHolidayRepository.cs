@@ -16,3 +16,4 @@ namespace TicketsDemo.Data.Repositories
         void DeleteHoliday(Holiday holiday);
     }
 }
+

@@ -86,6 +86,10 @@ namespace TicketsDemo.App_Start
                 new HolidayPriceCalculationStrategy (ctx.Kernel.Get<DefaultPriceCalculationStrategy>(), ctx.Kernel.Get<IHolidayRepository>())
                 });
             });
+
+            kernel.Bind<IHolidayRepository>().To<HolidayRepository>();
+            kernel.Bind<ILogger>().ToMethod(x =>
+                new FileLogger(HttpContext.Current.Server.MapPath("~/App_Data")));
         }
     }
 }
