@@ -4,3 +4,6 @@ packages
 */bin/*
 */obj/*
 *.txt 
+TicketsDemo/App_Data/CSV_Data/Trains.csv
+TicketsDemo/App_Data/CSV_Data/Carriages.csv
+TicketsDemo/App_Data/CSV_Data/Places.csv

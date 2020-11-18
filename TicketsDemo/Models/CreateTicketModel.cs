@@ -12,6 +12,6 @@ namespace TicketsDemo.Models
         public int    ReservationId { get; set; }
         public bool   Coffee        { get; set; }
         public bool   Tea           { get; set; }
-        public bool   BedLinen      { get; set; }
+        public bool   BedLince      { get; set; }
     }
 }

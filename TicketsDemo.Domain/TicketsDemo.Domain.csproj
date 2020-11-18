@@ -41,17 +41,16 @@
   <ItemGroup>
     <Compile Include="DefaultImplementations\FileLogger.cs" />
     <Compile Include="DefaultImplementations\DefaultPriceCalculationStrategy.cs" />
-    <Compile Include="DefaultImplementations\NewPriceCalculationStrategy.cs" />
     <Compile Include="DefaultImplementations\ReservationService.cs" />
     <Compile Include="DefaultImplementations\Schedule.cs" />
     <Compile Include="DefaultImplementations\TicketService.cs" />
+    <Compile Include="DefaultImplementations\TicketsServiceLogiingDecorator.cs" />
     <Compile Include="Interfaces\IReservationService.cs" />
     <Compile Include="Interfaces\ILogger.cs" />
     <Compile Include="Interfaces\IPriceCalculationStrategy.cs" />
     <Compile Include="Interfaces\ISchedule.cs" />
     <Compile Include="Interfaces\ITicketService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TicketServiceWithLogger.cs" />
     <Compile Include="DefaultImplementations\PriceCalculationInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -49,6 +49,7 @@ namespace TicketsDemo.Domain.DefaultImplementations
             newTicket.PriceComponents = _priceStr.CalculatePrice(info);
 
             _tickRepo.Create(newTicket);
+
             return newTicket;
         }
 

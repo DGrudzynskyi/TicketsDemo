@@ -10,11 +10,13 @@ namespace TicketsDemo.App_Start
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
     using Ninject;
     using Ninject.Web.Common;
+    using TicketsDemo.CSV1;
+    using TicketsDemo.CSV1.Interface;
+    using TicketsDemo.CSV1.Repository;
     using TicketsDemo.Data.Repositories;
     using TicketsDemo.Domain.DefaultImplementations;
     using TicketsDemo.Domain.DefaultImplementations.PriceCalculationStrategy;
     using TicketsDemo.Domain.Interfaces;
-    using TicketsDemo.Domain.NewImplementations;
     using TicketsDemo.EF.Repositories;
 
     public static class NinjectWebCommon 
@@ -68,22 +70,24 @@ namespace TicketsDemo.App_Start
         private static void RegisterServices(IKernel kernel)
         {
             kernel.Bind<ITicketRepository>().To<TicketRepository>();
-            kernel.Bind<ITrainRepository>().To<TrainRepository>();
+            kernel.Bind<ITrainRepository>().To<CSVTrainRepository>();
 
             kernel.Bind<IRunRepository>().To<RunRepository>();
             kernel.Bind<IReservationRepository>().To<ReservationRepository>();
 
+            kernel.Bind<ICSVConfig>().To<CSVConfig>();
+
             kernel.Bind<ISchedule>().To<Schedule>();
 
-            kernel.Bind<ITicketService>().To <TicketServiceWithLogger>();
-            kernel.Bind<ITicketService>().To<TicketService>().WhenInjectedExactlyInto<TicketServiceWithLogger>();
+            kernel.Bind<ITicketService>().To <TicketServiceLoggingDecorator>();
+            kernel.Bind<ITicketService>().To<TicketService>().WhenInjectedExactlyInto<TicketServiceLoggingDecorator>();
 
             kernel.Bind<IReservationService>().To<ReservationService>();
             //todo factory
             //kernel.Bind<IPriceCalculationStrategy>().To<DefaultPriceCalculationStrategy>();
-            kernel.Bind<IPriceCalculationStrategy>().ToMethod<NewPriceCalculationStrategy>(ctx =>
+            kernel.Bind<IPriceCalculationStrategy>().ToMethod<ExtraServicePriceCalculationStrategy>(ctx =>
             {
-                return new NewPriceCalculationStrategy(new System.Collections.Generic.List<IPriceCalculationStrategy>() {
+                return new ExtraServicePriceCalculationStrategy(new System.Collections.Generic.List<IPriceCalculationStrategy>() {
                     ctx.Kernel.Get<DefaultPriceCalculationStrategy>(),
                     ctx.Kernel.Get<TeaCoffeBedLincePriceStrategy>()
                 });

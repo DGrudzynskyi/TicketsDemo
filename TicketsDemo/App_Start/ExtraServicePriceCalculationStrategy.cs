@@ -4,15 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TicketsDemo.Domain.Interfaces;
-using TicketsDemo.Domain.DefaultImplementations;
+using TicketsDemo.Data.Entities;
+using TicketsDemo.Domain.DefaultImplementations.PriceCalculationStrategy;
 
-namespace TicketsDemo.Domain.DefaultImplementations.PriceCalculationStrategy
-{   
-    public class NewPriceCalculationStrategy : IPriceCalculationStrategy
+namespace TicketsDemo.App_Start
+{
+    public class ExtraServicePriceCalculationStrategy : IPriceCalculationStrategy
     {
         List<IPriceCalculationStrategy> _strategies;
 
-        public NewPriceCalculationStrategy(List<IPriceCalculationStrategy> strategies)
+        public ExtraServicePriceCalculationStrategy(List<IPriceCalculationStrategy> strategies)
         {
             _strategies = strategies;
         }
@@ -23,7 +24,7 @@ namespace TicketsDemo.Domain.DefaultImplementations.PriceCalculationStrategy
 
             foreach (var s in _strategies)
             {
-                allPriceComponents.AddRange(s.CalculatePrice(parameters));
+                allPriceComponents.AddRange(s.CalculatePrice(info));
             }
 
             return allPriceComponents;
