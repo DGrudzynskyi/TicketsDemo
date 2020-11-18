@@ -3,5 +3,6 @@ packages
 *.suo
 */bin/*
 */obj/*
-*.txt*
-*.json*
+*.txt
+*.json
+*.htm
