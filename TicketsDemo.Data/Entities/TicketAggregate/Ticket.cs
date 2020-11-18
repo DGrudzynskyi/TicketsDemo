@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TicketsDemo.Data.Entities
 {
-    public enum TicketStatusEnum { Active=1, Sold=2 }
+    public enum TicketStatusEnum { Active = 1, Sold = 2 }
 
     public class Ticket
     {

@@ -13,6 +13,7 @@ namespace TicketsDemo.App_Start
     using TicketsDemo.Domain.DefaultImplementations.PriceCalculationStrategy;
     using TicketsDemo.Domain.Interfaces;
     using TicketsDemo.EF.Repositories;
+    using TicketsDemo.Mongo;
 
     public static class NinjectWebCommon 
     {
@@ -65,17 +66,35 @@ namespace TicketsDemo.App_Start
         private static void RegisterServices(IKernel kernel)
         {
             kernel.Bind<ITicketRepository>().To<TicketRepository>();
-            kernel.Bind<ITrainRepository>().To<TrainRepository>();
+            //kernel.Bind<ITrainRepository>().To<TrainRepository>();
+            kernel.Bind<IHolidayRepository>().To<HolidayRepository>();
+            kernel.Bind<ITrainRepository>().To<MongoTrainRepository>();
 
             kernel.Bind<IRunRepository>().To<RunRepository>();
             kernel.Bind<IReservationRepository>().To<ReservationRepository>();
 
             kernel.Bind<ISchedule>().To<Schedule>();
-            kernel.Bind<ITicketService>().To<TicketService>();
+            //kernel.Bind<ITicketService>().To<TicketService>();
             kernel.Bind<IReservationService>().To<ReservationService>();
 
             //todo factory
-            kernel.Bind<IPriceCalculationStrategy>().To<DefaultPriceCalculationStrategy>();
+            //kernel.Bind<IPriceCalculationStrategy>().To<HolidayPriceCalculationStrategy>();
+
+            kernel.Bind<ITicketService>().To<TicketServiceLoggingDecorator>();
+            kernel.Bind<ITicketService>().To<TicketService>().WhenInjectedExactlyInto<TicketServiceLoggingDecorator>();
+
+            kernel.Bind<IPriceCalculationStrategy>().To<DefaultPriceCalculationStrategy>().WhenInjectedExactlyInto<HolidayPriceCalculationStrategy>();
+
+            kernel.Bind<IPriceCalculationStrategy>().ToMethod<FinalPriceCalculationStrategy>(ctx =>
+            {
+                return new FinalPriceCalculationStrategy(new System.Collections.Generic.List<IPriceCalculationStrategy>() {
+                    ctx.Kernel.Get<DefaultPriceCalculationStrategy>(),
+                    ctx.Kernel.Get<HolidayPriceCalculationStrategy>()
+                });
+            });
+
+
+
             kernel.Bind<ILogger>().ToMethod(x =>
                 new FileLogger(HttpContext.Current.Server.MapPath("~/App_Data")));
         }        
