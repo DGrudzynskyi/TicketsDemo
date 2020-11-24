@@ -22,7 +22,7 @@ namespace TicketsDemo.Domain.DefaultImplementations
         {
             List<PriceComponent> components = new List<PriceComponent>();
             Holiday holiday = _holidayRepository.GetHolidayDetails(DateTime.Now);
-            decimal weekendPercent = Weekend(DateTime.Now);
+            
             if (holiday != null)
             {
                 var priceComponents = _calculationStrategy.CalculatePrice(placeInRun);
@@ -35,7 +35,7 @@ namespace TicketsDemo.Domain.DefaultImplementations
                 components.Add(holidayPriceComponent);
             }
             return components;
-
+            decimal weekendPercent = Weekend(DateTime.Now);
             if (weekendPercent != 0)
             {
                 var priceComponents = _calculationStrategy.CalculatePrice(placeInRun);
