@@ -76,6 +76,8 @@ namespace TicketsDemo.App_Start
 
             kernel.Bind<IReservationService>().To<ReservationServiceLoggingDecorator>();
             kernel.Bind<IReservationService>().To<ReservationService>().WhenInjectedExactlyInto<ReservationServiceLoggingDecorator>();
+            //kernel.Bind<IApplicationSettings>().To<ReservationManager>().WhenInjectedExactlyInto<FileLogger>();
+            kernel.Bind<ILogger>().To<FileLogger>();
 
             //todo factory
             kernel.Bind<IPriceCalculationStrategy>().ToMethod<FinalPriceCalculationStrategy>(ctx =>
