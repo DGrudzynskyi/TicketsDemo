@@ -7,3 +7,5 @@ packages
 
 App_Data/*.txt
 App_Data/*.xml
+log.txt
+XmlTrainRepository.xml
