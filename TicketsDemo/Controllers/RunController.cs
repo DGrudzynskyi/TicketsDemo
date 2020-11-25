@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using TicketsDemo.Data.Repositories;
+using TicketsDemo.Domain.DTO;
 using TicketsDemo.Domain.Interfaces;
 using TicketsDemo.Models;
 
@@ -53,11 +54,15 @@ namespace TicketsDemo.Controllers
 
             var reservation = _resServ.Reserve(place);
 
+            var parametrs = new TicketParametersDTO();
+            parametrs.placeInRun = place;
+            parametrs.code = null;
+
             var model = new ReservationViewModel()
             {
                 Reservation = reservation,
                 PlaceInRun = place,
-                PriceComponents = _priceCalc.CalculatePrice(place),
+                PriceComponents = _priceCalc.CalculatePrice(parametrs),
                 Date = place.Run.Date,
                 Train = _trainRepo.GetTrainDetails(place.Run.TrainId),
             };

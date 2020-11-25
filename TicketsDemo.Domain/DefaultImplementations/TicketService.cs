@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TicketsDemo.Data.Entities;
 using TicketsDemo.Data.Repositories;
+using TicketsDemo.Domain.DTO;
 using TicketsDemo.Domain.Interfaces;
 
 namespace TicketsDemo.Domain.DefaultImplementations
@@ -45,33 +46,11 @@ namespace TicketsDemo.Domain.DefaultImplementations
                 PriceComponents = new List<PriceComponent>()
             };
 
-            newTicket.PriceComponents = _priceStr.CalculatePriceWithCode(placeInRun, code);            
+            var parametrs = new TicketParametersDTO();
+            parametrs.placeInRun = placeInRun;
+            parametrs.code = code;
 
-            _tickRepo.Create(newTicket);
-            return newTicket;
-        }
-
-        public Ticket CreateTicket(int reservationId, string fName, string lName)
-        {
-            var res = _resRepo.Get(reservationId);
-
-            if (res.TicketId != null) {
-                throw new InvalidOperationException("ticket has been already issued to this reservation, unable to create another one");
-            }
-
-            var placeInRun = _runRepository.GetPlaceInRun(res.PlaceInRunId);
-
-            var newTicket = new Ticket()
-            {
-                ReservationId = res.Id,
-                CreatedDate = DateTime.Now,
-                FirstName = fName,
-                LastName = lName,
-                Status = TicketStatusEnum.Active,
-                PriceComponents = new List<PriceComponent>()
-            };
-
-            newTicket.PriceComponents = _priceStr.CalculatePrice(placeInRun);
+            newTicket.PriceComponents = _priceStr.CalculatePrice(parametrs);            
 
             _tickRepo.Create(newTicket);
             return newTicket;

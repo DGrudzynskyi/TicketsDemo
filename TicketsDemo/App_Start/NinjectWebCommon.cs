@@ -14,6 +14,7 @@ namespace TicketsDemo.App_Start
     using TicketsDemo.Domain.Interfaces;
     using TicketsDemo.EF.Repositories;
     using TicketsDemo.Xml;
+    using TicketsDemo.Xml.Interfaces;
     using TicketsDemo.Xml.Repositories;
 
     public static class NinjectWebCommon 
@@ -70,19 +71,32 @@ namespace TicketsDemo.App_Start
             //kernel.Bind<ITrainRepository>().To<TrainRepository>();
             kernel.Bind<ITrainRepository>().To<XmlTrainRepository>();
             kernel.Bind<IXMLReader>().To<XMLReader>();
+            kernel.Bind<IXMLWriter>().To<XMLWriter>();
 
             kernel.Bind<IRunRepository>().To<RunRepository>();
             kernel.Bind<IReservationRepository>().To<ReservationRepository>();
 
             kernel.Bind<ISchedule>().To<Schedule>();
             //kernel.Bind<ITicketService>().To<TicketService>();
+            kernel.Bind<ISettingsService>().To<AppConfigSettingsService>();
             kernel.Bind<ITicketService>().To<TicketServiceLoggingDecorator>();
             kernel.Bind<ITicketService>().To<TicketService>().WhenInjectedExactlyInto<TicketServiceLoggingDecorator>();
             kernel.Bind<IReservationService>().To<ReservationService>();
 
             //todo factory
-            kernel.Bind<IPriceCalculationStrategy>().To<DefaultPriceCalculationStrategy>();
-            kernel.Bind<IBookingAgencies>().To<BookingAgenciesRepository>();
+            //kernel.Bind<IPriceCalculationStrategy>().To<DefaultPriceCalculationStrategy>();
+
+            kernel.Bind<IPriceCalculationStrategy>().ToMethod<FinalPriceCalculationStrategy>(ctx =>
+            {
+                return new FinalPriceCalculationStrategy(new System.Collections.Generic.List<IPriceCalculationStrategy>() 
+                {
+                    ctx.Kernel.Get<DefaultPriceCalculationStrategy>(),
+                    ctx.Kernel.Get<PriceCalculationWithCode>()
+                });
+
+            });
+
+            kernel.Bind<IBookingAgencie>().To<BookingAgencieRepository>();
             kernel.Bind<ILogger>().ToMethod(x =>
                 new FileLogger(HttpContext.Current.Server.MapPath("~/App_Data")));
         }        

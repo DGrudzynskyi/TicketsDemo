@@ -21,8 +21,8 @@ namespace TicketsDemo.EF
         public DbSet<Reservation> Reservations {get;set;}
         public DbSet<Ticket> Tickets {get;set; }
 
-        public DbSet<BookingAgencies> BookingAgencie { set; get; }
-        public DbSet<AgencyRepresentatives> AgencyRepresentative { set; get; }
+        public DbSet<BookingAgencie> BookingAgencies { set; get; }
+        public DbSet<AgencyRepresentative> AgencyRepresentatives { set; get; }
 
         public DbSet<PriceComponent> PriceComponents { get; set; }
 
@@ -30,7 +30,7 @@ namespace TicketsDemo.EF
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
 
-            modelBuilder.Entity<BookingAgencies>().HasMany(t => t.AgencyRepresentatives).WithRequired(c => c.BookingAgencies);
+            modelBuilder.Entity<BookingAgencie>().HasMany(t => t.AgencyRepresentatives).WithRequired(c => c.BookingAgencie);
 
             modelBuilder.Entity<Train>().HasMany(t => t.Carriages).WithRequired(c => c.Train);
 

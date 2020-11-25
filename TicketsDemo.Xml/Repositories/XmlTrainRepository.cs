@@ -8,63 +8,45 @@ using System.Threading.Tasks;
 using System.Xml.Serialization;
 using TicketsDemo.Data.Entities;
 using TicketsDemo.Data.Repositories;
-
+using TicketsDemo.Xml.Interfaces;
 
 namespace TicketsDemo.Xml.Repositories
 {
     public class XmlTrainRepository : ITrainRepository
     {
         private IXMLReader _reader;
+        private IXMLWriter _writer;
 
-        public XmlTrainRepository(IXMLReader reader)
+        public XmlTrainRepository(IXMLReader reader, IXMLWriter writer)
         {
             _reader = reader;
+            _writer = writer;
         }
 
         public List<Train> GetAllTrains()
         {
-            List<Train> Trains = _reader.ReadFile<Train>($@"{ AppDomain.CurrentDomain.BaseDirectory}\App_Data\Train.xml", "Trains");
+            _writer.WriteXML();
 
-            return Trains.ToList();
+            var trains = _reader.XMLRead<Train>();
+
+            foreach (Train train in trains)
+            {
+                foreach (Carriage carriage in train.Carriages)
+                {
+                    carriage.Train = train;
+                    foreach (Place place in carriage.Places)
+                    {
+                        place.Carriage = carriage;
+                    }
+                }
+            }
+            return trains;
         }
 
         public Train GetTrainDetails(int id)
         {
-            var train = GetAllTrains().Single(t => t.Id == id);
-            train.Carriages = new List<Carriage>();
-
-            List<Carriage> resuCarr = _reader.ReadFile<Carriage>($@"{ AppDomain.CurrentDomain.BaseDirectory}\App_Data\Carriage.xml", "Carriages");
-            List<Carriage> tempCarr = new List<Carriage>();
-
-            foreach (var carrT in resuCarr)
-            {
-                if (id == carrT.TrainId)
-                {
-                    tempCarr.Add(carrT);
-                }
-            }
-
-            foreach (var carriageDTO in tempCarr)
-            {
-                if (id == carriageDTO.TrainId)
-                {
-                    carriageDTO.Places = new List<Place>();
-                    carriageDTO.Train = train;
-
-                    List<Place> resuPlac = _reader.ReadFile<Place>($@"{ AppDomain.CurrentDomain.BaseDirectory}\App_Data\Place.xml", "Places");
-
-                    foreach (var plac in resuPlac)
-                    {
-                        if (carriageDTO.Id == plac.CarriageId)
-                        {
-                            plac.Carriage = carriageDTO;
-                            carriageDTO.Places.Add(plac);
-                        }
-                    }               
-                }
-                train.Carriages.Add(carriageDTO);
-            }
-            return train;      
+            List<Train> trains = GetAllTrains();
+            return trains.First(x => x.Id == id);
         }
 
         public void CreateTrain(Train train)

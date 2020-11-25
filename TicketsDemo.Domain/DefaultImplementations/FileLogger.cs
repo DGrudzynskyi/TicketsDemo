@@ -12,12 +12,7 @@ namespace TicketsDemo.Domain.DefaultImplementations
     public class FileLogger : ILogger
     {
         private string _dataFolder;
-
-        public FileLogger()
-        {
-            _dataFolder = AppDomain.CurrentDomain.BaseDirectory + "/log.txt";
-        }
-
+        
         public FileLogger(string dataFolder)
         {
             _dataFolder = dataFolder;

@@ -3,25 +3,26 @@ namespace TicketsDemo.EF.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class AddBookingAgencies : DbMigration
+    public partial class _8 : DbMigration
     {
         public override void Up()
         {
             CreateTable(
-                "dbo.AgencyRepresentatives",
+                "dbo.AgencyRepresentative",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
                         Name = c.String(),
                         BookingAgenciesId = c.Int(nullable: false),
                         BookingAgenciesCode = c.String(),
+                        BookingAgencie_Id = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.BookingAgencies", t => t.BookingAgenciesId, cascadeDelete: true)
-                .Index(t => t.BookingAgenciesId);
+                .ForeignKey("dbo.BookingAgencie", t => t.BookingAgencie_Id, cascadeDelete: true)
+                .Index(t => t.BookingAgencie_Id);
             
             CreateTable(
-                "dbo.BookingAgencies",
+                "dbo.BookingAgencie",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
@@ -34,10 +35,10 @@ namespace TicketsDemo.EF.Migrations
         
         public override void Down()
         {
-            DropForeignKey("dbo.AgencyRepresentatives", "BookingAgenciesId", "dbo.BookingAgencies");
-            DropIndex("dbo.AgencyRepresentatives", new[] { "BookingAgenciesId" });
-            DropTable("dbo.BookingAgencies");
-            DropTable("dbo.AgencyRepresentatives");
+            DropForeignKey("dbo.AgencyRepresentative", "BookingAgencie_Id", "dbo.BookingAgencie");
+            DropIndex("dbo.AgencyRepresentative", new[] { "BookingAgencie_Id" });
+            DropTable("dbo.BookingAgencie");
+            DropTable("dbo.AgencyRepresentative");
         }
     }
 }

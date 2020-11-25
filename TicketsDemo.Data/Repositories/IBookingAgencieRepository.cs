@@ -7,9 +7,8 @@ using TicketsDemo.Data.Entities.BookingAggregate;
 
 namespace TicketsDemo.Data.Repositories
 {
-    public interface IBookingAgencies
+    public interface IBookingAgencie
     {
         decimal GetMarkup(string code);
-
     }
 }

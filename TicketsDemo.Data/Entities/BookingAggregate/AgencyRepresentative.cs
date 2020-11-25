@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace TicketsDemo.Data.Entities.BookingAggregate
 {
-    public class AgencyRepresentatives
+    public class AgencyRepresentative
     {
         public int Id { set; get; }
         public string Name { set; get; }
         public int BookingAgenciesId { set; get; }
         public string BookingAgenciesCode { set; get; }
-        public BookingAgencies BookingAgencies { set; get; }
+        public BookingAgencie BookingAgencie { set; get; }
     }
 }

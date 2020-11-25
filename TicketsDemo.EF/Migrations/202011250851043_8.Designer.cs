@@ -7,13 +7,13 @@ namespace TicketsDemo.EF.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.1-30610")]
-    public sealed partial class AddBookingAgencies : IMigrationMetadata
+    public sealed partial class _8 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddBookingAgencies));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(_8));
         
         string IMigrationMetadata.Id
         {
-            get { return "202010181432334_AddBookingAgencies"; }
+            get { return "202011250851043_8"; }
         }
         
         string IMigrationMetadata.Source

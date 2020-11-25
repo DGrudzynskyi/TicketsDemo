@@ -5,12 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using TicketsDemo.Data.Entities;
 using TicketsDemo.Data.Entities.BookingAggregate;
+using TicketsDemo.Domain.DTO;
 
 namespace TicketsDemo.Domain.Interfaces
 {
     public interface IPriceCalculationStrategy
     {
-        List<PriceComponent> CalculatePrice(PlaceInRun placeInRun);
-        List<PriceComponent> CalculatePriceWithCode(PlaceInRun placeInRun, string code);
+        List<PriceComponent> CalculatePrice(TicketParametersDTO parametrs);
     }
 }

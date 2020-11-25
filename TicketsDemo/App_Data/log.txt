@@ -18,3 +18,7 @@ Info: [21.10.2020 03:27:08] Ticket purchase was successful: firstName:gv, lastNa
 Error: [21.10.2020 03:27:48] ERROR in ticket purchase: firstName:gv, lastName:gfvd, reservationId:1046, code:
 Error: [21.10.2020 03:28:35] ERROR in ticket purchase: firstName:cxd , lastName:zxc, reservationId:1047, code:xz
 Info: [21.10.2020 03:37:42] Ticket purchase was successful: firstName:fdb, lastName:dfb, reservationId:1051, codefd 
+Info: [11.11.2020 09:06:37] Ticket purchase was successful: firstName:ави, lastName:ав, reservationId:1054, codee
+Info: [11.11.2020 09:06:44] Ticket purchase was successful: firstName:ави, lastName:ав, reservationId:1054, codeНАЗАР4
+Info: [11.11.2020 09:09:07] Ticket purchase was successful: firstName:Род, lastName:Ион, reservationId:1055, codeНАЗАР4
+Info: [25.11.2020 12:15:39] Ticket purchase was successful: firstName:ві, lastName:вв, reservationId:1060, codeНАЗАР3

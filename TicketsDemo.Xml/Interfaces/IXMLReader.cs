@@ -8,6 +8,6 @@ namespace TicketsDemo.Xml
 {
     public interface IXMLReader
     {
-        List<T> ReadFile<T>(string file, string elementName);
+        List<T> XMLRead<T>();
     }
 }

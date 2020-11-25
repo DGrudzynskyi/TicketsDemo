@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace TicketsDemo.Data.Entities
 {
+    [Serializable]
     public enum CarriageType { Sedentary=1, FirstClassSleeping=2, SecondClassSleeping=3 }
 
+    [Serializable]
     public class Carriage
     {
         public int Id { get; set; }

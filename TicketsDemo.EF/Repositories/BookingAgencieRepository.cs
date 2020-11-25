@@ -9,20 +9,20 @@ using TicketsDemo.Data.Repositories;
 
 namespace TicketsDemo.EF.Repositories
 { 
-    public class BookingAgenciesRepository : IBookingAgencies
+    public class BookingAgencieRepository : IBookingAgencie
     {
         public decimal GetMarkup(string code)
         {
             using (var ctx = new TicketsContext())
             {
-                var representatives = ctx.AgencyRepresentative.FirstOrDefault(r => r.BookingAgenciesCode == code);
+                var representatives = ctx.AgencyRepresentatives.FirstOrDefault(r => r.BookingAgenciesCode == code);
 
                 if(representatives == null)
                 {
                     return 0;
                 }
 
-                var bookingAgencies = ctx.BookingAgencie.FirstOrDefault(b => b.Id == representatives.BookingAgenciesId);
+                var bookingAgencies = ctx.BookingAgencies.FirstOrDefault(b => b.Id == representatives.BookingAgenciesId);
                
                 return (decimal)bookingAgencies.Markup;
             }

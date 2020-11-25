@@ -37,7 +37,14 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -47,10 +54,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IXMLReader.cs" />
+    <Compile Include="Interfaces\IXMLReader.cs" />
+    <Compile Include="Interfaces\IXMLWriter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\XmlTrainRepository.cs" />
     <Compile Include="XMLReader.cs" />
+    <Compile Include="XMLWriter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -60,6 +69,14 @@
     <ProjectReference Include="..\TicketsDemo.Data\TicketsDemo.Data.csproj">
       <Project>{C3A581A6-F841-4600-B87D-BA4BD3000E7A}</Project>
       <Name>TicketsDemo.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TicketsDemo.Domain\TicketsDemo.Domain.csproj">
+      <Project>{360ABF3D-281E-409C-AFCF-3D34F026678E}</Project>
+      <Name>TicketsDemo.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TicketsDemo.EF\TicketsDemo.EF.csproj">
+      <Project>{E9437256-3145-47BF-81A3-C69FD4DE95F4}</Project>
+      <Name>TicketsDemo.EF</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
