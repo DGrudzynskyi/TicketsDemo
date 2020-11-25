@@ -15,11 +15,13 @@ namespace TicketsDemo.Domain.DefaultImplementations
     {
         public IReservationService _decoratedObject;
         public ILogger _logger;
+
         public ReservationServiceLoggingDecorator(IReservationService decoratedObject, ILogger logger)
         {
             _decoratedObject = decoratedObject;
             _logger = logger;
         }
+
         public Reservation Reserve(PlaceInRun place)
         {
             try

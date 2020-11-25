@@ -17,10 +17,6 @@ namespace TicketsDemo.Domain.DefaultImplementations
             _settings = settings;
         }
 
-        public FileLogger(string v)
-        {
-        }
-
         public void Log(string message, LogSeverity severity)
         {
             using (var fileStreamWriter = new StreamWriter(_settings.LogFilePath, true))

@@ -34,7 +34,6 @@ namespace TicketsDemo.Domain.DefaultImplementations
                 };
                 components.Add(holidayPriceComponent);
             }
-            return components;
             decimal weekendPercent = Weekend(DateTime.Now);
             if (weekendPercent != 0)
             {

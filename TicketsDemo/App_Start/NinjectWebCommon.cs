@@ -76,7 +76,7 @@ namespace TicketsDemo.App_Start
 
             kernel.Bind<IReservationService>().To<ReservationServiceLoggingDecorator>();
             kernel.Bind<IReservationService>().To<ReservationService>().WhenInjectedExactlyInto<ReservationServiceLoggingDecorator>();
-            //kernel.Bind<IApplicationSettings>().To<ReservationManager>().WhenInjectedExactlyInto<FileLogger>();
+            kernel.Bind<IApplicationSettings>().To<ReservationManager>().WhenInjectedExactlyInto<FileLogger>();
             kernel.Bind<ILogger>().To<FileLogger>();
 
             //todo factory
@@ -90,8 +90,7 @@ namespace TicketsDemo.App_Start
             });
 
             kernel.Bind<IHolidayRepository>().To<HolidayRepository>();
-            kernel.Bind<ILogger>().ToMethod(x =>
-                new FileLogger(HttpContext.Current.Server.MapPath("~/App_Data")));
+            
         }
     }
 }
