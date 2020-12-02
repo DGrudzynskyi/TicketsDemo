@@ -12,16 +12,16 @@ using TicketsDemo.Xml.Interfaces;
 
 namespace TicketsDemo.Xml
 {
-    public class XMLWriter : IXMLWriter
+    public class TrainXMLWriter : ITrainXMLWriter
     {
         private ISettingsService _settingsService;
 
-        public XMLWriter(ISettingsService settingsService)
+        public TrainXMLWriter(ISettingsService settingsService)
         {
             _settingsService = settingsService;
         }
 
-        public void WriteXML()
+        public void TrainsSerialize()
         {
             using (var ctx = new TicketsContext())
             {

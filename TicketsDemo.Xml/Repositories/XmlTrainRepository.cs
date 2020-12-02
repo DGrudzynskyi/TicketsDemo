@@ -15,17 +15,14 @@ namespace TicketsDemo.Xml.Repositories
     public class XmlTrainRepository : ITrainRepository
     {
         private IXMLReader _reader;
-        private IXMLWriter _writer;
 
-        public XmlTrainRepository(IXMLReader reader, IXMLWriter writer)
+        public XmlTrainRepository(IXMLReader reader)
         {
             _reader = reader;
-            _writer = writer;
         }
 
         public List<Train> GetAllTrains()
-        {
-            _writer.WriteXML();
+        { 
 
             var trains = _reader.XMLRead<Train>();
 

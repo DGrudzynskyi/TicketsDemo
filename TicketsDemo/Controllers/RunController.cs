@@ -55,9 +55,8 @@ namespace TicketsDemo.Controllers
             var reservation = _resServ.Reserve(place);
 
             var parametrs = new TicketParametersDTO();
-            parametrs.placeInRun = place;
-            parametrs.code = null;
-
+            parametrs.PlaceInRun = place;
+           
             var model = new ReservationViewModel()
             {
                 Reservation = reservation,

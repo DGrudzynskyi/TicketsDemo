@@ -22,8 +22,7 @@ namespace TicketsDemo.Domain.DefaultImplementations
         {
             using (var fileStreamWriter = new StreamWriter(Path.Combine(_dataFolder, "log.txt"), true))
             {
-                fileStreamWriter.WriteLine("{0}: {1}", severity, message);
-                Debug.WriteLine("{0}: {1}", severity, message);
+                fileStreamWriter.WriteLine("{0}: {1}", severity, message);              
             }
         }
     }

@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IXMLWriter.cs" />
     <Compile Include="Migrations\201407072233415_1.cs" />
     <Compile Include="Migrations\201407072233415_1.Designer.cs">
       <DependentUpon>201407072233415_1.cs</DependentUpon>

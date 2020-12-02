@@ -47,8 +47,9 @@ namespace TicketsDemo.Domain.DefaultImplementations
             };
 
             var parametrs = new TicketParametersDTO();
-            parametrs.placeInRun = placeInRun;
-            parametrs.code = code;
+            parametrs.PlaceInRun = placeInRun;
+            parametrs.Code = code;
+            parametrs.Ticket = newTicket;
 
             newTicket.PriceComponents = _priceStr.CalculatePrice(parametrs);            
 

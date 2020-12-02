@@ -26,13 +26,13 @@ namespace TicketsDemo.Domain.DefaultImplementations.PriceCalculationStrategy
         {
             var components = new List<PriceComponent>();
 
-            var run = _runRepository.GetRunDetails(parametrs.placeInRun.RunId);
+            var run = _runRepository.GetRunDetails(parametrs.PlaceInRun.RunId);
             var train = _trainRepository.GetTrainDetails(run.TrainId);
             var place =
                 train.Carriages
                     .Select(car => car.Places.SingleOrDefault(pl =>
-                        pl.Number == parametrs.placeInRun.Number &&
-                        car.Number == parametrs.placeInRun.CarriageNumber))
+                        pl.Number == parametrs.PlaceInRun.Number &&
+                        car.Number == parametrs.PlaceInRun.CarriageNumber))
                     .SingleOrDefault(x => x != null);
 
             var placeComponent = new PriceComponent() { Name = "Main price" };

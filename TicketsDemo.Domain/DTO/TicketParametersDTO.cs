@@ -9,8 +9,10 @@ namespace TicketsDemo.Domain.DTO
 {
     public class TicketParametersDTO
     {
-        public PlaceInRun placeInRun;
+        public PlaceInRun PlaceInRun { get; set; }
 
-        public string code;
+        public Ticket Ticket { get; set; }
+
+        public string Code { get; set; }
     }
 }

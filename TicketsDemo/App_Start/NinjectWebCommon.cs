@@ -71,7 +71,7 @@ namespace TicketsDemo.App_Start
             //kernel.Bind<ITrainRepository>().To<TrainRepository>();
             kernel.Bind<ITrainRepository>().To<XmlTrainRepository>();
             kernel.Bind<IXMLReader>().To<XMLReader>();
-            kernel.Bind<IXMLWriter>().To<XMLWriter>();
+            kernel.Bind<ITrainXMLWriter>().To<TrainXMLWriter>();
 
             kernel.Bind<IRunRepository>().To<RunRepository>();
             kernel.Bind<IReservationRepository>().To<ReservationRepository>();
@@ -85,18 +85,19 @@ namespace TicketsDemo.App_Start
 
             //todo factory
             //kernel.Bind<IPriceCalculationStrategy>().To<DefaultPriceCalculationStrategy>();
+            kernel.Bind<IPriceCalculationStrategy>().To<DefaultPriceCalculationStrategy>().WhenInjectedExactlyInto<PriceCalculationStrategyWithCode>();
 
             kernel.Bind<IPriceCalculationStrategy>().ToMethod<FinalPriceCalculationStrategy>(ctx =>
             {
                 return new FinalPriceCalculationStrategy(new System.Collections.Generic.List<IPriceCalculationStrategy>() 
                 {
                     ctx.Kernel.Get<DefaultPriceCalculationStrategy>(),
-                    ctx.Kernel.Get<PriceCalculationWithCode>()
+                    ctx.Kernel.Get<PriceCalculationStrategyWithCode>()
                 });
 
             });
 
-            kernel.Bind<IBookingAgencie>().To<BookingAgencieRepository>();
+            kernel.Bind<IBookingAgencieRepository>().To<BookingAgencieRepository>();
             kernel.Bind<ILogger>().ToMethod(x =>
                 new FileLogger(HttpContext.Current.Server.MapPath("~/App_Data")));
         }        

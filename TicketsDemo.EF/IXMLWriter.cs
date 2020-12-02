@@ -8,6 +8,6 @@ namespace TicketsDemo.Xml.Interfaces
 {
     public interface IXMLWriter
     {
-        void WriteXML();
+        void TrainXMLWriter();
     }
 }

@@ -45,7 +45,7 @@
     <Compile Include="DefaultImplementations\FileLogger.cs" />
     <Compile Include="DefaultImplementations\DefaultPriceCalculationStrategy.cs" />
     <Compile Include="DefaultImplementations\FinalPriceCalculationStrategy.cs" />
-    <Compile Include="DefaultImplementations\PriceCalculationWithCode.cs" />
+    <Compile Include="DefaultImplementations\PriceCalculationStrategyWithCode.cs" />
     <Compile Include="DefaultImplementations\ReservationService.cs" />
     <Compile Include="DefaultImplementations\Schedule.cs" />
     <Compile Include="DefaultImplementations\TicketService.cs" />

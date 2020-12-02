@@ -7,7 +7,6 @@ using System.Xml.Serialization;
 
 namespace TicketsDemo.Data.Entities
 {
-    [Serializable]
     public class Train
     {
         public int Id { get; set; }

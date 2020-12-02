@@ -9,7 +9,7 @@ using TicketsDemo.Data.Repositories;
 
 namespace TicketsDemo.EF.Repositories
 { 
-    public class BookingAgencieRepository : IBookingAgencie
+    public class BookingAgencieRepository : IBookingAgencieRepository
     {
         public decimal GetMarkup(string code)
         {
