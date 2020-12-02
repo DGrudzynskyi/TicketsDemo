@@ -37,14 +37,7 @@ namespace TicketsDemo.Domain.DefaultImplementations
                     Ticket = parametrs.Ticket, 
                     TicketId = parametrs.Ticket.Id, 
                     Value = _bookingAgencies.GetMarkup(parametrs.Code)
-                });
-                components.Add(new PriceComponent
-                {
-                    Name = "Price with markup",
-                    Ticket = parametrs.Ticket,
-                    TicketId = parametrs.Ticket.Id,
-                    Value = (decimal)mainPrice.Value + _bookingAgencies.GetMarkup(parametrs.Code)
-                });
+                });         
             }
 
             return components;

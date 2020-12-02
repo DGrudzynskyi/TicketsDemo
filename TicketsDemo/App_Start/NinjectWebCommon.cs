@@ -71,7 +71,7 @@ namespace TicketsDemo.App_Start
             //kernel.Bind<ITrainRepository>().To<TrainRepository>();
             kernel.Bind<ITrainRepository>().To<XmlTrainRepository>();
             kernel.Bind<IXMLReader>().To<XMLReader>();
-            kernel.Bind<ITrainXMLWriter>().To<TrainXMLWriter>();
+            kernel.Bind<ITrainsImporter>().To<TrainsImporter>();
 
             kernel.Bind<IRunRepository>().To<RunRepository>();
             kernel.Bind<IReservationRepository>().To<ReservationRepository>();

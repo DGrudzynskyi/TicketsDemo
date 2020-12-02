@@ -1,1 +1,0 @@
-Info: [02.12.2020 13:11:57] Ticket purchase was successful: firstName:тиро, lastName:олт, reservationId:1073, codeНАЗАР3

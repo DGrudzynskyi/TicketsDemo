@@ -55,11 +55,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Interfaces\IXMLReader.cs" />
-    <Compile Include="Interfaces\ITrainXMLWriter.cs" />
+    <Compile Include="Interfaces\ITrainsImporter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\XmlTrainRepository.cs" />
     <Compile Include="XMLReader.cs" />
-    <Compile Include="TrainXMLWriter.cs" />
+    <Compile Include="TrainsImporter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

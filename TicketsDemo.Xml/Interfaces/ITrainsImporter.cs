@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace TicketsDemo.Xml.Interfaces
 {
-    public interface ITrainXMLWriter
+    public interface ITrainsImporter
     {
-        void TrainsSerialize();
+        void EFIntoXMLTrainsImporter();
     }
 }
