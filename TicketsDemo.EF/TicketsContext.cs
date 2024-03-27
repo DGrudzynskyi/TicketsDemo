@@ -21,6 +21,7 @@ namespace TicketsDemo.EF
         public DbSet<Ticket> Tickets {get;set; }
 
         public DbSet<PriceComponent> PriceComponents { get; set; }
+        public DbSet<Holiday> Holidays { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -35,6 +36,7 @@ namespace TicketsDemo.EF
             modelBuilder.Entity<Ticket>().HasMany(x => x.PriceComponents).WithRequired(x => x.Ticket);
 
             modelBuilder.Entity<Reservation>();
+            modelBuilder.Entity<Holiday>();
         } 
 
     }

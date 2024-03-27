@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<ArrayOfHoliday xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Holiday>
+    <Id>1</Id>
+    <Name>Party Day</Name>
+    <Date>2020-11-12T00:00:00</Date>
+  </Holiday>
+  <Holiday>
+    <Id>2</Id>
+    <Name>Home Holiday</Name>
+    <Date>2020-11-07T00:00:00</Date>
+  </Holiday>
+</ArrayOfHoliday>
